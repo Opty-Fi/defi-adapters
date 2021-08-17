@@ -11,65 +11,50 @@ import { resolve } from "path";
 
 import { config as dotenvConfig } from "dotenv";
 import { HardhatUserConfig } from "hardhat/config";
-import { NetworkUserConfig } from "hardhat/types";
 
 dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 const chainIds = {
-  ganache: 1337,
-  goerli: 5,
   hardhat: 31337,
-  kovan: 42,
-  mainnet: 1,
-  rinkeby: 4,
-  ropsten: 3,
 };
 
-// Ensure that we have all the environment variables we need.
+/////////////////////////////////////////////////////////////////
+/// Ensure that we have all the environment variables we need.///
+/////////////////////////////////////////////////////////////////
+
+// Ensure that we have mnemonic phrase set an environment variable
 const mnemonic: string | undefined = process.env.MNEMONIC;
 if (!mnemonic) {
   throw new Error("Please set your MNEMONIC in a .env file");
 }
-
-const infuraApiKey: string | undefined = process.env.INFURA_API_KEY;
-if (!infuraApiKey) {
-  throw new Error("Please set your INFURA_API_KEY in a .env file");
+// Ensure that we have archive mainnet node URL set an environment variable
+//
+const archiveMainnetNodeURL: string | undefined = process.env.ARCHIVE_MAINNET_NODE_URL;
+if (!archiveMainnetNodeURL) {
+  throw new Error("Please set your ARCHIVE_MAINNET_NODE_URL in a .env file");
 }
 
-function getChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
-  const url: string = "https://" + network + ".infura.io/v3/" + infuraApiKey;
-  return {
-    accounts: {
-      count: 10,
-      mnemonic,
-      path: "m/44'/60'/0'/0",
-    },
-    chainId: chainIds[network],
-    url,
-  };
-}
-
+////////////////////////////////////////////////////
+/// Hardhat network configuration for the forked mainnet.///
+////////////////////////////////////////////////////
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
-  gasReporter: {
-    currency: "USD",
-    enabled: process.env.REPORT_GAS ? true : false,
-    excludeContracts: [],
-    src: "./contracts",
-  },
   networks: {
     hardhat: {
       accounts: {
+        initialIndex: 0,
+        count: 20,
         mnemonic,
+        path: "m/44'/60'/0'/0",
+      },
+      forking: {
+        url: archiveMainnetNodeURL,
+        blockNumber: 13043833,
       },
       chainId: chainIds.hardhat,
       // See https://github.com/sc-forks/solidity-coverage/issues/652
       hardfork: process.env.CODE_COVERAGE ? "berlin" : "london",
     },
-    goerli: getChainConfig("goerli"),
-    kovan: getChainConfig("kovan"),
-    rinkeby: getChainConfig("rinkeby"),
-    ropsten: getChainConfig("ropsten"),
   },
   paths: {
     artifacts: "./artifacts",
@@ -78,7 +63,7 @@ const config: HardhatUserConfig = {
     tests: "./test",
   },
   solidity: {
-    version: "0.8.6",
+    version: "0.6.12",
     settings: {
       metadata: {
         // Not including the metadata hash
