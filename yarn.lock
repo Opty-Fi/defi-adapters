@@ -1146,6 +1146,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openzeppelin/contracts@npm:v3.4.0":
+  version: 3.4.0
+  resolution: "@openzeppelin/contracts@npm:3.4.0"
+  checksum: 8c9d9b7f5207944c256b127c41fb7e47f3e4bb808e3a75096a77d217870c0d218c64706c9f9304d36e388d451a1eeed5ffdbbbad71a40973aceae349f305f382
+  languageName: node
+  linkType: hard
+
 "@opty-fi/defi-adapter-kit@workspace:.":
   version: 0.0.0-use.local
   resolution: "@opty-fi/defi-adapter-kit@workspace:."
@@ -1160,6 +1167,7 @@ __metadata:
     "@ethersproject/providers": ^5.4.3
     "@nomiclabs/hardhat-ethers": ^2.0.2
     "@nomiclabs/hardhat-waffle": ^2.0.1
+    "@openzeppelin/contracts": v3.4.0
     "@typechain/ethers-v5": ^7.0.1
     "@typechain/hardhat": ^2.3.0
     "@types/chai": ^4.2.21
@@ -1168,6 +1176,7 @@ __metadata:
     "@types/node": ^16.4.13
     "@typescript-eslint/eslint-plugin": ^4.29.0
     "@typescript-eslint/parser": ^4.29.0
+    "@uniswap/v2-periphery": ^1.1.0-beta.0
     chai: ^4.3.4
     commitizen: ^4.2.4
     cross-env: ^7.0.3
@@ -1856,6 +1865,30 @@ __metadata:
   version: 1.1.2
   resolution: "@ungap/promise-all-settled@npm:1.1.2"
   checksum: 08d37fdfa23a6fe8139f1305313562ebad973f3fac01bcce2773b2bda5bcb0146dfdcf3cb6a722cf0a5f2ca0bc56a827eac8f1e7b3beddc548f654addf1fc34c
+  languageName: node
+  linkType: hard
+
+"@uniswap/lib@npm:1.1.1":
+  version: 1.1.1
+  resolution: "@uniswap/lib@npm:1.1.1"
+  checksum: 2ec6689f606a0cf7dc7acd8b7471997638b2c89202c52743dcb4dfc0df182f6e058ec1a5e4d94a872c81bb85cbcde9e4a46b6de45eea0d34582627d97e743c7b
+  languageName: node
+  linkType: hard
+
+"@uniswap/v2-core@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@uniswap/v2-core@npm:1.0.0"
+  checksum: 41e42ad801dbc058ebf0ab38a8ce3195990e21eff4b2d49cd0a8c8fd25ac067feed55c379f2be22d915a7601d94966ae66127b748b2d3acde20eeb2351e51703
+  languageName: node
+  linkType: hard
+
+"@uniswap/v2-periphery@npm:^1.1.0-beta.0":
+  version: 1.1.0-beta.0
+  resolution: "@uniswap/v2-periphery@npm:1.1.0-beta.0"
+  dependencies:
+    "@uniswap/lib": 1.1.1
+    "@uniswap/v2-core": 1.0.0
+  checksum: af13224c9f28f817be6e5794a7590b8433788e5387912343a8d61227a42b494b431fe6e549505e87d96a6896e96e289f80d92c68788eea4917596ec7fd94734e
   languageName: node
   linkType: hard
 

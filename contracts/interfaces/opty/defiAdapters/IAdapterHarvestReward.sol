@@ -76,10 +76,4 @@ interface IAdapterHarvestReward {
         address _underlyingToken,
         address _liquidityPool
     ) external view returns (bytes[] memory _codes);
-
-    /**
-     * @notice Sets the reward token for DeFi protocols like Compound, DForce etc.
-     * @param _rewardToken Address of reward token to be set
-     */
-    function setRewardToken(address _rewardToken) external;
 }
