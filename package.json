@@ -1,10 +1,17 @@
 {
-  "name": "@paulrberg/solidity-template",
-  "description": "Setup for writing Solidity smart contracts",
+  "name": "@opty-fi/defi-adapter-kit",
+  "description": "Starter kit for defi adapter development compatible with Opty-Fi's earn-protocol",
   "version": "1.0.0",
-  "author": {
-    "name": "Paul Razvan Berg",
-    "url": "https://paulrberg.com"
+  "author": "opty.fi",
+  "homepage": "https://opty.fi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opty-fi/defi-adapter-kit"
+  },
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/opty-fi/defi-adapter-kit/issues",
+    "email": "info@opty.fi"
   },
   "devDependencies": {
     "@codechecks/client": "^0.1.11",
@@ -55,13 +62,14 @@
     "/contracts"
   ],
   "keywords": [
+    "solidity",
     "blockchain",
-    "ethereum",
-    "hardhat",
     "smart-contracts",
-    "solidity"
+    "defi",
+    "money-legos",
+    "opty.fi",
+    "DefiAdapter"
   ],
-  "private": true,
   "resolutions": {
     "@solidity-parser/parser": "^0.13.2"
   },
@@ -79,5 +87,15 @@
     "prettier:check": "prettier --check --config ./.prettierrc.yaml \"**/*.{js,json,md,sol,ts}\"",
     "test": "hardhat test",
     "typechain": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat typechain"
+  },
+  "contributors": [
+    "Dhruvin Parikh <dhruvin@opty.fi>",
+    "Deepanshu Gupta <deepanshu@opty.fi>",
+    "Mario Gutiérrez Valero <mario@opty.fi>",
+    "Leo Tuan Dinh <leo@opty.fi>"
+  ],
+  "license": "AGPLv3",
+  "engines": {
+    "node": ">=12.0.0"
   }
 }
