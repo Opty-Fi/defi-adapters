@@ -1,26 +1,15 @@
-# Solidity Template
+<img src="https://avatars.githubusercontent.com/u/71294241?s=400&u=0b62a061c11a7536c27b1d53760152b5e9bd40f5&v=4" alt="Header" style="width:200px;align=center;float: right;" />
+## DeFi Adapter Kit
+Starter kit for defi adapter development compatible with Opty-Fi's earn-protocol
 
-My favourite setup for writing Solidity smart contracts.
-
-- [Hardhat](https://github.com/nomiclabs/hardhat): compile and run the smart contracts on a local development network
-- [TypeChain](https://github.com/ethereum-ts/TypeChain): generate TypeScript types for smart contracts
-- [Ethers](https://github.com/ethers-io/ethers.js/): renowned Ethereum library and wallet implementation
-- [Waffle](https://github.com/EthWorks/Waffle): tooling for writing comprehensive smart contract tests
-- [Solhint](https://github.com/protofire/solhint): linter
-- [Solcover](https://github.com/sc-forks/solidity-coverage): code coverage
-- [Prettier Plugin Solidity](https://github.com/prettier-solidity/prettier-plugin-solidity): code formatter
-
-This is a GitHub template, which means you can reuse it as many times as you want. You can do that by clicking the "Use this
-template" button at the top of the page.
-
-## Usage
-
-### Pre Requisites
+### Prerequisites
 
 Before running any command, you need to create a `.env` file and set a BIP-39 compatible mnemonic as an environment
 variable. Follow the example in `.env.example`. If you don't already have a mnemonic, use this [website](https://iancoleman.io/bip39/) to generate one.
 
-Then, proceed with installing dependencies:
+### Getting Started
+
+Proceed with installing dependencies:
 
 ```sh
 yarn install
@@ -74,14 +63,6 @@ Generate the code coverage report:
 $ yarn coverage
 ```
 
-### Report Gas
-
-See the gas usage per unit test and average gas per method call:
-
-```sh
-$ REPORT_GAS=true yarn test
-```
-
 ### Clean
 
 Delete the smart contract artifacts, the coverage reports and the Hardhat cache:
@@ -92,10 +73,10 @@ $ yarn clean
 
 ### Deploy
 
-Deploy the contracts to Hardhat Network:
+Deploy the adapter to Hardhat Network:
 
 ```sh
-$ yarn deploy --greeting "Bonjour, le monde!"
+$ yarn deploy
 ```
 
 ## Syntax Highlighting
@@ -106,9 +87,11 @@ compiler version is to add the following fields to your VSCode user settings:
 
 ```json
 {
-  "solidity.compileUsingRemoteVersion": "v0.8.4+commit.c7e474f2",
+  "solidity.compileUsingRemoteVersion": "v0.6.12+commit.27d51765",
   "solidity.defaultCompiler": "remote"
 }
 ```
 
-Where of course `v0.8.4+commit.c7e474f2` can be replaced with any other version.
+Where of course `v0.6.12+commit.27d51765` can be replaced with any other version.
+
+### References
