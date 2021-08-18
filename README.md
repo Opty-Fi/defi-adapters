@@ -45,15 +45,19 @@ yarn install
 
 ### Developing DeFiAdapter
 
-#### Step #1 - Pool, LP token and underlying token(s) address gathering
+#### Step #1 - Use this template
+
+- This is a GitHub template, so click on green button "Use this template" on the top-right corner of the page to create new defi adapter.
+
+#### Step #2 - Pool, LP token and underlying token(s) address gathering
 
 - Choose a DeFi protocol and gather the pool contract addresses similar to [harvest.finance-pools.json](./test/harvest.finance-pools.json).
 
-#### Step #2 - Implementing `IAdapter` interface
+#### Step #3 - Implementing `IAdapter` interface
 
 - Implement an adapter contract using above interface(s) similar to [HarvestFinanceAdapter.sol](./contracts/adapters/HarvestFinanceAdapters.sol)
 
-#### Step #3 - Unit Tests
+#### Step #4 - Unit Tests
 
 - Write unit tests for all the functions across all the pool contracts gathered in Step 1.
 - You might want to use a test utility contract like [TestDeFiAdapter](./contracts/mock/TestDeFiAdapter.sol) for creating a sandbox environment to execute the transaction based on function signature and target address returned from `getCodes()`-style functions from DeFiAdapter.
