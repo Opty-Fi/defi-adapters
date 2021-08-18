@@ -7,7 +7,6 @@ import { IAdapter } from "./IAdapter.sol";
 import { IAdapterBorrow } from "./IAdapterBorrow.sol";
 import { IAdapterHarvestReward } from "./IAdapterHarvestReward.sol";
 import { IAdapterStaking } from "./IAdapterStaking.sol";
-import { IAdapterStakingCurve } from "./IAdapterStakingCurve.sol";
 import { IAdapterInvestLimit } from "./IAdapterInvestLimit.sol";
 
 /**
@@ -20,14 +19,7 @@ import { IAdapterInvestLimit } from "./IAdapterInvestLimit.sol";
  */
 
 /* solhint-disable no-empty-blocks */
-interface IAdapterFull is
-    IAdapter,
-    IAdapterBorrow,
-    IAdapterHarvestReward,
-    IAdapterStaking,
-    IAdapterStakingCurve,
-    IAdapterInvestLimit
-{
+interface IAdapterFull is IAdapter, IAdapterBorrow, IAdapterHarvestReward, IAdapterStaking, IAdapterInvestLimit {
 
 }
 /* solhint-disable no-empty-blocks */
