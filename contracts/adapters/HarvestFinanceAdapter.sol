@@ -25,7 +25,6 @@ import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/I
  * @author Opty.fi
  * @dev Abstraction layer to harvest finance's pools
  */
-import "hardhat/console.sol";
 
 contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking {
     using SafeMath for uint256;
