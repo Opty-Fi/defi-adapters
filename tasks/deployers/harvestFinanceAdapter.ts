@@ -8,7 +8,7 @@ task("deploy:HarvestFinanceAdapter").setAction(async function (taskArguments: Ta
     "HarvestFinanceAdapter",
   );
   const harvestFinanceAdapter: HarvestFinanceAdapter = <HarvestFinanceAdapter>(
-    await harvestFinanceAdapterFactory.deploy(taskArguments.greeting)
+    await harvestFinanceAdapterFactory.deploy()
   );
   await harvestFinanceAdapter.deployed();
   console.log("HarvestFinanceAdapter deployed to: ", harvestFinanceAdapter.address);
