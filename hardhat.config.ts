@@ -16,7 +16,7 @@ import { HardhatUserConfig } from "hardhat/config";
 dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 const chainIds = {
-  hardhat: 1337,
+  hardhat: 31337,
 };
 
 /////////////////////////////////////////////////////////////////
@@ -36,12 +36,13 @@ if (!archiveMainnetNodeURL) {
 }
 
 ////////////////////////////////////////////////////////////
-/// Hardhat network configuration for the forked mainnet.///
+/// HARDHAT NETWORK CONFIGURATION FOR THE FORKED MAINNET ///
 ////////////////////////////////////////////////////////////
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
+      initialBaseFeePerGas: 1_000_000_000,
       accounts: {
         initialIndex: 0,
         count: 20,
@@ -50,9 +51,10 @@ const config: HardhatUserConfig = {
       },
       forking: {
         url: archiveMainnetNodeURL,
-        blockNumber: 12200321,
+        blockNumber: 12600000,
       },
       chainId: chainIds.hardhat,
+      hardfork: "london",
     },
   },
   paths: {
