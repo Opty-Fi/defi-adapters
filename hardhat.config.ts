@@ -23,13 +23,12 @@ const chainIds = {
 /// Ensure that we have all the environment variables we need.///
 /////////////////////////////////////////////////////////////////
 
-// Ensure that we have mnemonic phrase set an environment variable
+// Ensure that we have mnemonic phrase set as an environment variable
 const mnemonic: string | undefined = process.env.MNEMONIC;
 if (!mnemonic) {
   throw new Error("Please set your MNEMONIC in a .env file");
 }
-// Ensure that we have archive mainnet node URL set an environment variable
-//
+// Ensure that we have archive mainnet node URL set as an environment variable
 const archiveMainnetNodeURL: string | undefined = process.env.ARCHIVE_MAINNET_NODE_URL;
 if (!archiveMainnetNodeURL) {
   throw new Error("Please set your ARCHIVE_MAINNET_NODE_URL in a .env file");
