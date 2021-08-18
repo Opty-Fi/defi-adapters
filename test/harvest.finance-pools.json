@@ -1,0 +1,12 @@
+{
+  "dai": {
+    "pool": "0xab7FA2B2985BCcfC13c6D86b1D5A17486ab1e04C",
+    "lpToken": "0xab7FA2B2985BCcfC13c6D86b1D5A17486ab1e04C",
+    "tokens": ["0x6B175474E89094C44Da98b954EedeAC495271d0F"]
+  },
+  "usdt": {
+    "pool": "0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C",
+    "lpToken": "0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C",
+    "tokens": ["0xdAC17F958D2ee523a2206206994597C13D831ec7"]
+  }
+}
