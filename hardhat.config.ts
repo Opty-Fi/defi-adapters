@@ -1,11 +1,12 @@
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
-import "hardhat-gas-reporter";
 import "solidity-coverage";
 
-import "./tasks/accounts";
-import "./tasks/clean";
-import "./tasks/deployers";
+if (!process.env.SKIP_LOAD) {
+  require("./tasks/accounts");
+  require("./tasks/clean");
+  require("./tasks/deployers");
+}
 
 import { resolve } from "path";
 
@@ -15,7 +16,7 @@ import { HardhatUserConfig } from "hardhat/config";
 dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 const chainIds = {
-  hardhat: 31337,
+  hardhat: 1337,
 };
 
 /////////////////////////////////////////////////////////////////
@@ -34,9 +35,9 @@ if (!archiveMainnetNodeURL) {
   throw new Error("Please set your ARCHIVE_MAINNET_NODE_URL in a .env file");
 }
 
-////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 /// Hardhat network configuration for the forked mainnet.///
-////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
@@ -49,11 +50,9 @@ const config: HardhatUserConfig = {
       },
       forking: {
         url: archiveMainnetNodeURL,
-        blockNumber: 13043833,
+        blockNumber: 12200321,
       },
       chainId: chainIds.hardhat,
-      // See https://github.com/sc-forks/solidity-coverage/issues/652
-      hardfork: process.env.CODE_COVERAGE ? "berlin" : "london",
     },
   },
   paths: {
