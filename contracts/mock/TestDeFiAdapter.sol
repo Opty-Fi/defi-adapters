@@ -91,7 +91,7 @@ contract TestDeFiAdapter is MultiCall {
         executeCodes(IAdapterFull(_adapter).getStakeSomeCodes(_liquidityPool, _stakeAmount), "stakeSome!");
     }
 
-    function claimReward(address _liquidityPool, address _adapter) external {
+    function testClaimRewardTokenCode(address _liquidityPool, address _adapter) external {
         executeCodes(
             IAdapterFull(_adapter).getClaimRewardTokenCode(payable(address(this)), _liquidityPool),
             "claimReward"
@@ -223,5 +223,9 @@ contract TestDeFiAdapter is MultiCall {
             ),
             "unstakeAndWithdrawSome"
         );
+    }
+
+    function getERC20TokenBalance(address _token, address _account) external view returns (uint256) {
+        return ERC20(_token).balanceOf(_account);
     }
 }
