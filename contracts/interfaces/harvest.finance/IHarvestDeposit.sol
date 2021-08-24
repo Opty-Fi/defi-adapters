@@ -14,4 +14,10 @@ interface IHarvestDeposit {
     function decimals() external view returns (uint256);
 
     function underlyingBalanceWithInvestment() external view returns (uint256);
+
+    function governance() external view returns (address);
+
+    function controller() external view returns (address);
+
+    function balanceOf(address account) external view returns (uint256);
 }
