@@ -50,7 +50,7 @@ const config: HardhatUserConfig = {
       },
       forking: {
         url: archiveMainnetNodeURL,
-        blockNumber: 12600000,
+        blockNumber: 13089137,
       },
       chainId: chainIds.hardhat,
       hardfork: "london",
