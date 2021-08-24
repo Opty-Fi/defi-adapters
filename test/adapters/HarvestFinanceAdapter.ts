@@ -52,6 +52,23 @@ describe("Unit tests", function () {
     // fund TestDeFiAdapter with 10000 tokens each
     await dai.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseEther("10000"));
     await usdt.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseUnits("10000", 6));
+    const tokenNames = Object.keys(HarvestFinancePools);
+    for (const tokenName of tokenNames) {
+      const { pool } = (HarvestFinancePools as LiquidityPool)[tokenName];
+      const harvestVault = await hre.ethers.getContractAt("IHarvestVault", pool);
+      const governance = await harvestVault.governance();
+      await hre.network.provider.request({
+        method: "hardhat_impersonateAccount",
+        params: [governance],
+      });
+      const harvestController = await hre.ethers.getContractAt(
+        "IHarvestController",
+        await harvestVault.controller(),
+        await hre.ethers.getSigner(governance),
+      );
+      await harvestController.addToWhitelist(this.testDeFiAdapter.address);
+      await harvestController.addCodeToWhitelist(this.testDeFiAdapter.address);
+    }
   });
 
   describe("HarvestFinanceAdapter", function () {

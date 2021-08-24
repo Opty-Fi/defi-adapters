@@ -1,3 +1,4 @@
+import hre from "hardhat";
 import chai, { expect } from "chai";
 import { solidity } from "ethereum-waffle";
 import { PoolItem } from "../types";
