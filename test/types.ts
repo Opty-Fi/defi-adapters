@@ -19,6 +19,8 @@ export interface Signers {
 export interface PoolItem {
   pool: string;
   lpToken: string;
+  stakingPool?: string;
+  rewardTokens?: string[];
   tokens: string[];
 }
 
