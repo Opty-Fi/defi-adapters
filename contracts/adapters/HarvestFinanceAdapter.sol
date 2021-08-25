@@ -457,7 +457,9 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
         uint256 b = IHarvestFarm(_stakingVault).balanceOf(_vault);
         if (b > 0) {
-            b = b.mul(IHarvestDeposit(_liquidityPool).getPricePerFullShare()).div(1e18);
+            b = b.mul(IHarvestDeposit(_liquidityPool).getPricePerFullShare()).div(
+                10**IHarvestDeposit(_liquidityPool).decimals()
+            );
         }
         uint256 _unclaimedReward = getUnclaimedRewardTokenAmount(_vault, _liquidityPool, _underlyingToken);
         if (_unclaimedReward > 0) {
