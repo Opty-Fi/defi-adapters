@@ -7,6 +7,7 @@ import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
 import { LiquidityPool, Signers } from "../types";
 import { shouldBehaveLikeHarvestFinanceAdapter } from "./HarvestFinanceAdapter.behavior";
 import { default as HarvestFinancePools } from "../harvest.finance-pools.json";
+import { IUniswapV2Router02 } from "../../typechain";
 
 const { deployContract } = hre.waffle;
 
@@ -34,6 +35,11 @@ describe("Unit tests", function () {
     this.signers.usdtWhale = await hre.ethers.getSigner(USDT_WHALE);
     const dai = await hre.ethers.getContractAt("IERC20", DAI_ADDRESS, this.signers.daiWhale);
     const usdt = await hre.ethers.getContractAt("IERC20", USDT_ADDRESS, this.signers.usdtWhale);
+
+    // get the UniswapV2Router contract instance
+    this.uniswapV2Router02 = <IUniswapV2Router02>(
+      await hre.ethers.getContractAt("IUniswapV2Router02", "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
+    );
 
     // deploy Harvest Finance Adapter
     const harvestFinanceAdapterArtifact: Artifact = await hre.artifacts.readArtifact("HarvestFinanceAdapter");

@@ -42,6 +42,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       initialBaseFeePerGas: 1_000_000_000,
+      gasPrice: "auto",
       accounts: {
         initialIndex: 0,
         count: 20,
