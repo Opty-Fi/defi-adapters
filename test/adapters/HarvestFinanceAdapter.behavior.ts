@@ -4,6 +4,7 @@ import { solidity } from "ethereum-waffle";
 import { getAddress } from "ethers/lib/utils";
 import { BigNumber, utils } from "ethers";
 import { PoolItem } from "../types";
+import { getOverrideOptions } from "../utils";
 
 chai.use(solidity);
 
@@ -11,21 +12,21 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
   it(`should deposit ${token}, stake f${token}, claim FARM, harvest FARM, unstake f${token}, and withdraw f${token} in ${token} pool of Harvest Finance`, async function () {
     // harvest finance's deposit vault instance
     const harvestDepositInstance = await hre.ethers.getContractAt("IHarvestDeposit", pool.pool);
-
     // harvest lpToken decimals
     const decimals = await harvestDepositInstance.decimals();
-
     // harvest finance's staking vault instance
     const harvestStakingInstance = await hre.ethers.getContractAt("IHarvestFarm", pool.stakingPool as string);
-
     // harvest finance reward token's instance
     const farmRewardInstance = await hre.ethers.getContractAt("IERC20", (pool.rewardTokens as string[])[0]);
-
     // underlying token instance
     const underlyingTokenInstance = await hre.ethers.getContractAt("IERC20", pool.tokens[0]);
-
     // 1. deposit all underlying tokens
-    await this.testDeFiAdapter.testGetDepositAllCodes(pool.tokens[0], pool.pool, this.harvestFinanceAdapter.address);
+    await this.testDeFiAdapter.testGetDepositAllCodes(
+      pool.tokens[0],
+      pool.pool,
+      this.harvestFinanceAdapter.address,
+      getOverrideOptions(),
+    );
     // 1.1 assert whether lptoken balance is as expected or not after deposit
     const actualLPTokenBalanceAfterDeposit = await this.harvestFinanceAdapter.getLiquidityPoolTokenBalance(
       this.testDeFiAdapter.address,
@@ -56,9 +57,13 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
       .mul(BigNumber.from(pricePerFullShareAfterDeposit))
       .div(BigNumber.from("10").pow(BigNumber.from(decimals)));
     expect(actualAmountInTokenAfterDeposit).to.be.eq(expectedAmountInTokenAfterDeposit);
-
     // 2. stake all lpTokens
-    await this.testDeFiAdapter.testGetStakeAllCodes(pool.pool, pool.tokens[0], this.harvestFinanceAdapter.address);
+    await this.testDeFiAdapter.testGetStakeAllCodes(
+      pool.pool,
+      pool.tokens[0],
+      this.harvestFinanceAdapter.address,
+      getOverrideOptions(),
+    );
     // 2.1 assert whether the staked lpToken balance is as expected or not after staking lpToken
     const actualStakedLPTokenBalanceAfterStake = await this.harvestFinanceAdapter.getLiquidityPoolTokenBalanceStake(
       this.testDeFiAdapter.address,
@@ -66,18 +71,16 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
     );
     const expectedStakedLPTokenBalanceAfterStake = await harvestStakingInstance.balanceOf(this.testDeFiAdapter.address);
     expect(actualStakedLPTokenBalanceAfterStake).to.be.eq(expectedStakedLPTokenBalanceAfterStake);
-
     // 2.2 assert whether the reward token is as expected or not
     const actualRewardToken = await this.harvestFinanceAdapter.getRewardToken(pool.pool);
     const expectedRewardToken = (pool.rewardTokens as string[])[0];
     expect(getAddress(actualRewardToken)).to.be.eq(getAddress(expectedRewardToken));
-
     // 2.3 make a transaction for mining a block to get finite unclaimed reward amount
     await this.signers.admin.sendTransaction({
       value: utils.parseEther("0"),
       to: await this.signers.admin.getAddress(),
+      ...getOverrideOptions(),
     });
-
     // 2.4 assert whether the unclaimed reward amount is as expected or not after staking
     const actualUnclaimedRewardAfterStake = await this.harvestFinanceAdapter.getUnclaimedRewardTokenAmount(
       this.testDeFiAdapter.address,
@@ -86,7 +89,6 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
     );
     const expectedUnclaimedRewardAfterStake = await harvestStakingInstance.earned(this.testDeFiAdapter.address);
     expect(actualUnclaimedRewardAfterStake).to.be.eq(expectedUnclaimedRewardAfterStake);
-
     // 2.5 assert whether the amount in token is as expected or not after staking
     const actualAmountInTokenAfterStake = await this.harvestFinanceAdapter.getAllAmountInTokenStake(
       this.testDeFiAdapter.address,
@@ -112,9 +114,12 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
       expectedAmountInTokenFromStakedLPTokenAfterStake,
     );
     expect(actualAmountInTokenAfterStake).to.be.eq(expectedAmountInTokenAfterStake);
-
     // 3. claim the reward token
-    await this.testDeFiAdapter.testClaimRewardTokenCode(pool.pool, this.harvestFinanceAdapter.address);
+    await this.testDeFiAdapter.testClaimRewardTokenCode(
+      pool.pool,
+      this.harvestFinanceAdapter.address,
+      getOverrideOptions(),
+    );
     // 3.1 assert whether the reward token's balance is as expected or not after claiming
     const actualRewardTokenBalanceAfterClaim = await this.testDeFiAdapter.getERC20TokenBalance(
       await this.harvestFinanceAdapter.getRewardToken(pool.pool),
@@ -122,14 +127,21 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
     );
     const expectedRewardTokenBalanceAfterClaim = await farmRewardInstance.balanceOf(this.testDeFiAdapter.address);
     expect(actualRewardTokenBalanceAfterClaim).to.be.eq(expectedRewardTokenBalanceAfterClaim);
-
     // 4. Swap the reward token into underlying token
-    await this.testDeFiAdapter.testGetHarvestAllCodes(pool.pool, pool.tokens[0], this.harvestFinanceAdapter.address);
+    await this.testDeFiAdapter.testGetHarvestAllCodes(
+      pool.pool,
+      pool.tokens[0],
+      this.harvestFinanceAdapter.address,
+      getOverrideOptions(),
+    );
     // 4.1 assert whether the reward token is swapped to underlying token or not
     expect(await this.testDeFiAdapter.getERC20TokenBalance(pool.tokens[0], this.testDeFiAdapter.address)).to.be.gt(0);
-
     // 5. Unstake all staked lpTokens
-    await this.testDeFiAdapter.testGetUnstakeAllCodes(pool.pool, this.harvestFinanceAdapter.address);
+    await this.testDeFiAdapter.testGetUnstakeAllCodes(
+      pool.pool,
+      this.harvestFinanceAdapter.address,
+      getOverrideOptions(),
+    );
     // 5.1 assert whether lpToken balance is as expected or not
     const actualLPTokenBalanceAfterUnstake = await this.harvestFinanceAdapter.getLiquidityPoolTokenBalance(
       this.testDeFiAdapter.address,
@@ -147,9 +159,13 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
       this.testDeFiAdapter.address,
     );
     expect(actualStakedLPTokenBalanceAfterUnstake).to.be.eq(expectedStakedLPTokenBalanceAfterUnstake);
-
     // 6. Withdraw all lpToken balance
-    await this.testDeFiAdapter.testGetWithdrawAllCodes(pool.tokens[0], pool.pool, this.harvestFinanceAdapter.address);
+    await this.testDeFiAdapter.testGetWithdrawAllCodes(
+      pool.tokens[0],
+      pool.pool,
+      this.harvestFinanceAdapter.address,
+      getOverrideOptions(),
+    );
     // 6.1 assert whether lpToken balance is as expected or not
     const actualLPTokenBalanceAfterWithdraw = await this.harvestFinanceAdapter.getLiquidityPoolTokenBalance(
       this.testDeFiAdapter.address,

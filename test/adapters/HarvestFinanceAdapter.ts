@@ -8,6 +8,7 @@ import { LiquidityPool, Signers } from "../types";
 import { shouldBehaveLikeHarvestFinanceAdapter } from "./HarvestFinanceAdapter.behavior";
 import { default as HarvestFinancePools } from "../harvest.finance-pools.json";
 import { IUniswapV2Router02 } from "../../typechain";
+import { getOverrideOptions } from "../utils";
 
 const { deployContract } = hre.waffle;
 
@@ -44,20 +45,30 @@ describe("Unit tests", function () {
     // deploy Harvest Finance Adapter
     const harvestFinanceAdapterArtifact: Artifact = await hre.artifacts.readArtifact("HarvestFinanceAdapter");
     this.harvestFinanceAdapter = <HarvestFinanceAdapter>(
-      await deployContract(this.signers.deployer, harvestFinanceAdapterArtifact)
+      await deployContract(this.signers.deployer, harvestFinanceAdapterArtifact, [], getOverrideOptions())
     );
 
     // deploy TestDeFiAdapter Contract
     const testDeFiAdapterArtifact: Artifact = await hre.artifacts.readArtifact("TestDeFiAdapter");
-    this.testDeFiAdapter = <TestDeFiAdapter>await deployContract(this.signers.deployer, testDeFiAdapterArtifact);
+    this.testDeFiAdapter = <TestDeFiAdapter>(
+      await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
+    );
 
     // fund the whale's wallet with gas
-    await this.signers.admin.sendTransaction({ to: DAI_WHALE, value: hre.ethers.utils.parseEther("10") });
-    await this.signers.admin.sendTransaction({ to: USDT_WHALE, value: hre.ethers.utils.parseEther("10") });
+    await this.signers.admin.sendTransaction({
+      to: DAI_WHALE,
+      value: hre.ethers.utils.parseEther("100"),
+      ...getOverrideOptions(),
+    });
+    await this.signers.admin.sendTransaction({
+      to: USDT_WHALE,
+      value: hre.ethers.utils.parseEther("100"),
+      ...getOverrideOptions(),
+    });
 
     // fund TestDeFiAdapter with 10000 tokens each
-    await dai.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseEther("10000"));
-    await usdt.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseUnits("10000", 6));
+    await dai.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseEther("10000"), getOverrideOptions());
+    await usdt.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseUnits("10000", 6), getOverrideOptions());
 
     // whitelist TestDeFiAdapter contract into HarvestFinance's Vaults
     // by impersonating the governance's address
@@ -75,8 +86,13 @@ describe("Unit tests", function () {
         await harvestVault.controller(),
         await hre.ethers.getSigner(governance),
       );
-      await harvestController.addToWhitelist(this.testDeFiAdapter.address);
-      await harvestController.addCodeToWhitelist(this.testDeFiAdapter.address);
+      await this.signers.admin.sendTransaction({
+        to: governance,
+        value: hre.ethers.utils.parseEther("1000"),
+        ...getOverrideOptions(),
+      });
+      await harvestController.addToWhitelist(this.testDeFiAdapter.address, getOverrideOptions());
+      await harvestController.addCodeToWhitelist(this.testDeFiAdapter.address, getOverrideOptions());
     }
   });
 
