@@ -1,0 +1,9 @@
+{
+  "3Crv": {
+    "pool": "0xF403C135812408BFbE8713b5A23a04b3D48AAE31",
+    "stakingPool": "0x689440f2Ff927E1f24c72F1087E1FAF471eCe1c8",
+    "lpToken": "0x30D9410ED1D5DA1F6C8391af5338C93ab8d4035C",
+    "tokens": ["0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490"],
+    "rewardTokens": ["0xd533a949740bb3306d119cc777fa900ba034cd52"]
+  }
+}
