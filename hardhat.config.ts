@@ -41,13 +41,14 @@ const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
-      initialBaseFeePerGas: 1_000_000_000,
+      initialBaseFeePerGas: 1_00_000_000,
       gasPrice: "auto",
       accounts: {
         initialIndex: 0,
         count: 20,
         mnemonic,
         path: "m/44'/60'/0'/0",
+        accountsBalance: "10000000000000000000000",
       },
       forking: {
         url: archiveMainnetNodeURL,
