@@ -23,28 +23,29 @@ import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/I
 /**
  * @title Adapter for Convex.finance protocol
  * @author niklr
- * @dev Abstraction layer to convex finance's pools
+ * @dev Abstraction layer to convex finance's pools.
+ * We assume the pool data to have liquidityPoolToken and liquidityPool's address to be same.
  */
 
 contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking {
     using SafeMath for uint256;
 
-    /** @notice Maps liquidityPool to staking vault */
-    mapping(address => address) public liquidityPoolToStakingVault;
+    /** @notice Maps liquidityPoolToken to poolIdentifier */
+    mapping(address => uint256) public lpTokenToPoolId;
 
     /**
      * @notice Uniswap V2 router contract address
      */
     address public constant uniswapV2Router02 = address(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
 
-    // deposit pools
-    address public constant THREE_CRV_DEPOSIT_POOL = address(0xF403C135812408BFbE8713b5A23a04b3D48AAE31);
+    // deposit pool
+    address public constant BOOSTER_DEPOSIT_POOL = address(0xF403C135812408BFbE8713b5A23a04b3D48AAE31);
 
-    // staking vaults
-    address public constant THREE_CRV_STAKE_VAULT = address(0x689440f2Ff927E1f24c72F1087E1FAF471eCe1c8);
+    // lpTokens
+    address public constant THREE_CRV_LP_TOKEN = address(0x30D9410ED1D5DA1F6C8391af5338C93ab8d4035C);
 
     constructor() public {
-        liquidityPoolToStakingVault[THREE_CRV_DEPOSIT_POOL] = THREE_CRV_STAKE_VAULT;
+        lpTokenToPoolId[THREE_CRV_LP_TOKEN] = 9;
     }
 
     /**
@@ -133,7 +134,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         override
         returns (bytes[] memory _codes)
     {
-        address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
+        address _stakingVault = _getPoolInfo(_liquidityPool).crvRewards;
         _codes = new bytes[](1);
         _codes[0] = abi.encode(_stakingVault, abi.encodeWithSignature("getReward()"));
     }
@@ -191,7 +192,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address _liquidityPool,
         uint256 _redeemAmount
     ) public view override returns (uint256 _amount) {
-        address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
+        address _stakingVault = _getPoolInfo(_liquidityPool).crvRewards;
         uint256 _liquidityPoolTokenBalance = IConvexStake(_stakingVault).balanceOf(_vault);
         uint256 _balanceInToken = getAllAmountInTokenStake(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
@@ -233,18 +234,18 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256[] memory _amounts
     ) public view override returns (bytes[] memory _codes) {
         if (_amounts[0] > 0) {
-            uint256 _pid = _getPoolId(_liquidityPool);
+            uint256 _pid = lpTokenToPoolId[_liquidityPool];
             _codes = new bytes[](3);
             _codes[0] = abi.encode(
                 _underlyingTokens[0],
-                abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, uint256(0))
+                abi.encodeWithSignature("approve(address,uint256)", BOOSTER_DEPOSIT_POOL, uint256(0))
             );
             _codes[1] = abi.encode(
                 _underlyingTokens[0],
-                abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, _amounts[0])
+                abi.encodeWithSignature("approve(address,uint256)", BOOSTER_DEPOSIT_POOL, _amounts[0])
             );
             _codes[2] = abi.encode(
-                _liquidityPool,
+                BOOSTER_DEPOSIT_POOL,
                 abi.encodeWithSignature("deposit(uint256,uint256,bool)", _pid, _amounts[0], false) // bool = stake
             );
         }
@@ -260,9 +261,12 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256 _shares
     ) public view override returns (bytes[] memory _codes) {
         if (_shares > 0) {
-            uint256 _pid = _getPoolId(_liquidityPool);
+            uint256 _pid = lpTokenToPoolId[_liquidityPool];
             _codes = new bytes[](1);
-            _codes[0] = abi.encode(_liquidityPool, abi.encodeWithSignature("withdraw(uint256,uint256)", _pid, _shares));
+            _codes[0] = abi.encode(
+                BOOSTER_DEPOSIT_POOL,
+                abi.encodeWithSignature("withdraw(uint256,uint256)", _pid, _shares)
+            );
         }
     }
 
@@ -323,8 +327,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      * @inheritdoc IAdapter
      */
     function getRewardToken(address _liquidityPool) public view override returns (address) {
-        address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-        return IConvexStake(_stakingVault).rewardToken();
+        return IConvexStake(_getPoolInfo(_liquidityPool).crvRewards).rewardToken();
     }
 
     /**
@@ -335,7 +338,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address _liquidityPool,
         address
     ) public view override returns (uint256) {
-        return IConvexStake(liquidityPoolToStakingVault[_liquidityPool]).earned(_vault);
+        return IConvexStake(_getPoolInfo(_liquidityPool).crvRewards).earned(_vault);
     }
 
     /**
@@ -369,7 +372,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         returns (bytes[] memory _codes)
     {
         if (_shares > 0) {
-            address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
+            address _stakingVault = _getPoolInfo(_liquidityPool).crvRewards;
             address _liquidityPoolToken = getLiquidityPoolToken(address(0), _liquidityPool);
             _codes = new bytes[](3);
             _codes[0] = abi.encode(
@@ -394,7 +397,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         returns (bytes[] memory _codes)
     {
         if (_shares > 0) {
-            address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
+            address _stakingVault = _getPoolInfo(_liquidityPool).crvRewards;
             _codes = new bytes[](1);
             _codes[0] = abi.encode(
                 _stakingVault,
@@ -411,7 +414,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address _underlyingToken,
         address _liquidityPool
     ) public view override returns (uint256) {
-        address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
+        address _stakingVault = _getPoolInfo(_liquidityPool).crvRewards;
         uint256 b = IConvexStake(_stakingVault).balanceOf(_vault);
         uint256 _unclaimedReward = getUnclaimedRewardTokenAmount(_vault, _liquidityPool, _underlyingToken);
         if (_unclaimedReward > 0) {
@@ -431,8 +434,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         override
         returns (uint256)
     {
-        address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-        return IConvexStake(_stakingVault).balanceOf(_vault);
+        return IConvexStake(_getPoolInfo(_liquidityPool).crvRewards).balanceOf(_vault);
     }
 
     /**
@@ -539,22 +541,12 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     }
 
     /**
-     * @dev Get the pool identifier
-     * @param _liquidityPool Liquidity pool's contract address
-     * @return Returns the pool identifier
-     */
-    function _getPoolId(address _liquidityPool) internal view returns (uint256) {
-        address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-        return IConvexStake(_stakingVault).pid();
-    }
-
-    /**
      * @dev Get the pool information
      * @param _liquidityPool Liquidity pool's contract address
      * @return Returns the pool information
      */
     function _getPoolInfo(address _liquidityPool) internal view returns (IConvexDeposit.PoolInfo memory) {
-        uint256 _pid = _getPoolId(_liquidityPool);
-        return IConvexDeposit(_liquidityPool).poolInfo(_pid);
+        uint256 _pid = lpTokenToPoolId[_liquidityPool];
+        return IConvexDeposit(BOOSTER_DEPOSIT_POOL).poolInfo(_pid);
     }
 }
