@@ -22,8 +22,5 @@ interface IConvexDeposit {
 
     function withdraw(uint256 _pid, uint256 _amount) external returns (bool);
 
-    // underlying
-    function feeToken() external view returns (address);
-
     function poolInfo(uint256 _pid) external view returns (PoolInfo memory);
 }

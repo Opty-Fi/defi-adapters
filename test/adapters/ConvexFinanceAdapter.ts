@@ -7,6 +7,7 @@ import { ConvexFinanceAdapter } from "../../typechain/ConvexFinanceAdapter";
 import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
 import { default as ConvexFinancePools } from "../convex.finance-pools.json";
 import { LiquidityPool, Signers } from "../types";
+import { getOverrideOptions } from "../utils";
 import { shouldBehaveLikeConvexFinanceAdapter } from "./ConvexFinanceAdapter.behavior";
 
 const { deployContract } = hre.waffle;
@@ -16,7 +17,7 @@ describe("Unit tests", function () {
     this.signers = {} as Signers;
     const THREE_CRV_ADDRESS: string = getAddress("0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490");
     // https://etherscan.io/token/tokenholderchart/0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490
-    const THREE_CRV_WHALE: string = getAddress("0xb60f193affff1c87f8128b2faef3768aee64cca5");
+    const THREE_CRV_WHALE: string = getAddress("0x76af586d041d6988cdba95347e2f857872524fea");
     const signers: SignerWithAddress[] = await hre.ethers.getSigners();
     await hre.network.provider.request({
       method: "hardhat_impersonateAccount",
@@ -37,18 +38,24 @@ describe("Unit tests", function () {
     // deploy Convex Finance Adapter
     const convexFinanceAdapterArtifact: Artifact = await hre.artifacts.readArtifact("ConvexFinanceAdapter");
     this.convexFinanceAdapter = <ConvexFinanceAdapter>(
-      await deployContract(this.signers.deployer, convexFinanceAdapterArtifact)
+      await deployContract(this.signers.deployer, convexFinanceAdapterArtifact, [], getOverrideOptions())
     );
 
     // deploy TestDeFiAdapter Contract
     const testDeFiAdapterArtifact: Artifact = await hre.artifacts.readArtifact("TestDeFiAdapter");
-    this.testDeFiAdapter = <TestDeFiAdapter>await deployContract(this.signers.deployer, testDeFiAdapterArtifact);
+    this.testDeFiAdapter = <TestDeFiAdapter>(
+      await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
+    );
 
     // fund the whale's wallet with gas
-    await this.signers.admin.sendTransaction({ to: THREE_CRV_WHALE, value: hre.ethers.utils.parseEther("10") });
+    await this.signers.admin.sendTransaction({
+      to: THREE_CRV_WHALE,
+      value: hre.ethers.utils.parseEther("1000"),
+      ...getOverrideOptions(),
+    });
 
     // fund TestDeFiAdapter with 10000 tokens each
-    await crv.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseEther("10000"));
+    await crv.transfer(this.testDeFiAdapter.address, hre.ethers.utils.parseEther("10000"), getOverrideOptions());
   });
 
   describe("ConvexFinanceAdapter", function () {

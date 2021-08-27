@@ -82,7 +82,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         returns (address[] memory _underlyingTokens)
     {
         _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = IConvexDeposit(_liquidityPool).feeToken();
+        _underlyingTokens[0] = _getPoolInfo(_liquidityPool).lptoken;
     }
 
     /**
@@ -108,7 +108,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256 _liquidityPoolTokenBalance = getLiquidityPoolTokenBalance(_vault, _underlyingToken, _liquidityPool);
         uint256 _balanceInToken = getAllAmountInToken(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken).add(1);
+        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken);
     }
 
     /**
@@ -195,7 +195,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256 _liquidityPoolTokenBalance = IConvexStake(_stakingVault).balanceOf(_vault);
         uint256 _balanceInToken = getAllAmountInTokenStake(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken).add(1);
+        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken);
     }
 
     /**
@@ -270,7 +270,8 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      * @inheritdoc IAdapter
      */
     function getPoolValue(address _liquidityPool, address) public view override returns (uint256) {
-        return IERC20(IConvexDeposit(_liquidityPool).feeToken()).balanceOf(_getPoolInfo(_liquidityPool).gauge);
+        IConvexDeposit.PoolInfo memory poolInfo = _getPoolInfo(_liquidityPool);
+        return IERC20(poolInfo.lptoken).balanceOf(poolInfo.gauge);
     }
 
     /**
