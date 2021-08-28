@@ -23,6 +23,7 @@ export interface PoolItem {
   stakingPool?: string;
   rewardTokens?: string[];
   tokens: string[];
+  whale?: string;
 }
 
 export interface LiquidityPool {
