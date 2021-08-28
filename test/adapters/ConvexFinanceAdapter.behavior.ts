@@ -9,7 +9,7 @@ import { getOverrideOptions } from "../utils";
 chai.use(solidity);
 
 export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolItem): void {
-  it(`should deposit ${token}, stake cvx${token}, claim CRV, unstake cvx${token}, and withdraw cvx${token} in ${token} pool of Convex Finance`, async function () {
+  it(`should deposit ${token}Crv, stake cvx${token}3Crv, claim CRV, unstake cvx${token}3Crv, and withdraw ${token}Crv in ${token} pool of Convex Finance`, async function () {
     // lpToken instance
     const lpTokenInstance = await hre.ethers.getContractAt("IERC20Detailed", pool.lpToken);
     // convex finance's staking vault instance
@@ -232,7 +232,7 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     expect(actualUnderlyingTokenBalanceAfterWithdraw).to.be.eq(expectedUnderlyingTokenBalanceAfterWithdraw);
   });
 
-  it(`should deposit ${token}, stake cvx${token}, unstake cvx${token}, and withdraw cvx${token} in ${token} pool of Convex Finance`, async function () {
+  it(`should deposit ${token}Crv, stake cvx${token}3Crv, unstake cvx${token}3Crv, and withdraw ${token}Crv in ${token} pool of Convex Finance`, async function () {
     // convex finance's staking vault instance
     const convexStakingInstance = await hre.ethers.getContractAt("IConvexStake", pool.stakingPool as string);
     const underlyingToken = pool.tokens[0];
@@ -274,11 +274,5 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     expect(
       await this.convexFinanceAdapter.getLiquidityPoolTokenBalanceStake(this.testDeFiAdapter.address, pool.pool),
     ).to.be.eq(0);
-  });
-
-  it(`should get the lpToken of ${token} pool of Convex Finance`, async function () {
-    const underlyingToken = pool.tokens[0];
-    const actualLiquidityPoolToken = await this.convexFinanceAdapter.getLiquidityPoolToken(underlyingToken, pool.pool);
-    expect(actualLiquidityPoolToken).to.be.eq(pool.lpToken);
   });
 }
