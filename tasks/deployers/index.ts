@@ -1,1 +1,1 @@
-import "./harvestFinanceAdapter";
+import "./beefyFinanceAdapter";

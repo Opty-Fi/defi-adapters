@@ -1,0 +1,22 @@
+{
+  "dai": {
+    "pool": "0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018",
+    "lpToken": "0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018",
+    "tokens": ["0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"]
+  },
+  "usdc": {
+    "pool": "0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F",
+    "lpToken": "0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F",
+    "tokens": ["0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"]
+  },
+  "weth": {
+    "pool": "0x77276a7c9Ff3a6cbD334524d6F1f6219D039ac0E",
+    "lpToken": "0x77276a7c9Ff3a6cbD334524d6F1f6219D039ac0E",
+    "tokens": ["0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+  },
+  "wbtc": {
+    "pool": "0xD3395577febc6AdaB25490a69955ebC47040766C",
+    "lpToken": "0xD3395577febc6AdaB25490a69955ebC47040766C",
+    "tokens": ["0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6"]
+  }
+}

@@ -12,8 +12,8 @@ pragma experimental ABIEncoderV2;
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
 //  interfaces
-import { IHarvestDeposit } from "../interfaces/harvest.finance/IHarvestDeposit.sol";
-import { IHarvestFarm } from "../interfaces/harvest.finance/IHarvestFarm.sol";
+import { IBeefyDeposit } from "../interfaces/beefy.finance/IBeefyDeposit.sol";
+import { IBeefyFarm } from "../interfaces/beefy.finance/IBeefyFarm.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IAdapter } from "../interfaces/opty/defiAdapters/IAdapter.sol";
 import { IAdapterHarvestReward } from "../interfaces/opty/defiAdapters/IAdapterHarvestReward.sol";
@@ -21,81 +21,59 @@ import { IAdapterStaking } from "../interfaces/opty/defiAdapters/IAdapterStaking
 import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 
 /**
- * @title Adapter for Harvest.finance protocol
+ * @title Adapter for Beefy.finance protocol
  * @author Opty.fi
- * @dev Abstraction layer to harvest finance's pools
+ * @dev Abstraction layer to Beefy finance's pools
  */
 
-contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking {
+contract BeefyFinanceAdapter is
+    IAdapter,
+    IAdapterHarvestReward,
+    IAdapterStaking //REPLACE IAdapterHarvest..
+{
     using SafeMath for uint256;
 
     /** @notice Maps liquidityPool to staking vault */
     mapping(address => address) public liquidityPoolToStakingVault;
 
+    mapping(address => address) public stakingVaultToRewardToken;
+
     /**
      * @notice Uniswap V2 router contract address
      */
-    address public constant uniswapV2Router02 = address(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
-
-    // deposit pools
-    address public constant TBTC_SBTC_CRV_DEPOSIT_POOL = address(0x640704D106E79e105FDA424f05467F005418F1B5);
-    address public constant THREE_CRV_DEPOSIT_POOL = address(0x71B9eC42bB3CB40F017D8AD8011BE8e384a95fa5);
-    address public constant YDAI_YUSDC_YUSDT_YTUSD_DEPOSIT_POOL = address(0x0FE4283e0216F94f5f9750a7a11AC54D3c9C38F3);
-    address public constant F_DAI_DEPOSIT_POOL = address(0xab7FA2B2985BCcfC13c6D86b1D5A17486ab1e04C);
-    address public constant F_USDC_DEPOSIT_POOL = address(0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE);
-    address public constant F_USDT_DEPOSIT_POOL = address(0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C);
-    address public constant F_TUSD_DEPOSIT_POOL = address(0x7674622c63Bee7F46E86a4A5A18976693D54441b);
-    address public constant F_CRV_REN_WBTC_DEPOSIT_POOL = address(0x9aA8F427A17d6B0d91B6262989EdC7D45d6aEdf8);
-    address public constant F_WBTC_DEPOSIT_POOL = address(0x5d9d25c7C457dD82fc8668FFC6B9746b674d4EcB);
-    address public constant F_RENBTC_DEPOSIT_POOL = address(0xC391d1b08c1403313B0c28D47202DFDA015633C4);
-    address public constant F_WETH_DEPOSIT_POOL = address(0xFE09e53A81Fe2808bc493ea64319109B5bAa573e);
-    address public constant F_CDAI_CUSDC_DEPOSIT_POOL = address(0x998cEb152A42a3EaC1f555B1E911642BeBf00faD);
-    address public constant F_USDN_THREE_CRV_DEPOSIT_POOL = address(0x683E683fBE6Cf9b635539712c999f3B3EdCB8664);
-    address public constant F_YDAI_YUSDC_YUSDT_YBUSD_DEPOSIT_POOL = address(0x4b1cBD6F6D8676AcE5E412C78B7a59b4A1bbb68a);
+    address public constant quickswapV2Router02 = address(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff); //Quickswap Router on Polygon
+    // One can deposit LP tokens into these pools on Beefy
+    address public constant DAI_DEPOSIT_POOL = address(0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018);
+    address public constant USDC_DEPOSIT_POOL = address(0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F);
+    address public constant WETH_DEPOSIT_POOL = address(0x77276a7c9Ff3a6cbD334524d6F1f6219D039ac0E);
+    address public constant WBTC_DEPOSIT_POOL = address(0xD3395577febc6AdaB25490a69955ebC47040766C);
+    address public constant BIFI_DEPOSIT_POOL = address(0xfEcf784F48125ccb7d8855cdda7C5ED6b5024Cb3);
 
     // staking vaults
-    address public constant TBTC_SBTC_CRV_STAKE_VAULT = address(0x017eC1772A45d2cf68c429A820eF374f0662C57c);
-    address public constant THREE_CRV_STAKE_VAULT = address(0x27F12d1a08454402175b9F0b53769783578Be7d9);
-    address public constant YDAI_YUSDC_YUSDT_YTUSD_STAKE_VAULT = address(0x6D1b6Ea108AA03c6993d8010690264BA96D349A8);
-    address public constant F_DAI_STAKE_VAULT = address(0x15d3A64B2d5ab9E152F16593Cdebc4bB165B5B4A);
-    address public constant F_USDC_STAKE_VAULT = address(0x4F7c28cCb0F1Dbd1388209C67eEc234273C878Bd);
-    address public constant F_USDT_STAKE_VAULT = address(0x6ac4a7AB91E6fD098E13B7d347c6d4d1494994a2);
-    address public constant F_TUSD_STAKE_VAULT = address(0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA);
-    address public constant F_CRV_RENBTC_STAKE_VAULT = address(0xA3Cf8D1CEe996253FAD1F8e3d68BDCba7B3A3Db5);
-    address public constant F_WBTC_STAKE_VAULT = address(0x917d6480Ec60cBddd6CbD0C8EA317Bcc709EA77B);
-    address public constant F_RENBTC_STAKE_VAULT = address(0x7b8Ff8884590f44e10Ea8105730fe637Ce0cb4F6);
-    address public constant F_WETH_STAKE_VAULT = address(0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e);
-    address public constant F_CDAI_CUSDC_STAKE_VAULT = address(0xC0f51a979e762202e9BeF0f62b07F600d0697DE1);
-    address public constant F_USDN_THREE_CRV_STAKE_VAULT = address(0xef4Da1CE3f487DA2Ed0BE23173F76274E0D47579);
-    address public constant F_YDAI_YUSDC_YUSDT_YBUSD_STAKE_VAULT = address(0x093C2ae5E6F3D2A897459aa24551289D462449AD);
+    address public constant BIFI_STAKE_VAULT = address(0xDeB0a777ba6f59C78c654B8c92F80238c8002DD2);
+    address public constant MOO_POLYGON_BIFI_STAKE_VAULT = address(0x71a4449dD18177A1a19fEF671558964f10AF4be8);
+    //there are no other active staking pools at the moment - the only thing you can stake is BIFI for MATIC
 
-    /** @notice Harvest.finance's reward token address */
-    address public constant rewardToken = address(0xa0246c9032bC3A600820415aE600c6388619A14D);
+    address public constant BIFI = address(0xFbdd194376de19a88118e84E279b977f165d01b8);
+    address public constant MATIC = address(0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270);
+    address public constant WATCH = address(0x09211Dc67f9fe98Fb7bBB91Be0ef05f4a12FA2b2);
 
     constructor() public {
-        liquidityPoolToStakingVault[TBTC_SBTC_CRV_DEPOSIT_POOL] = TBTC_SBTC_CRV_STAKE_VAULT;
-        liquidityPoolToStakingVault[THREE_CRV_DEPOSIT_POOL] = THREE_CRV_STAKE_VAULT;
-        liquidityPoolToStakingVault[YDAI_YUSDC_YUSDT_YTUSD_DEPOSIT_POOL] = YDAI_YUSDC_YUSDT_YTUSD_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_DAI_DEPOSIT_POOL] = F_DAI_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_USDC_DEPOSIT_POOL] = F_USDC_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_USDT_DEPOSIT_POOL] = F_USDT_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_TUSD_DEPOSIT_POOL] = F_TUSD_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_CRV_REN_WBTC_DEPOSIT_POOL] = F_CRV_RENBTC_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_WBTC_DEPOSIT_POOL] = F_WBTC_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_RENBTC_DEPOSIT_POOL] = F_RENBTC_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_WETH_DEPOSIT_POOL] = F_WETH_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_CDAI_CUSDC_DEPOSIT_POOL] = F_CDAI_CUSDC_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_USDN_THREE_CRV_DEPOSIT_POOL] = F_USDN_THREE_CRV_STAKE_VAULT;
-        liquidityPoolToStakingVault[F_YDAI_YUSDC_YUSDT_YBUSD_DEPOSIT_POOL] = F_YDAI_YUSDC_YUSDT_YBUSD_STAKE_VAULT;
+        liquidityPoolToStakingVault[BIFI] = BIFI_STAKE_VAULT;
+        liquidityPoolToStakingVault[BIFI_DEPOSIT_POOL] = MOO_POLYGON_BIFI_STAKE_VAULT;
+        //these are the only two that are active right now
+
+        stakingVaultToRewardToken[BIFI_STAKE_VAULT] = MATIC;
+        stakingVaultToRewardToken[MOO_POLYGON_BIFI_STAKE_VAULT] = WATCH;
     }
 
     /**
      * @inheritdoc IAdapter
      */
     function getDepositAllCodes(
-        address payable _vault,
-        address[] memory _underlyingTokens,
-        address _liquidityPool
+        address payable _vault, //the address we're depositing from
+        address[] memory _underlyingTokens, //address of the LP tokens we're depositing
+        address _liquidityPool //address of the liquidity pool we're depositing to
     ) public view override returns (bytes[] memory _codes) {
         uint256[] memory _amounts = new uint256[](1);
         _amounts[0] = IERC20(_underlyingTokens[0]).balanceOf(_vault);
@@ -124,7 +102,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         returns (address[] memory _underlyingTokens)
     {
         _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = IHarvestDeposit(_liquidityPool).underlying();
+        _underlyingTokens[0] = IBeefyDeposit(_liquidityPool).want();
     }
 
     /**
@@ -136,8 +114,8 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         uint256 _depositAmount
     ) public view override returns (uint256) {
         return
-            _depositAmount.mul(10**IHarvestDeposit(_liquidityPool).decimals()).div(
-                IHarvestDeposit(_liquidityPool).getPricePerFullShare()
+            _depositAmount.mul(10**IBeefyDeposit(_liquidityPool).decimals()).div(
+                IBeefyDeposit(_liquidityPool).getPricePerFullShare()
             );
     }
 
@@ -172,6 +150,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
     /**
      * @inheritdoc IAdapterHarvestReward
      */
+    //Claims reward from staking vault, in reward token
     function getClaimRewardTokenCode(address payable, address _liquidityPool)
         public
         view
@@ -180,7 +159,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
     {
         address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
         _codes = new bytes[](1);
-        _codes[0] = abi.encode(_stakingVault, abi.encodeWithSignature("getReward()"));
+        _codes[0] = abi.encode(_stakingVault, abi.encodeWithSignature("getReward()")); //BIFI vault does have a getReward() fn
     }
 
     /**
@@ -198,8 +177,10 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
     /**
      * @inheritdoc IAdapter
      */
-    function canStake(address) public view override returns (bool) {
-        return true;
+    function canStake(address _address) public view override returns (bool) {
+        if (_address == BIFI) return true;
+        else return false;
+        //this is the current situation - may change in future as staking vaults get added/activated
     }
 
     /**
@@ -237,7 +218,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         uint256 _redeemAmount
     ) public view override returns (uint256 _amount) {
         address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-        uint256 _liquidityPoolTokenBalance = IHarvestFarm(_stakingVault).balanceOf(_vault);
+        uint256 _liquidityPoolTokenBalance = IBeefyFarm(_stakingVault).balanceOf(_vault);
         uint256 _balanceInToken = getAllAmountInTokenStake(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
         _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken).add(1);
@@ -282,7 +263,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
             _codes[0] = abi.encode(
                 _underlyingTokens[0],
                 abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, uint256(0))
-            );
+            ); //maybe there are two pools in case in some cases we wanted to deposit two tokens?
             _codes[1] = abi.encode(
                 _underlyingTokens[0],
                 abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, _amounts[0])
@@ -303,7 +284,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         if (_shares > 0) {
             _codes = new bytes[](1);
             _codes[0] = abi.encode(
-                getLiquidityPoolToken(_underlyingTokens[0], _liquidityPool),
+                getLiquidityPoolToken(_underlyingTokens[0], _liquidityPool), //this fn just returns _liquidityPool - is here because we have to use the other input?
                 abi.encodeWithSignature("withdraw(uint256)", _shares)
             );
         }
@@ -312,8 +293,9 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
     /**
      * @inheritdoc IAdapter
      */
+    //what's going on here? a way to get how many LP tokens user holds? Or TOTAL pool value? Why use IHarvestDeposit?
     function getPoolValue(address _liquidityPool, address) public view override returns (uint256) {
-        return IHarvestDeposit(_liquidityPool).underlyingBalanceWithInvestment();
+        return IBeefyDeposit(_liquidityPool).balance();
     }
 
     /**
@@ -344,7 +326,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
      */
     function getLiquidityPoolTokenBalance(
         address payable _vault,
-        address,
+        address, //WHAT IS THIS? Didn't even know you could do this...
         address _liquidityPool
     ) public view override returns (uint256) {
         return IERC20(_liquidityPool).balanceOf(_vault);
@@ -360,8 +342,8 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
     ) public view override returns (uint256) {
         if (_liquidityPoolTokenAmount > 0) {
             _liquidityPoolTokenAmount = _liquidityPoolTokenAmount
-                .mul(IHarvestDeposit(_liquidityPool).getPricePerFullShare())
-                .div(10**IHarvestDeposit(_liquidityPool).decimals());
+                .mul(IBeefyDeposit(_liquidityPool).getPricePerFullShare())
+                .div(10**IBeefyDeposit(_liquidityPool).decimals());
         }
         return _liquidityPoolTokenAmount;
     }
@@ -369,8 +351,8 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
     /**
      * @inheritdoc IAdapter
      */
-    function getRewardToken(address) public view override returns (address) {
-        return rewardToken;
+    function getRewardToken(address _liquidityPool) public view override returns (address) {
+        return stakingVaultToRewardToken[liquidityPoolToStakingVault[_liquidityPool]];
     }
 
     /**
@@ -381,13 +363,14 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         address _liquidityPool,
         address
     ) public view override returns (uint256) {
-        return IHarvestFarm(liquidityPoolToStakingVault[_liquidityPool]).earned(_vault);
+        return IBeefyFarm(liquidityPoolToStakingVault[_liquidityPool]).earned(_vault); //this should work fine
     }
 
     /**
      * @inheritdoc IAdapterHarvestReward
      */
     function getHarvestSomeCodes(
+        //what does this exactly do? and how is it different from claiming?
         address payable _vault,
         address _underlyingToken,
         address _liquidityPool,
@@ -416,7 +399,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
     {
         if (_shares > 0) {
             address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-            address _liquidityPoolToken = getLiquidityPoolToken(address(0), _liquidityPool);
+            address _liquidityPoolToken = getLiquidityPoolToken(address(0), _liquidityPool); //this will return BIFI if you put in BIFI
             _codes = new bytes[](3);
             _codes[0] = abi.encode(
                 _liquidityPoolToken,
@@ -427,6 +410,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
                 abi.encodeWithSignature("approve(address,uint256)", _stakingVault, _shares)
             );
             _codes[2] = abi.encode(_stakingVault, abi.encodeWithSignature("stake(uint256)", _shares));
+            // there is a stake(uint256) on the BeefyRewardPool, but it's amount not shares - material?
         }
     }
 
@@ -455,10 +439,11 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         address _liquidityPool
     ) public view override returns (uint256) {
         address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-        uint256 b = IHarvestFarm(_stakingVault).balanceOf(_vault);
+        address rewardToken = getRewardToken(_liquidityPool);
+        uint256 b = IBeefyFarm(_stakingVault).balanceOf(_vault);
         if (b > 0) {
-            b = b.mul(IHarvestDeposit(_liquidityPool).getPricePerFullShare()).div(
-                10**IHarvestDeposit(_liquidityPool).decimals()
+            b = b.mul(IBeefyDeposit(_liquidityPool).getPricePerFullShare()).div(
+                10**IBeefyDeposit(_liquidityPool).decimals()
             );
         }
         uint256 _unclaimedReward = getUnclaimedRewardTokenAmount(_vault, _liquidityPool, _underlyingToken);
@@ -478,7 +463,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         returns (uint256)
     {
         address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-        return IHarvestFarm(_stakingVault).balanceOf(_vault);
+        return IBeefyFarm(_stakingVault).balanceOf(_vault);
     }
 
     /**
@@ -494,11 +479,12 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
             _codes = new bytes[](2);
             _codes[0] = getUnstakeSomeCodes(_liquidityPool, _redeemAmount)[0];
             _codes[1] = getWithdrawSomeCodes(_vault, _underlyingTokens, _liquidityPool, _redeemAmount)[0];
+            //it won't be possible to 'withdraw' from BIFI - this is the edge case here!
         }
     }
 
     /**
-     * @dev Get the codes for harvesting the tokens using uniswap router
+     * @dev Get the codes for harvesting the tokens using uniswap router - i.e. swapping back into the underlying
      * @param _vault Vault contract address
      * @param _rewardToken Reward token address
      * @param _underlyingToken Token address acting as underlying Asset for the vault contract
@@ -512,7 +498,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         uint256 _rewardTokenAmount
     ) internal view returns (bytes[] memory _codes) {
         if (_rewardTokenAmount > 0) {
-            uint256[] memory _amounts = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
+            uint256[] memory _amounts = IUniswapV2Router02(quickswapV2Router02).getAmountsOut(
                 _rewardTokenAmount,
                 _getPath(_rewardToken, _underlyingToken)
             );
@@ -520,14 +506,14 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
                 _codes = new bytes[](3);
                 _codes[0] = abi.encode(
                     _rewardToken,
-                    abi.encodeWithSignature("approve(address,uint256)", uniswapV2Router02, uint256(0))
+                    abi.encodeWithSignature("approve(address,uint256)", quickswapV2Router02, uint256(0))
                 );
                 _codes[1] = abi.encode(
                     _rewardToken,
-                    abi.encodeWithSignature("approve(address,uint256)", uniswapV2Router02, _rewardTokenAmount)
+                    abi.encodeWithSignature("approve(address,uint256)", quickswapV2Router02, _rewardTokenAmount)
                 );
                 _codes[2] = abi.encode(
-                    uniswapV2Router02,
+                    quickswapV2Router02,
                     abi.encodeWithSignature(
                         "swapExactTokensForTokens(uint256,uint256,address[],address,uint256)",
                         _rewardTokenAmount,
@@ -548,7 +534,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
      * @return _path The array of tokens in the sequence to be swapped for
      */
     function _getPath(address _initialToken, address _finalToken) internal pure returns (address[] memory _path) {
-        address _weth = IUniswapV2Router02(uniswapV2Router02).WETH();
+        address _weth = IUniswapV2Router02(quickswapV2Router02).WETH(); //not sure this will work on quickswap?
         if (_finalToken == _weth) {
             _path = new address[](2);
             _path[0] = _initialToken;
@@ -577,7 +563,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
         address _underlyingToken,
         uint256 _amount
     ) internal view returns (uint256) {
-        uint256[] memory _amountsA = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
+        uint256[] memory _amountsA = IUniswapV2Router02(quickswapV2Router02).getAmountsOut(
             _amount,
             _getPath(_rewardToken, _underlyingToken)
         );
