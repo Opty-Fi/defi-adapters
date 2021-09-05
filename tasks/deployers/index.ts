@@ -1,1 +1,2 @@
 import "./beefyFinanceAdapter";
+import "./harvestFinanceAdapter";

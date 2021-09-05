@@ -68,7 +68,7 @@ describe("Unit tests", function () {
 
     // get the UniswapV2Router contract instance
     this.uniswapV2Router02 = <IUniswapV2Router02>(
-      await hre.ethers.getContractAt("IUniswapV2Router02", "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff") //changed this to quickswap router
+      await hre.ethers.getContractAt("IUniswapV2Router02", "0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607") //changed this to polygon apeswap router
     );
 
     // deploy Beefy Finance Adapter

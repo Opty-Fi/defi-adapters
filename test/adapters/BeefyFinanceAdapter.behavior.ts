@@ -176,7 +176,7 @@ export function shouldStakeLikeBeefyFinanceAdapter(token: string, pool: PoolItem
     // get price per full share of the beefy lpToken
     const pricePerFullShareAfterStake = await beefyDepositInstance.getPricePerFullShare();
     // get amount in underlying token if reward token is swapped
-    //COMMENTED OUT UNTIL SUFFICIENT LIQUIDITY IN WATCH FOR QUICKSWAP CALLS NOT TO REVERT
+    //COMMENTED OUT UNTIL SUFFICIENT LIQUIDITY IN WATCH FOR APESWAP/QUICKSWAP CALLS NOT TO REVERT
     // const rewardInTokenAfterStake = (
     //   await this.uniswapV2Router02.getAmountsOut(expectedUnclaimedRewardAfterStake, [
     //     expectedRewardToken,
