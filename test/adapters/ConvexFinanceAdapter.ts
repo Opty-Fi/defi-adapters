@@ -1,4 +1,5 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { getAddress } from "ethers/lib/utils";
 import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 import { IUniswapV2Router02 } from "../../typechain";
@@ -36,6 +37,36 @@ describe("Unit tests", function () {
     this.testDeFiAdapter = <TestDeFiAdapter>(
       await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
     );
+
+    for (const pool of Object.values(ConvexFinancePools)) {
+      if (!pool.whale) {
+        throw new Error(`Whale is missing for ${pool.pool}`);
+      }
+
+      const WHALE: string = getAddress(String(pool.whale));
+
+      await hre.network.provider.request({
+        method: "hardhat_impersonateAccount",
+        params: [WHALE],
+      });
+
+      const WHALE_SIGNER = await hre.ethers.getSigner(WHALE);
+      const POOL_TOKEN_CONTRACT = await hre.ethers.getContractAt("IERC20", pool.tokens[0], WHALE_SIGNER);
+
+      // fund the whale's wallet with gas
+      await this.signers.admin.sendTransaction({
+        to: WHALE,
+        value: hre.ethers.utils.parseEther("1000"),
+        ...getOverrideOptions(),
+      });
+
+      // fund TestDeFiAdapter with 1000 tokens each
+      await POOL_TOKEN_CONTRACT.transfer(
+        this.testDeFiAdapter.address,
+        hre.ethers.utils.parseEther("1000"),
+        getOverrideOptions(),
+      );
+    }
   });
 
   describe("ConvexFinanceAdapter", function () {

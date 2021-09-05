@@ -9,36 +9,6 @@ import { getOverrideOptions } from "../utils";
 chai.use(solidity);
 
 export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolItem): void {
-  beforeEach(async function () {
-    if (!pool.whale) {
-      throw new Error(`Whale is missing for ${pool.pool}`);
-    }
-
-    const WHALE: string = getAddress(String(pool.whale));
-
-    await hre.network.provider.request({
-      method: "hardhat_impersonateAccount",
-      params: [WHALE],
-    });
-
-    const WHALE_SIGNER = await hre.ethers.getSigner(WHALE);
-    const POOL_TOKEN_CONTRACT = await hre.ethers.getContractAt("IERC20", pool.tokens[0], WHALE_SIGNER);
-
-    // fund the whale's wallet with gas
-    await this.signers.admin.sendTransaction({
-      to: WHALE,
-      value: hre.ethers.utils.parseEther("100"),
-      ...getOverrideOptions(),
-    });
-
-    // fund TestDeFiAdapter with 10000 tokens each
-    await POOL_TOKEN_CONTRACT.transfer(
-      this.testDeFiAdapter.address,
-      hre.ethers.utils.parseEther("10000"),
-      getOverrideOptions(),
-    );
-  });
-
   it(`should deposit ${token}Crv, stake cvx${token}3Crv, claim CRV, unstake cvx${token}3Crv, and withdraw ${token}Crv in ${token} pool of Convex Finance`, async function () {
     // lpToken instance
     const lpTokenInstance = await hre.ethers.getContractAt("IERC20Detailed", pool.lpToken);
@@ -157,13 +127,11 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
       pool.pool,
     );
     // get amount in underlying token if reward token is swapped
-    const rewardInTokenAfterStake = (
-      await this.uniswapV2Router02.getAmountsOut(expectedUnclaimedRewardAfterStake, [
-        expectedRewardToken,
-        await this.uniswapV2Router02.WETH(),
-        underlyingToken,
-      ])
-    )[2];
+    const rewardInTokenAfterStake = await this.convexFinanceAdapter.getRewardBalanceInUnderlyingTokens(
+      expectedRewardToken,
+      pool.pool,
+      expectedUnclaimedRewardAfterStake,
+    );
     // calculate amount in token for staked lpToken
     const expectedAmountInTokenFromStakedLPTokenAfterStake = expectedStakedLPTokenBalanceAfterStake;
     // calculate total amount token when lpToken is redeemed plus reward token is harvested
