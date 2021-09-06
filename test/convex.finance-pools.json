@@ -1,4 +1,12 @@
 {
+  "compound": {
+    "pool": "0x32512Bee3848bfcBb7bEAf647aa697a100f3b706",
+    "stakingPool": "0xf34DFF761145FF0B05e917811d488B441F33a968",
+    "lpToken": "0x32512Bee3848bfcBb7bEAf647aa697a100f3b706",
+    "tokens": ["0x845838DF265Dcd2c412A1Dc9e959c7d08537f8a2"],
+    "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
+    "whale": "0x12c2febc4f4b34320b4af07ce03b926eb31944d1"
+  },
   "3pool": {
     "pool": "0x30D9410ED1D5DA1F6C8391af5338C93ab8d4035C",
     "stakingPool": "0x689440f2Ff927E1f24c72F1087E1FAF471eCe1c8",
