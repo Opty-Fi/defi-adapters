@@ -88,6 +88,7 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
       actualLPTokenBalanceAfterDeposit,
     );
     expect(actualPoolValueAfterDeposit).to.be.eq(expectedPoolValueAfterDeposit);
+    expect(expectedPoolValueAfterDeposit).to.be.gt(actualPoolValueBeforeDeposit);
     // 2. stake all lpTokens
     await this.testDeFiAdapter.testGetStakeAllCodes(
       pool.pool,

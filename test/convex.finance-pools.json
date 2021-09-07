@@ -14,5 +14,13 @@
     "tokens": ["0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
     "whale": "0x76af586d041d6988cdba95347e2f857872524fea"
+  },
+  "busd": {
+    "pool": "0x59bB786F222d3f0f00B0dA31B799Fff80D552940",
+    "stakingPool": "0x602c4cD53a715D8a7cf648540FAb0d3a2d546560",
+    "lpToken": "0x59bB786F222d3f0f00B0dA31B799Fff80D552940",
+    "tokens": ["0x3B3Ac5386837Dc563660FB6a0937DFAa5924333B"],
+    "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
+    "whale": "0xbab89cbe597876364b3bc270b1793c0e2e2aa995"
   }
 }

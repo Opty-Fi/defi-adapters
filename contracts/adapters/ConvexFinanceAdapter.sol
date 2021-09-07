@@ -52,8 +52,6 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     address public constant curveRegistry = address(0x7D86446dDb609eD0F5f8684AcF30380a356b2B4c);
     address public constant curvePoolInfo = address(0xe64608E223433E8a03a1DaaeFD8Cb638C14B552C);
 
-    address public constant CVX_TOKEN = address(0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B);
-
     // deposit pool
     address public constant BOOSTER_DEPOSIT_POOL = address(0xF403C135812408BFbE8713b5A23a04b3D48AAE31);
 
@@ -478,6 +476,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     {
         address _stakingVault = _getPoolInfo(_liquidityPool).crvRewards;
         _codes = new bytes[](1);
+        // Claims both the CRV and CVX reward tokens
         // https://github.com/convex-eth/platform/blob/main/contracts/contracts/BaseRewardPool.sol#L281
         _codes[0] = abi.encode(_stakingVault, abi.encodeWithSignature("getReward()"));
     }
@@ -491,8 +490,6 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address _liquidityPool
     ) public view override returns (bytes[] memory _codes) {
         uint256 _rewardTokenAmount = IERC20(getRewardToken(_liquidityPool)).balanceOf(_vault);
-        // TODO: harvest CVX tokens
-        // uint256 _cvxTokenAmount = IERC20(CVX_TOKEN).balanceOf(_vault);
         return getHarvestSomeCodes(_vault, _underlyingToken, _liquidityPool, _rewardTokenAmount);
     }
 
@@ -616,7 +613,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      */
     function getPoolValue(address _liquidityPool, address) public view override returns (uint256) {
         IConvexDeposit.PoolInfo memory poolInfo = _getPoolInfo(_liquidityPool);
-        return IERC20(poolInfo.lptoken).balanceOf(poolInfo.gauge); // return value in underlying token?
+        return IERC20(poolInfo.lptoken).balanceOf(poolInfo.gauge);
     }
 
     /**
@@ -807,6 +804,13 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         return _rewardTokenBalance;
     }
 
+    /**
+     * @dev Get the coin reference amount equivalent to reward token amount
+     * @param _rewardToken Reward token address
+     * @param _liquidityPool Liquidity pool's contract address
+     * @param _amount reward token balance amount
+     * @return equivalent reward token balance in coin reference value
+     */
     function _getCoinRefAmount(
         address _rewardToken,
         address _liquidityPool,
@@ -820,6 +824,12 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         return _coinRefAmounts[_coinRefAmounts.length - 1];
     }
 
+    /**
+     * @dev Estimate the amount of tokens minted on a deposit
+     * @param _liquidityPool Liquidity pool's contract address
+     * @param _coinRefAmount Coin reference amount to deposit
+     * @return Returns the expected amount of tokens minted
+     */
     function _calcCoinRefDepositAmount(address _liquidityPool, uint256 _coinRefAmount) internal view returns (uint256) {
         PoolData memory _poolData = lpTokenToPoolData[_liquidityPool];
         address depositAddress = _poolData.swap;
@@ -835,8 +845,6 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
             uint256[4] memory _amounts;
             _amounts[0] = _coinRefAmount;
             return ICurveStableSwap4(depositAddress).calc_token_amount(_amounts, true);
-        } else {
-            revert("Unexpected coins amount.");
         }
     }
 
@@ -881,6 +889,12 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         }
     }
 
+    /**
+     * @dev Get the codes for adding liquidity
+     * @param _liquidityPool Liquidity pool's contract address
+     * @param _coinRefAmount Coin reference amount to add as liquidity
+     * @return _codes List of codes for adding liquidity
+     */
     function _getAddLiquidityCodes(address _liquidityPool, uint256 _coinRefAmount)
         internal
         view
@@ -915,12 +929,15 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
                     depositAddress,
                     abi.encodeWithSignature("add_liquidity(uint256[4],uint256)", _amounts, uint256(0))
                 );
-            } else {
-                revert("Unexpected coins amount.");
             }
         }
     }
 
+    /**
+     * @dev Get the address of the deposit contract
+     * @param _poolData The pool data
+     * @return Returns the pool information
+     */
     function _getDepositAddress(PoolData memory _poolData) internal pure returns (address) {
         if (_poolData.zap == address(0)) {
             return _poolData.swap;
