@@ -46,7 +46,7 @@ const config: HardhatUserConfig = {
         count: 20,
         mnemonic,
         path: "m/44'/60'/0'/0",
-        accountsBalance: "10000000000000000000000",
+        accountsBalance: "100000000000000000000000",
       },
       forking: {
         url: archiveMainnetNodeURL,

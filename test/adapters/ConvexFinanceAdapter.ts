@@ -12,6 +12,42 @@ import { shouldBehaveLikeConvexFinanceAdapter } from "./ConvexFinanceAdapter.beh
 
 const { deployContract } = hre.waffle;
 
+const skiplist: string[] = [
+  "seth", // eth
+  "steth", // eth + extras
+  "ankreth", // eth + extras
+  "reth", // eth + extras
+  "sbtc", // no whale
+  "hbtc", // no whale
+  "pbtc", // no whale + extras
+  "bbtc", // no whale
+  "obtc", // no whale + extras
+  "susd", // extras
+  "rsv", // extras
+  "dusd", // extras
+  "aave", // extras
+  "saave", // extras
+  "frax", // extras
+  "lusd", // extras
+  "alusd", // extras
+  "ren", // other
+  "gusd", // other
+  "husd", // other
+  "usdk", // other
+  "usdn", // other
+  "musd", // other
+  "tbtc", // other
+  "ust", // other
+  "eurs", // other
+  "usdp", // other
+  "ironbank", // other
+  "eurt", // other
+];
+
+const shouldSkip = (name: string): boolean => {
+  return skiplist.indexOf(name) !== -1;
+};
+
 describe("Unit tests", function () {
   before(async function () {
     this.signers = {} as Signers;
@@ -38,7 +74,10 @@ describe("Unit tests", function () {
       await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
     );
 
-    for (const pool of Object.values(ConvexFinancePools)) {
+    for (const [name, pool] of Object.entries(ConvexFinancePools)) {
+      if (shouldSkip(name)) {
+        continue;
+      }
       if (!pool.whale) {
         throw new Error(`Whale is missing for ${pool.pool}`);
       }
@@ -60,18 +99,20 @@ describe("Unit tests", function () {
         ...getOverrideOptions(),
       });
 
-      // fund TestDeFiAdapter with 1000 tokens each
+      // fund TestDeFiAdapter with 10 tokens each
       await POOL_TOKEN_CONTRACT.transfer(
         this.testDeFiAdapter.address,
-        hre.ethers.utils.parseEther("1000"),
+        hre.ethers.utils.parseEther("10"),
         getOverrideOptions(),
       );
     }
   });
 
   describe("ConvexFinanceAdapter", function () {
-    Object.keys(ConvexFinancePools).map(async (token: string) => {
-      shouldBehaveLikeConvexFinanceAdapter(token, (ConvexFinancePools as LiquidityPool)[token]);
+    Object.keys(ConvexFinancePools).map(async (name: string) => {
+      if (!shouldSkip(name)) {
+        shouldBehaveLikeConvexFinanceAdapter(name, (ConvexFinancePools as LiquidityPool)[name]);
+      }
     });
   });
 });

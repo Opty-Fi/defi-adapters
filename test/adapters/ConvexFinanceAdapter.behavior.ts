@@ -171,6 +171,7 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     );
     const expectedRewardTokenBalanceAfterClaim = await convexRewardInstance.balanceOf(this.testDeFiAdapter.address);
     expect(actualRewardTokenBalanceAfterClaim).to.be.eq(expectedRewardTokenBalanceAfterClaim);
+    expect(actualRewardTokenBalanceAfterClaim).to.be.gt(0);
     // 4. Swap the reward token into underlying token
     await this.testDeFiAdapter.testGetHarvestAllCodes(
       pool.pool,
@@ -179,7 +180,7 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
       getOverrideOptions(),
     );
     // 4.1 assert whether the reward token is swapped to underlying token or not
-    expect(await this.testDeFiAdapter.getERC20TokenBalance(underlyingToken, this.testDeFiAdapter.address)).to.be.gt(0);
+    expect(await underlyingTokenInstance.balanceOf(this.testDeFiAdapter.address)).to.be.gt(0);
     // 5. Unstake all staked lpTokens
     await this.testDeFiAdapter.testGetUnstakeAllCodes(
       pool.pool,

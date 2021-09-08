@@ -954,9 +954,11 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     function _getPath(address _initialToken, address _finalToken) internal pure returns (address[] memory _path) {
         require(_initialToken != address(0), "_initialToken");
         require(_finalToken != address(0), "_finalToken");
-        _path = new address[](2);
+        address _weth = IUniswapV2Router02(uniswapV2Router02).WETH();
+        _path = new address[](3);
         _path[0] = _initialToken;
-        _path[1] = _finalToken;
+        _path[1] = _weth;
+        _path[2] = _finalToken;
     }
 
     /**
