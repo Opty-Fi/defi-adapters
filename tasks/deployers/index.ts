@@ -1,1 +1,2 @@
+import "./convexFinanceAdapter";
 import "./harvestFinanceAdapter";
