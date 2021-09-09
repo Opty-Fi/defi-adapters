@@ -744,11 +744,11 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
                 _coinIndex++;
             }
             if (_coinData.underlying_coins[i] != address(0)) {
-                _underlyingCoins[_underlyingCoinIndex] = _coinData.underlying_coins[i];
-                _underlyingCoinIndex++;
-                if (_coinRefIndex == 0) {
+                if (_underlyingCoinIndex == 0) {
                     _coinRefIndex = i;
                 }
+                _underlyingCoins[_underlyingCoinIndex] = _coinData.underlying_coins[i];
+                _underlyingCoinIndex++;
             }
         }
         swapToPoolCoinData[_swap] = PoolCoinData({
@@ -808,18 +808,17 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      */
     function _calcCoinRefDepositAmount(address _swap, uint256 _coinRefAmount) internal view returns (uint256) {
         PoolCoinData memory _poolCoinData = swapToPoolCoinData[_swap];
-        uint256 _coinRefIndex = _getCoinRefIndex(_swap);
         if (_poolCoinData.coins.length == 2) {
             uint256[2] memory _amounts;
-            _amounts[_coinRefIndex] = _coinRefAmount;
+            _amounts[_poolCoinData.coinRefIndex] = _coinRefAmount;
             return ICurveStableSwap2(_swap).calc_token_amount(_amounts, true);
         } else if (_poolCoinData.coins.length == 3) {
             uint256[3] memory _amounts;
-            _amounts[_coinRefIndex] = _coinRefAmount;
+            _amounts[_poolCoinData.coinRefIndex] = _coinRefAmount;
             return ICurveStableSwap3(_swap).calc_token_amount(_amounts, true);
         } else if (_poolCoinData.coins.length == 4) {
             uint256[4] memory _amounts;
-            _amounts[_coinRefIndex] = _coinRefAmount;
+            _amounts[_poolCoinData.coinRefIndex] = _coinRefAmount;
             return ICurveStableSwap4(_swap).calc_token_amount(_amounts, true);
         }
     }
@@ -881,70 +880,41 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
             _codes = new bytes[](2);
             PoolData memory _poolData = lpTokenToPoolData[_liquidityPool];
             PoolCoinData memory _poolCoinData = swapToPoolCoinData[_poolData.swap];
-            uint256 _coinsAmount = _poolCoinData.coins.length;
-            uint256 _coinRefIndex = _getCoinRefIndex(_poolData.swap);
-            address _depositAddress = _getDepositAddress(_poolData);
+            // By default use zap address as deposit address and amount of underlying coins
+            address _depositAddress = _poolData.zap;
+            uint256 _coinsAmount = _poolCoinData.underlyingCoins.length;
+            if (_depositAddress == address(0)) {
+                // If zap address is empty -> use swap address and amount of coins
+                _depositAddress = _poolData.swap;
+                _coinsAmount = _poolCoinData.coins.length;
+            }
             _codes[0] = abi.encode(
                 _poolCoinData.coinRef,
                 abi.encodeWithSignature("approve(address,uint256)", _depositAddress, _coinRefAmount)
             );
             if (_coinsAmount == 2) {
                 uint256[2] memory _amounts;
-                _amounts[_coinRefIndex] = _coinRefAmount;
+                _amounts[_poolCoinData.coinRefIndex] = _coinRefAmount;
                 _codes[1] = abi.encode(
                     _depositAddress,
                     abi.encodeWithSignature("add_liquidity(uint256[2],uint256)", _amounts, uint256(0))
                 );
             } else if (_coinsAmount == 3) {
                 uint256[3] memory _amounts;
-                _amounts[_coinRefIndex] = _coinRefAmount;
+                _amounts[_poolCoinData.coinRefIndex] = _coinRefAmount;
                 _codes[1] = abi.encode(
                     _depositAddress,
                     abi.encodeWithSignature("add_liquidity(uint256[3],uint256)", _amounts, uint256(0))
                 );
             } else if (_coinsAmount == 4) {
                 uint256[4] memory _amounts;
-                _amounts[_coinRefIndex] = _coinRefAmount;
+                _amounts[_poolCoinData.coinRefIndex] = _coinRefAmount;
                 _codes[1] = abi.encode(
                     _depositAddress,
                     abi.encodeWithSignature("add_liquidity(uint256[4],uint256)", _amounts, uint256(0))
                 );
             }
         }
-    }
-
-    /**
-     * @dev Get the index of the reference coin (consider storing this value as well)
-     * @param _swap The swap address
-     * @return Returns the index of the reference coin
-     */
-    function _getCoinRefIndex(address _swap) internal view returns (uint256) {
-        PoolCoinData memory _poolCoinData = swapToPoolCoinData[_swap];
-        for (uint256 i = 0; i < _poolCoinData.coins.length; i++) {
-            try ICurveStableSwap(_swap).coins(i) returns (address _current) {
-                if (_current == _poolCoinData.coinRef) {
-                    return i;
-                }
-            } catch (bytes memory) {
-                (, bytes memory _result) = _swap.staticcall(abi.encodeWithSignature("coins(int128)", int128(i)));
-                address _current = abi.decode(_result, (address));
-                if (_current == _poolCoinData.coinRef) {
-                    return i;
-                }
-            }
-        }
-    }
-
-    /**
-     * @dev Get the address of the deposit contract
-     * @param _poolData The pool data
-     * @return Returns the pool information
-     */
-    function _getDepositAddress(PoolData memory _poolData) internal pure returns (address) {
-        if (_poolData.zap == address(0)) {
-            return _poolData.swap;
-        }
-        return _poolData.zap;
     }
 
     /**

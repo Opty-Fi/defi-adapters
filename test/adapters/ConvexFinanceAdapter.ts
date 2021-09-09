@@ -22,23 +22,15 @@ const skiplist: string[] = [
   "pbtc", // no whale + extras
   "bbtc", // no whale
   "obtc", // no whale + extras
-  "rsv", // extras
-  "dusd", // extras
   "aave", // extras
   "saave", // extras
   "alusd", // extras
   "gusd", // other
-  "husd", // other
   "usdk", // other
-  "usdn", // other
-  "musd", // other
-  "tbtc", // other
-  "ust", // other
   "eurs", // other
-  "usdp", // other
   "ironbank", // other
   "eurt", // other
-  "mim",
+  "mim", // no coins
 ];
 
 const shouldSkip = (name: string): boolean => {
