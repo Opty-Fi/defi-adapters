@@ -11,6 +11,13 @@ interface ICurveStableSwap {
     function calc_token_amount(uint256[] memory _amounts, bool _is_deposit) external view returns (uint256);
 
     /**
+     * @notice Getter for the array of swappable coins within the pool.
+     * The last coin will always be the LP token of the base pool.
+     * @dev https://curve.readthedocs.io/factory-pools.html?highlight=calc_token_amount#StableSwap.coins
+     */
+    function coins(uint256 _index) external view returns (address);
+
+    /**
      * @notice Deposits coins into to the pool and mints new LP tokens.
      * @dev https://curve.readthedocs.io/factory-pools.html?highlight=calc_token_amount#StableSwap.add_liquidity
      */

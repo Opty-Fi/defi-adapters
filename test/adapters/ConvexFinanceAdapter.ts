@@ -22,15 +22,11 @@ const skiplist: string[] = [
   "pbtc", // no whale + extras
   "bbtc", // no whale
   "obtc", // no whale + extras
-  "susd", // extras
   "rsv", // extras
   "dusd", // extras
   "aave", // extras
   "saave", // extras
-  "frax", // extras
-  "lusd", // extras
   "alusd", // extras
-  "ren", // other
   "gusd", // other
   "husd", // other
   "usdk", // other

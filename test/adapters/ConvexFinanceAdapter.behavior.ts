@@ -84,11 +84,7 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     expect(actualCanStakeAfterDeposit).to.be.true;
     // 1.8 assert whether the pool value is as expected or not after deposit
     const actualPoolValueAfterDeposit = await this.convexFinanceAdapter.getPoolValue(pool.pool, underlyingToken);
-    const expectedPoolValueAfterDeposit = BigNumber.from(actualPoolValueBeforeDeposit).add(
-      actualLPTokenBalanceAfterDeposit,
-    );
-    expect(actualPoolValueAfterDeposit).to.be.eq(expectedPoolValueAfterDeposit);
-    expect(expectedPoolValueAfterDeposit).to.be.gt(actualPoolValueBeforeDeposit);
+    expect(actualPoolValueAfterDeposit).to.be.gt(actualPoolValueBeforeDeposit);
     // 2. stake all lpTokens
     await this.testDeFiAdapter.testGetStakeAllCodes(
       pool.pool,
