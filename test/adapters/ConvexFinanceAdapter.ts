@@ -38,6 +38,7 @@ const skiplist: string[] = [
   "usdp", // other
   "ironbank", // other
   "eurt", // other
+  "mim",
 ];
 
 const shouldSkip = (name: string): boolean => {
@@ -74,6 +75,10 @@ describe("Unit tests", function () {
       if (shouldSkip(name)) {
         continue;
       }
+
+      console.log(name);
+      await this.convexFinanceAdapter.setPoolCoinData(pool.pool);
+
       if (!pool.whale) {
         throw new Error(`Whale is missing for ${pool.pool}`);
       }
