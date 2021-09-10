@@ -117,6 +117,7 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     );
     const expectedUnclaimedRewardAfterStake = await convexStakingInstance.earned(this.testDeFiAdapter.address);
     expect(actualUnclaimedRewardAfterStake).to.be.eq(expectedUnclaimedRewardAfterStake);
+    expect(actualUnclaimedRewardAfterStake).to.be.gt(0);
     // 2.5 assert whether the amount in token is as expected or not after staking
     const actualAmountInTokenAfterStake = await this.convexFinanceAdapter.getAllAmountInTokenStake(
       this.testDeFiAdapter.address,
@@ -125,9 +126,9 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     );
     // get amount in underlying token if reward token is swapped
     const rewardInTokenAfterStake = await this.convexFinanceAdapter.getRewardBalanceInUnderlyingTokens(
-      expectedRewardToken,
+      actualRewardToken,
       pool.pool,
-      expectedUnclaimedRewardAfterStake,
+      actualUnclaimedRewardAfterStake,
     );
     // calculate amount in token for staked lpToken
     const expectedAmountInTokenFromStakedLPTokenAfterStake = expectedStakedLPTokenBalanceAfterStake;
@@ -151,7 +152,7 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
         this.testDeFiAdapter.address,
         underlyingToken,
         pool.pool,
-        expectedStakedLPTokenBalanceAfterStake,
+        actualRedeemableLPTokenAmountAfterStake,
       );
     expect(actualIsRedeemableAmountSufficientAfterStake).to.be.true;
     // 3. claim the reward token
@@ -168,6 +169,12 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     const expectedRewardTokenBalanceAfterClaim = await convexRewardInstance.balanceOf(this.testDeFiAdapter.address);
     expect(actualRewardTokenBalanceAfterClaim).to.be.eq(expectedRewardTokenBalanceAfterClaim);
     expect(actualRewardTokenBalanceAfterClaim).to.be.gt(0);
+    const actualSwapTokenAmounts = await this.convexFinanceAdapter.getSwapTokenAmounts(
+      actualRewardToken,
+      pool.pool,
+      actualUnclaimedRewardAfterStake,
+    );
+    expect(actualSwapTokenAmounts[actualSwapTokenAmounts.length - 1].toNumber()).to.be.gt(0);
     // 4. Swap the reward token into underlying token
     await this.testDeFiAdapter.testGetHarvestAllCodes(
       pool.pool,

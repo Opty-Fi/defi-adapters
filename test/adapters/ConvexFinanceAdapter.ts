@@ -25,8 +25,9 @@ const skiplist: string[] = [
   "aave", // extras
   "saave", // extras
   "alusd", // extras
-  "gusd", // other
-  "usdk", // other
+  "ypool", // DepositZap.calc_token_amount missing + swap not possible
+  "busd", // DepositZap.calc_token_amount missing + swap not possible
+  "pax", // DepositZap.calc_token_amount missing + swap not possible
   "eurs", // other
   "ironbank", // other
   "eurt", // other
