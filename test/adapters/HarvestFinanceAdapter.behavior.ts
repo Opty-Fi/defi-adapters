@@ -185,5 +185,5 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
       this.testDeFiAdapter.address,
     );
     expect(actualUnderlyingTokenBalanceAfterWithdraw).to.be.eq(expectedUnderlyingTokenBalanceAfterWithdraw);
-  });
+  }).timeout(100000);
 }
