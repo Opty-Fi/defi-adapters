@@ -17,8 +17,8 @@ jobs:
         node-version: [12.x.x]
     
     env:
-      MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
-      MY_METAMASK_MNEMONIC: ${{ secrets.MNEMONIC}}
+      ARCHIVE_MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
+      MNEMONIC: ${{ secrets.MNEMONIC}}
 
     steps:
       - name: Checkout Use Node.js ${{ matrix.node-version}}
@@ -43,8 +43,8 @@ jobs:
         node-version: [12.x.x]
     
     env:
-      MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
-      MY_METAMASK_MNEMONIC: ${{ secrets.MNEMONIC}}
+      ARCHIVE_MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
+      MNEMONIC: ${{ secrets.MNEMONIC}}
 
     steps:
       - name: Checkout Use Node.js ${{ matrix.node-version}}
@@ -69,8 +69,8 @@ jobs:
         node-version: [12.x.x]
     
     env:
-      MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
-      MY_METAMASK_MNEMONIC: ${{ secrets.MNEMONIC}}
+      ARCHIVE_MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
+      MNEMONIC: ${{ secrets.MNEMONIC}}
 
     steps:
       - name: Checkout Use Node.js ${{ matrix.node-version}}
