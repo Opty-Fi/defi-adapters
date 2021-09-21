@@ -5,7 +5,6 @@ pragma experimental ABIEncoderV2;
 
 import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import { IAdapterFull } from "../interfaces/opty/defiAdapters/IAdapterFull.sol";
-import { IHarvestDeposit } from "../interfaces/harvest.finance/IHarvestDeposit.sol";
 import { MultiCall } from "../utils/MultiCall.sol";
 
 ///////////////////////////////////////
