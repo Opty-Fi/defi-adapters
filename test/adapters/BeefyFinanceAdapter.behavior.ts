@@ -30,7 +30,6 @@ export function shouldBehaveLikeBeefyFinanceAdapter(token: string, pool: PoolIte
     );
     const expectedLPTokenBalanceAfterDeposit = await beefyDepositInstance.balanceOf(this.testDeFiAdapter.address);
     expect(actualLPTokenBalanceAfterDeposit).to.be.eq(expectedLPTokenBalanceAfterDeposit);
-    console.log("deposit done");
     // 1.2 assert whether underlying token balance is as expected or not after deposit
     const actualUnderlyingTokenBalanceAfterDeposit = await this.testDeFiAdapter.getERC20TokenBalance(
       (
@@ -42,7 +41,6 @@ export function shouldBehaveLikeBeefyFinanceAdapter(token: string, pool: PoolIte
       this.testDeFiAdapter.address,
     );
     expect(actualUnderlyingTokenBalanceAfterDeposit).to.be.eq(expectedUnderlyingTokenBalanceAfterDeposit);
-    console.log("deposit balances as expected");
     // 1.3 assert whether the amount in token is as expected or not after depositing
     const actualAmountInTokenAfterDeposit = await this.beefyFinanceAdapter.getAllAmountInToken(
       this.testDeFiAdapter.address,

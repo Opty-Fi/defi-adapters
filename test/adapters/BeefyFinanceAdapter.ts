@@ -37,7 +37,6 @@ describe("Unit tests", function () {
     );
 
     for (const pool of Object.values(BeefyFinanceLiquidityPools)) {
-      console.log(pool);
       const LP_TOKEN_CONTRACT = await hre.ethers.getContractAt("IUniswapV2Pair", pool.wantToken);
       let hostRouterAddress, swapRouterAddress;
       switch (pool.platform) {
