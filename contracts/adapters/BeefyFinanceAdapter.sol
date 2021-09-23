@@ -41,7 +41,7 @@ contract BeefyFinanceAdapter is
     /**
      * @notice Uniswap V2 router contract address
      */
-    address public constant quickswapV2Router02 = address(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff); //Quickswap Router on Polygon
+    address public constant quickswapV2Router02 = address(0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607); //Apeswap Router on Polygon
     // One can deposit LP tokens into these pools on Beefy
     address public constant DAI_DEPOSIT_POOL = address(0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018);
     address public constant USDC_DEPOSIT_POOL = address(0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F);

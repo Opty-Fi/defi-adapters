@@ -1,0 +1,8 @@
+{
+  "ironswap-ice-eth": {
+    "wantToken": "0xf1EE78544a1118F2efb87f7EaCd9f1E6e80e1ea5",
+    "beefyVault": "0x90D0F2050e62a6d4AF088dD09d802D9A18253c40",
+    "tokens": ["0x90D0F2050e62a6d4AF088dD09d802D9A18253c40"],
+    "platform": "FireBird"
+  }
+}

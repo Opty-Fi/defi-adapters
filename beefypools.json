@@ -1,0 +1,1149 @@
+{
+  "polygon-bifi-maxi": {
+    "id": "polygon-bifi-maxi",
+    "tokenAddress": "0xFbdd194376de19a88118e84E279b977f165d01b8",
+    "earnedTokenAddress": "0xfEcf784F48125ccb7d8855cdda7C5ED6b5024Cb3",
+    "earnContractAddress": "0xfEcf784F48125ccb7d8855cdda7C5ED6b5024Cb3",
+    "tokenDescription": "Beefy.Finance"
+  },
+  "curve-poly-atricrypto3": {
+    "id": "curve-poly-atricrypto3",
+    "tokenAddress": "0xdAD97F7713Ae9437fa9249920eC8507e5FbB23d3",
+    "earnedTokenAddress": "0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f",
+    "earnContractAddress": "0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f",
+    "tokenDescription": "Curve"
+  },
+  "curve-am3crv": {
+    "id": "curve-am3crv",
+    "tokenAddress": "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171",
+    "earnedTokenAddress": "0xAA7C2879DaF8034722A0977f13c343aF0883E92e",
+    "earnContractAddress": "0xAA7C2879DaF8034722A0977f13c343aF0883E92e",
+    "tokenDescription": "Curve"
+  },
+  "polyalpha-alpha-matic": {
+    "id": "polyalpha-alpha-matic",
+    "tokenAddress": "0x79b368B3Aa34fF2044F7869024b5367A284D3b0E",
+    "earnedTokenAddress": "0xa1E625D1e3b44468EB2a35d39d95f724c70ecd41",
+    "earnContractAddress": "0xa1E625D1e3b44468EB2a35d39d95f724c70ecd41",
+    "tokenDescription": "QuickSwap (PolyAlpha)"
+  },
+  "polyalpha-alpha-usdc": {
+    "id": "polyalpha-alpha-usdc",
+    "tokenAddress": "0x944a8B12D898E878F92cfC18eee5E6f3f7e2E70d",
+    "earnedTokenAddress": "0xF274B7aDddC8DA615a8bACf6434816cD58B5b05D",
+    "earnContractAddress": "0xF274B7aDddC8DA615a8bACf6434816cD58B5b05D",
+    "tokenDescription": "QuickSwap (JetSwap)"
+  },
+  "sandman-delirium-matic": {
+    "id": "sandman-delirium-matic",
+    "tokenAddress": "0x6E01a7E55987Bc195b54FBbdaAf40e57544b23C3",
+    "earnedTokenAddress": "0x5675d63494EDDa594727033864F1bca375736191",
+    "earnContractAddress": "0x5675d63494EDDa594727033864F1bca375736191",
+    "tokenDescription": "QuickSwap (Sandman)"
+  },
+  "sandman-delirium-usdc": {
+    "id": "sandman-delirium-usdc",
+    "tokenAddress": "0x2F051dB1634eEa2081590860ab8E756D452f2239",
+    "earnedTokenAddress": "0xF082954596D3deB61D80dF135663C0fbDe4F7C37",
+    "earnContractAddress": "0xF082954596D3deB61D80dF135663C0fbDe4F7C37",
+    "tokenDescription": "QuickSwap (Sandman)"
+  },
+  "quick-usdc-rbnb": {
+    "id": "quick-usdc-rbnb",
+    "tokenAddress": "0x40A5Df3E37152d4DaF279e0450289Af76472b02e",
+    "earnedTokenAddress": "0xCd414F00d9E4e76f75F5de77DB376cb4ECe2b17f",
+    "earnContractAddress": "0xCd414F00d9E4e76f75F5de77DB376cb4ECe2b17f",
+    "tokenDescription": "QuickSwap"
+  },
+  "mai-qi-matic": {
+    "id": "mai-qi-matic",
+    "tokenAddress": "0x9A8b2601760814019B7E6eE0052E25f1C623D1E6",
+    "earnedTokenAddress": "0x944A5C12cD4399ABC6883fF1ba40A14c23B2Fd37",
+    "earnContractAddress": "0x944A5C12cD4399ABC6883fF1ba40A14c23B2Fd37",
+    "tokenDescription": "QuickSwap (Mai)"
+  },
+  "quick-qi-eth": {
+    "id": "quick-qi-eth",
+    "tokenAddress": "0x8C1b40Ea78081B70F661C3286c74E71b4602C9C0",
+    "earnedTokenAddress": "0x8c864B1FD2BbB20F614661ddD992eFaeEeF0b2Ac",
+    "earnContractAddress": "0x8c864B1FD2BbB20F614661ddD992eFaeEeF0b2Ac",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-mai-usdt": {
+    "id": "quick-mai-usdt",
+    "tokenAddress": "0xE89faE1B4AdA2c869f05a0C96C87022DaDC7709a",
+    "earnedTokenAddress": "0xe5844a9Af7748492dAba745506bfB2b91f19be62",
+    "earnContractAddress": "0xe5844a9Af7748492dAba745506bfB2b91f19be62",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-dai-mai": {
+    "id": "quick-dai-mai",
+    "tokenAddress": "0x74214F5d8AA71b8dc921D8A963a1Ba3605050781",
+    "earnedTokenAddress": "0x64fbCDfd1335AfdC8f81383919483c593399c738",
+    "earnContractAddress": "0x64fbCDfd1335AfdC8f81383919483c593399c738",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-mai-matic": {
+    "id": "quick-mai-matic",
+    "tokenAddress": "0x7805B64e2d99412d3b8F10Dfe8fc55217C5cc954",
+    "earnedTokenAddress": "0xD6eB31D849eE79B5F5fA1b7c470cDDFa515965cD",
+    "earnContractAddress": "0xD6eB31D849eE79B5F5fA1b7c470cDDFa515965cD",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-usdt-matic": {
+    "id": "quick-usdt-matic",
+    "tokenAddress": "0x604229c960e5CACF2aaEAc8Be68Ac07BA9dF81c3",
+    "earnedTokenAddress": "0x7c0E28652523e36f0dF89C5A895cF59D493cb04c",
+    "earnContractAddress": "0x7c0E28652523e36f0dF89C5A895cF59D493cb04c",
+    "tokenDescription": "Quickswap"
+  },
+  "wexpoly-usdc-wusd": {
+    "id": "wexpoly-usdc-wusd",
+    "tokenAddress": "0x7B93196CD4861f345509c2da31058CA4B1c30D63",
+    "earnedTokenAddress": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
+    "earnContractAddress": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
+    "tokenDescription": "WaultFinance"
+  },
+  "quick-quick": {
+    "id": "quick-quick",
+    "tokenAddress": "0x831753DD7087CaC61aB5644b308642cc1c33Dc13",
+    "earnedTokenAddress": "0x659418cc3cf755F5367a51aDb586a7F770Da6d29",
+    "earnContractAddress": "0x659418cc3cf755F5367a51aDb586a7F770Da6d29",
+    "tokenDescription": "QuickSwap (DragonLair)"
+  },
+  "ape-watch-matic": {
+    "id": "ape-watch-matic",
+    "tokenAddress": "0xf67DE5Cf1fB01DC4df842a846Df2a7Ec07c41b93",
+    "earnedTokenAddress": "0xb2A56dFdbC890c102Dcd5e30afcfB43cD3343762",
+    "earnContractAddress": "0xb2A56dFdbC890c102Dcd5e30afcfB43cD3343762",
+    "tokenDescription": "ApeSwap"
+  },
+  "wexpoly-usdc-wex": {
+    "id": "wexpoly-usdc-wex",
+    "tokenAddress": "0x5DE6a3CcA10d3F788EEdbD4923e31D4658bf6f9a",
+    "earnedTokenAddress": "0xc58475e5385b056D29ab455F40634450a613e789",
+    "earnContractAddress": "0xc58475e5385b056D29ab455F40634450a613e789",
+    "tokenDescription": "WaultFinance"
+  },
+  "sushi-axs-eth": {
+    "id": "sushi-axs-eth",
+    "tokenAddress": "0x7BA331A8b360F4c31E6014aBdd6852F92Fb21557",
+    "earnedTokenAddress": "0x3404361876897A92579DcEBd9eDC94A1662dC4aF",
+    "earnContractAddress": "0x3404361876897A92579DcEBd9eDC94A1662dC4aF",
+    "tokenDescription": "SushiSwap"
+  },
+  "ironswap-ice-iron": {
+    "id": "ironswap-ice-iron",
+    "tokenAddress": "0x7e2cc09d3d36b3aF6EdfF55B214fd62885234E95",
+    "earnedTokenAddress": "0xBD8B03a3fF5F63093000Df6De33B0A6C9E5bb501",
+    "earnContractAddress": "0xBD8B03a3fF5F63093000Df6De33B0A6C9E5bb501",
+    "tokenDescription": "IronSwap (DFYN)"
+  },
+  "ape-usdc-dai": {
+    "id": "ape-usdc-dai",
+    "tokenAddress": "0x5b13B583D4317aB15186Ed660A1E4C65C10da659",
+    "earnedTokenAddress": "0x8440DAe4E1002e83D57fbFD6d33E6F3684a35036",
+    "earnContractAddress": "0x8440DAe4E1002e83D57fbFD6d33E6F3684a35036",
+    "tokenDescription": "ApeSwap"
+  },
+  "sushi-avax-weth": {
+    "id": "sushi-avax-weth",
+    "tokenAddress": "0x1274De0DE2e9D9b1d0E06313c0E5EdD01CC335eF",
+    "earnedTokenAddress": "0xf5881fF8fF609C1202E0c6481bc16B4273407A04",
+    "earnContractAddress": "0xf5881fF8fF609C1202E0c6481bc16B4273407A04",
+    "tokenDescription": "SushiSwap"
+  },
+  "ironswap-iron": {
+    "id": "ironswap-iron",
+    "tokenAddress": "0x985D40feDAA3208DAbaCDFDCA00CbeAAc9543949",
+    "earnedTokenAddress": "0x9F94558306D37F23a85ac95fDcCee7551C086b34",
+    "earnContractAddress": "0x9F94558306D37F23a85ac95fDcCee7551C086b34",
+    "tokenDescription": "IronSwap"
+  },
+  "quick-eth-rendoge": {
+    "id": "quick-eth-rendoge",
+    "tokenAddress": "0xAB1403De66519B898b38028357B74DF394a54a37",
+    "earnedTokenAddress": "0xC4FABD1E2A99c84b7fd152a41426B77c217c5764",
+    "earnContractAddress": "0xC4FABD1E2A99c84b7fd152a41426B77c217c5764",
+    "tokenDescription": "Quickswap"
+  },
+  "polypup-ball-ball": {
+    "id": "polypup-ball-ball",
+    "tokenAddress": "0x883aBe4168705d2e5dA925d28538B7a6AA9d8419",
+    "earnedTokenAddress": "0x48Fc8A7D72e5e54589F0B20928C98193c9133e70",
+    "earnContractAddress": "0x48Fc8A7D72e5e54589F0B20928C98193c9133e70",
+    "tokenDescription": "Polypup"
+  },
+  "polypup-ball-usdc-ball": {
+    "id": "polypup-ball-usdc-ball",
+    "tokenAddress": "0x0097692463fD591aEf388851FE2d756505f498AC",
+    "earnedTokenAddress": "0x1bCe9A53f3f71DD6B6551712a622E891cf05F477",
+    "earnContractAddress": "0x1bCe9A53f3f71DD6B6551712a622E891cf05F477",
+    "tokenDescription": "Polypup"
+  },
+  "polypup-ball-wmatic-ball": {
+    "id": "polypup-ball-wmatic-ball",
+    "tokenAddress": "0xe11eb426206960e9533828031cDFED0B4B61749C",
+    "earnedTokenAddress": "0xC10ac3fe9b11ff6763F9f1dE3c1C00267974553B",
+    "earnContractAddress": "0xC10ac3fe9b11ff6763F9f1dE3c1C00267974553B",
+    "tokenDescription": "Polypup"
+  },
+  "dinoswap-dfyn-route-eth": {
+    "id": "dinoswap-dfyn-route-eth",
+    "tokenAddress": "0xeBC4f9B1cE66258AC3A48578FFEEba1330dDB68B",
+    "earnedTokenAddress": "0x655AF65e1f26ccB1dD18EF1DA93E813911818c5e",
+    "earnContractAddress": "0x655AF65e1f26ccB1dD18EF1DA93E813911818c5e",
+    "tokenDescription": "DFyn (DinoSwap)"
+  },
+  "quick-usdc-quick": {
+    "id": "quick-usdc-quick",
+    "tokenAddress": "0x1F1E4c845183EF6d50E9609F16f6f9cAE43BC9Cb",
+    "earnedTokenAddress": "0xeD7148949c2dC8AA59A5aD8658eF347Bd7387fA8",
+    "earnContractAddress": "0xeD7148949c2dC8AA59A5aD8658eF347Bd7387fA8",
+    "tokenDescription": "Quickswap"
+  },
+  "quick-wmatic-avax": {
+    "id": "quick-wmatic-avax",
+    "tokenAddress": "0xEb477AE74774b697B5D515eF8ca09e24FEe413b5",
+    "earnedTokenAddress": "0x764B2aAcfDE7e33888566a6d44005Dc982F02031",
+    "earnContractAddress": "0x764B2aAcfDE7e33888566a6d44005Dc982F02031",
+    "tokenDescription": "Quickswap"
+  },
+  "quick-wmatic-ht": {
+    "id": "quick-wmatic-ht",
+    "tokenAddress": "0x20e28214946B4e0F18B2c1aA7C976dF087695a5d",
+    "earnedTokenAddress": "0x69df355fD685d87b44e86728f3A0b92D01341E40",
+    "earnContractAddress": "0x69df355fD685d87b44e86728f3A0b92D01341E40",
+    "tokenDescription": "Quickswap"
+  },
+  "pearzap-pear-usdc": {
+    "id": "pearzap-pear-usdc",
+    "tokenAddress": "0xa1d88Ce0d030B51342a05f9Dcc10AC4214592DAc",
+    "earnedTokenAddress": "0x3e9C032052e774B85CbF5f1D6382be06144e1Bac",
+    "earnContractAddress": "0x3e9C032052e774B85CbF5f1D6382be06144e1Bac",
+    "tokenDescription": "WaultFinance (PearZap)"
+  },
+  "pearzap-pear-matic": {
+    "id": "pearzap-pear-matic",
+    "tokenAddress": "0x51BEffd36EB8c81a9b440B7ee51f98ba9eFda707",
+    "earnedTokenAddress": "0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65",
+    "earnContractAddress": "0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65",
+    "tokenDescription": "WaultFinance (PearZap)"
+  },
+  "polygonfarm-spade-matic": {
+    "id": "polygonfarm-spade-matic",
+    "tokenAddress": "0xCcCEc4A90b3435065f5e1feC6346be9Da1B7B5eD",
+    "earnedTokenAddress": "0x07628d57b68E3ec227496740820A6fDa1b0DD0d8",
+    "earnContractAddress": "0x07628d57b68E3ec227496740820A6fDa1b0DD0d8",
+    "tokenDescription": "SushiSwap (PolygonFarm)"
+  },
+  "polygonfarm-spade-usdc": {
+    "id": "polygonfarm-spade-usdc",
+    "tokenAddress": "0x6Fd8aAe9f85A7Db14c45453daAB81aa3085E4bA3",
+    "earnedTokenAddress": "0xEEc9a4Ecd1C0caB2Eb20081A10b8b0A07336dA14",
+    "earnContractAddress": "0xEEc9a4Ecd1C0caB2Eb20081A10b8b0A07336dA14",
+    "tokenDescription": "SushiSwap (PolygonFarm)"
+  },
+  "cometh-eth-wbtc": {
+    "id": "cometh-eth-wbtc",
+    "tokenAddress": "0x4282C6b1c21CD1A0C363a70e4292f8Bf4D7c898c",
+    "earnedTokenAddress": "0x55eebAd2b295d5229cf853368c9307e48B9CD955",
+    "earnContractAddress": "0x55eebAd2b295d5229cf853368c9307e48B9CD955",
+    "tokenDescription": "Cometh"
+  },
+  "cometh-eth-usdc": {
+    "id": "cometh-eth-usdc",
+    "tokenAddress": "0x1Edb2D8f791D2a51D56979bf3A25673D6E783232",
+    "earnedTokenAddress": "0x47036A1ecC5D02e122Ae6604973ee1529E76e022",
+    "earnContractAddress": "0x47036A1ecC5D02e122Ae6604973ee1529E76e022",
+    "tokenDescription": "Cometh"
+  },
+  "quick-sol-matic": {
+    "id": "quick-sol-matic",
+    "tokenAddress": "0x898386DD8756779a4ba4f1462891B92dd76b78eF",
+    "earnedTokenAddress": "0x8802fbcb669c7BbcC3989455B3FdBF9235176bD4",
+    "earnContractAddress": "0x8802fbcb669c7BbcC3989455B3FdBF9235176bD4",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-uni-eth": {
+    "id": "quick-uni-eth",
+    "tokenAddress": "0xF7135272a5584Eb116f5a77425118a8B4A2ddfDb",
+    "earnedTokenAddress": "0x80fcA0946fb75724f5d84Dd49edC694062E3111C",
+    "earnContractAddress": "0x80fcA0946fb75724f5d84Dd49edC694062E3111C",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-guard-usdc": {
+    "id": "quick-guard-usdc",
+    "tokenAddress": "0xD2EeeEdfcAF1457F7BC9cbA28d5316F73BB83b49",
+    "earnedTokenAddress": "0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc",
+    "earnContractAddress": "0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc",
+    "tokenDescription": "QuickSwap"
+  },
+  "dinoswap-dino-eth": {
+    "id": "dinoswap-dino-eth",
+    "tokenAddress": "0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11",
+    "earnedTokenAddress": "0xE87151D8dd8695e3e69e8B2f0eB8cf79BD2227d1",
+    "earnContractAddress": "0xE87151D8dd8695e3e69e8B2f0eB8cf79BD2227d1",
+    "tokenDescription": "Quickswap (DinoSwap)"
+  },
+  "dinoswap-dfyn-ust-usdt": {
+    "id": "dinoswap-dfyn-ust-usdt",
+    "tokenAddress": "0x39BEd7f1C412ab64443196A6fEcb2ac20C707224",
+    "earnedTokenAddress": "0xa2e51538fce9d2D8082988921be4C0afC3Fe089a",
+    "earnContractAddress": "0xa2e51538fce9d2D8082988921be4C0afC3Fe089a",
+    "tokenDescription": "DFyn (DinoSwap)"
+  },
+  "dinoswap-dfyn-eth-dfyn": {
+    "id": "dinoswap-dfyn-eth-dfyn",
+    "tokenAddress": "0x6fA867BBFDd025780a8CFE988475220AfF51FB8b",
+    "earnedTokenAddress": "0x05064BF1Bc9f6778c69c3f68E17Ba8d9427594D8",
+    "earnContractAddress": "0x05064BF1Bc9f6778c69c3f68E17Ba8d9427594D8",
+    "tokenDescription": "DFyn (DinoSwap)"
+  },
+  "quick-quick-yamp": {
+    "id": "quick-quick-yamp",
+    "tokenAddress": "0x66fF795535CF162D29f6B15ed546a3e148Eff0Fb",
+    "earnedTokenAddress": "0x0BeCc1ff5f13b00A77cA359d0a15a0989766380E",
+    "earnContractAddress": "0x0BeCc1ff5f13b00A77cA359d0a15a0989766380E",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-quick-rendgb": {
+    "id": "quick-quick-rendgb",
+    "tokenAddress": "0x5Cb85aa163B1B443F88A1f9124153E70F6586400",
+    "earnedTokenAddress": "0x6d486dD56e2191E87c275722FBADA1aADa2F2Aff",
+    "earnContractAddress": "0x6d486dD56e2191E87c275722FBADA1aADa2F2Aff",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-quick-woo": {
+    "id": "quick-quick-woo",
+    "tokenAddress": "0x7622804bA94940A9EFdDD1546D12d8D0d6a16e53",
+    "earnedTokenAddress": "0xb1d1F8fE4E9BbE6Dd2a7CaF732898DbA8acdF4A8",
+    "earnContractAddress": "0xb1d1F8fE4E9BbE6Dd2a7CaF732898DbA8acdF4A8",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-woo-eth": {
+    "id": "quick-woo-eth",
+    "tokenAddress": "0x70294d7aa244BD342C536F9B502152564057162e",
+    "earnedTokenAddress": "0x0cDa3593f1a0dBbB362Ce6ADad0c5CCb089fb6D1",
+    "earnContractAddress": "0x0cDa3593f1a0dBbB362Ce6ADad0c5CCb089fb6D1",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-start-quick": {
+    "id": "quick-start-quick",
+    "tokenAddress": "0x9E2B254c7D6AD24aFb334A75cE21e216A9AA25fc",
+    "earnedTokenAddress": "0xA5D1b4c7Ff12e6f7AFcfa1073d139fFBfed81089",
+    "earnContractAddress": "0xA5D1b4c7Ff12e6f7AFcfa1073d139fFBfed81089",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-quick-polydoge": {
+    "id": "quick-quick-polydoge",
+    "tokenAddress": "0xbedEE6a7c572aa855a0c84d2f504311d482862F4",
+    "earnedTokenAddress": "0x4A2De8466873fCb21D7bDE5A754Baaf244729c72",
+    "earnContractAddress": "0x4A2De8466873fCb21D7bDE5A754Baaf244729c72",
+    "tokenDescription": "Quickswap"
+  },
+  "farmhero-quick-usdc-honor": {
+    "id": "farmhero-quick-usdc-honor",
+    "tokenAddress": "0x46489f825f11d7473D20279699b108aCAA246e73",
+    "earnedTokenAddress": "0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c",
+    "earnContractAddress": "0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c",
+    "tokenDescription": "FarmHero (Quickswap)"
+  },
+  "farmhero-wault-usdc-honor": {
+    "id": "farmhero-wault-usdc-honor",
+    "tokenAddress": "0x4Bd5dF4300b7c5309cB1A0143e4A6d0184B878e1",
+    "earnedTokenAddress": "0x0cFc878111e72e800ecA9E0B2a6358bcc15EB9FE",
+    "earnContractAddress": "0x0cFc878111e72e800ecA9E0B2a6358bcc15EB9FE",
+    "tokenDescription": "FarmHero (Wault)"
+  },
+  "quick-yamp-usdc": {
+    "id": "quick-yamp-usdc",
+    "tokenAddress": "0x87d68f797623590E45982AD0f21228557207FdDa",
+    "earnedTokenAddress": "0x72eF74242Ac0bf0802c0e938B7A397001Ab34C06",
+    "earnContractAddress": "0x72eF74242Ac0bf0802c0e938B7A397001Ab34C06",
+    "tokenDescription": "Quickswap"
+  },
+  "dinoswap-xmark-usdc": {
+    "id": "dinoswap-xmark-usdc",
+    "tokenAddress": "0x97A95deb56d689802F02f50c25EBCda5d0A49591",
+    "earnedTokenAddress": "0xFa08E2EFE3aa5a8a0142f26add94354f9FdFe1DE",
+    "earnContractAddress": "0xFa08E2EFE3aa5a8a0142f26add94354f9FdFe1DE",
+    "tokenDescription": "SushiSwap (DinoSwap)"
+  },
+  "dinoswap-dino-usdc": {
+    "id": "dinoswap-dino-usdc",
+    "tokenAddress": "0x3324af8417844e70b81555A6D1568d78f4D4Bf1f",
+    "earnedTokenAddress": "0x6a195660472a51f267230c3324F86055D2A8B1E2",
+    "earnContractAddress": "0x6a195660472a51f267230c3324F86055D2A8B1E2",
+    "tokenDescription": "SushiSwap (DinoSwap)"
+  },
+  "jetswap-poly-usdc-usdt": {
+    "id": "jetswap-poly-usdc-usdt",
+    "tokenAddress": "0x20BF018FDDBa3b352f3d913FE1c81b846fE0F490",
+    "earnedTokenAddress": "0x93c9f29CF2496e73f3d8b07055e2359267207147",
+    "earnContractAddress": "0x93c9f29CF2496e73f3d8b07055e2359267207147",
+    "tokenDescription": "JetSwap"
+  },
+  "mai-usdc-mimatic": {
+    "id": "mai-usdc-mimatic",
+    "tokenAddress": "0x160532D2536175d65C03B97b0630A9802c274daD",
+    "earnedTokenAddress": "0xebe0c8d842AA5A57D7BEf8e524dEabA676F91cD1",
+    "earnContractAddress": "0xebe0c8d842AA5A57D7BEf8e524dEabA676F91cD1",
+    "tokenDescription": "QuickSwap (Mai)"
+  },
+  "quick-nexo-eth": {
+    "id": "quick-nexo-eth",
+    "tokenAddress": "0x10062ec62C0bE26cC9e2f50a1CF784a89ded075F",
+    "earnedTokenAddress": "0xba1548b3f673950094dc00eDc1eB71683f371696",
+    "earnContractAddress": "0xba1548b3f673950094dc00eDc1eB71683f371696",
+    "tokenDescription": "Quickswap"
+  },
+  "telxchange-quick-quick-tel": {
+    "id": "telxchange-quick-quick-tel",
+    "tokenAddress": "0xE88e24F49338f974B528AcE10350Ac4576c5c8A1",
+    "earnedTokenAddress": "0xda3E3ee01Ee7284e3D0d900Ca3fb3D09484E1ce0",
+    "earnContractAddress": "0xda3E3ee01Ee7284e3D0d900Ca3fb3D09484E1ce0",
+    "tokenDescription": "Telxchange"
+  },
+  "telxchange-quick-wmatic-tel": {
+    "id": "telxchange-quick-wmatic-tel",
+    "tokenAddress": "0x9b5c71936670e9f1F36e63F03384De7e06E60d2a",
+    "earnedTokenAddress": "0x2AaB02eDE64d4A686EA1d1A70B688E46cce50fFd",
+    "earnContractAddress": "0x2AaB02eDE64d4A686EA1d1A70B688E46cce50fFd",
+    "tokenDescription": "Telxchange"
+  },
+  "telxchange-quick-eth-tel": {
+    "id": "telxchange-quick-eth-tel",
+    "tokenAddress": "0xFc2fC983a411C4B1E238f7Eb949308CF0218C750",
+    "earnedTokenAddress": "0xDC52e53f9E8b2cf42b557A6b3cE36e79De39ACd6",
+    "earnContractAddress": "0xDC52e53f9E8b2cf42b557A6b3cE36e79De39ACd6",
+    "tokenDescription": "Telxchange"
+  },
+  "telxchange-quick-aave-tel": {
+    "id": "telxchange-quick-aave-tel",
+    "tokenAddress": "0x4917bC6b8E705Ad462ef525937E7eB7C6c87C356",
+    "earnedTokenAddress": "0xBa58D7131Ca50DdFB458f37ea0De6fdcebFe836B",
+    "earnContractAddress": "0xBa58D7131Ca50DdFB458f37ea0De6fdcebFe836B",
+    "tokenDescription": "Telxchange"
+  },
+  "telxchange-quick-wbtc-tel": {
+    "id": "telxchange-quick-wbtc-tel",
+    "tokenAddress": "0xaDdc9C73f3CBaD4E647eAFf691715898825Ac20c",
+    "earnedTokenAddress": "0xb74792F6a2cF81E3f704930621cb4832ffFcC840",
+    "earnContractAddress": "0xb74792F6a2cF81E3f704930621cb4832ffFcC840",
+    "tokenDescription": "Telxchange"
+  },
+  "dfyn-ice-dfyn": {
+    "id": "dfyn-ice-dfyn",
+    "tokenAddress": "0x9bb608dc0F9308B9beCA2F7c80865454d02E74cA",
+    "earnedTokenAddress": "0xB198A916123394f2d9c31D4645468566e87080d5",
+    "earnContractAddress": "0xB198A916123394f2d9c31D4645468566e87080d5",
+    "tokenDescription": "DFyn"
+  },
+  "ironswap-ice-eth": {
+    "id": "ironswap-ice-eth",
+    "tokenAddress": "0xf1EE78544a1118F2efb87f7EaCd9f1E6e80e1ea5",
+    "earnedTokenAddress": "0x90D0F2050e62a6d4AF088dD09d802D9A18253c40",
+    "earnContractAddress": "0x90D0F2050e62a6d4AF088dD09d802D9A18253c40",
+    "tokenDescription": "IronSwap (Firebird)"
+  },
+  "ironswap-ice-usdc": {
+    "id": "ironswap-ice-usdc",
+    "tokenAddress": "0x34832D9AC4127a232C1919d840f7aaE0fcb7315B",
+    "earnedTokenAddress": "0x0564889d4Ff0dA0371Ec8a898AC39ABC99065BfA",
+    "earnContractAddress": "0x0564889d4Ff0dA0371Ec8a898AC39ABC99065BfA",
+    "tokenDescription": "IronSwap (DFYN)"
+  },
+  "ironswap-3usd": {
+    "id": "ironswap-3usd",
+    "tokenAddress": "0xb4d09ff3dA7f9e9A2BA029cb0A81A989fd7B8f17",
+    "earnedTokenAddress": "0x0C4705EBd2BF69660b72f9E9B684714c9e341942",
+    "earnContractAddress": "0x0C4705EBd2BF69660b72f9E9B684714c9e341942",
+    "tokenDescription": "IronSwap"
+  },
+  "wexpoly-wbtc-wex": {
+    "id": "wexpoly-wbtc-wex",
+    "tokenAddress": "0xaE183DB956FAf760Aa29bFcfDa4BDDdB02fbdd0E",
+    "earnedTokenAddress": "0xA1B2Ef1b6D5823D832DDa2AE2B489793832Fd082",
+    "earnContractAddress": "0xA1B2Ef1b6D5823D832DDa2AE2B489793832Fd082",
+    "tokenDescription": "WaultFinance"
+  },
+  "dfyn-bifi-dfyn": {
+    "id": "dfyn-bifi-dfyn",
+    "tokenAddress": "0x759738096589b9C39dA78A603565635a3Cee6013",
+    "earnedTokenAddress": "0x74b00bbb693de4dC07d8aB79Ac935b323e2A136a",
+    "earnContractAddress": "0x74b00bbb693de4dC07d8aB79Ac935b323e2A136a",
+    "tokenDescription": "DFyn"
+  },
+  "curve-poly-ren": {
+    "id": "curve-poly-ren",
+    "tokenAddress": "0xf8a57c1d3b9629b77b6726a042ca48990A84Fb49",
+    "earnedTokenAddress": "0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141",
+    "earnContractAddress": "0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141",
+    "tokenDescription": "Curve"
+  },
+  "jetswap-poly-pwings": {
+    "id": "jetswap-poly-pwings",
+    "tokenAddress": "0x845E76A8691423fbc4ECb8Dd77556Cb61c09eE25",
+    "earnedTokenAddress": "0xa55e8326a9AC7B0bFcA5E6Fc9Cf1141E2dc11f67",
+    "earnContractAddress": "0xa55e8326a9AC7B0bFcA5E6Fc9Cf1141E2dc11f67",
+    "tokenDescription": "JetSwap"
+  },
+  "jetswap-poly-pwings-matic": {
+    "id": "jetswap-poly-pwings-matic",
+    "tokenAddress": "0xA0A6e9A5185d5737CF6F7920CB417EA2F07F03B3",
+    "earnedTokenAddress": "0x97fe99a9bc7db115EC89Bc2627eC7f0518409121",
+    "earnContractAddress": "0x97fe99a9bc7db115EC89Bc2627eC7f0518409121",
+    "tokenDescription": "JetSwap"
+  },
+  "quick-qi-quick": {
+    "id": "quick-qi-quick",
+    "tokenAddress": "0x25d56E2416f20De1Efb1F18fd06dD12eFeC3D3D0",
+    "earnedTokenAddress": "0x1d7A7182043F521ab57Fe07a8420Fee9843E365e",
+    "earnContractAddress": "0x1d7A7182043F521ab57Fe07a8420Fee9843E365e",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-usdc-mimatic": {
+    "id": "quick-usdc-mimatic",
+    "tokenAddress": "0x160532D2536175d65C03B97b0630A9802c274daD",
+    "earnedTokenAddress": "0xf62c521c4fb3Fbc20EaB50E1871A90A53632f22e",
+    "earnContractAddress": "0xf62c521c4fb3Fbc20EaB50E1871A90A53632f22e",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-polybunny-eth": {
+    "id": "quick-polybunny-eth",
+    "tokenAddress": "0x62052b489Cb5bC72a9DC8EEAE4B24FD50639921a",
+    "earnedTokenAddress": "0x6C4593D4f91c790404cCEe5007E929d2b7bF45bD",
+    "earnContractAddress": "0x6C4593D4f91c790404cCEe5007E929d2b7bF45bD",
+    "tokenDescription": "Quickswap"
+  },
+  "quick-polybunny-quick": {
+    "id": "quick-polybunny-quick",
+    "tokenAddress": "0x976b7B7fE4293111CaCd946C422a64f24A223564",
+    "earnedTokenAddress": "0x0e229c6381f00F4be47a9529CBDde18016dD9369",
+    "earnContractAddress": "0x0e229c6381f00F4be47a9529CBDde18016dD9369",
+    "tokenDescription": "Quickswap"
+  },
+  "dfyn-route-dfyn": {
+    "id": "dfyn-route-dfyn",
+    "tokenAddress": "0xB0dc320ea9eea823a150763AbB4A7bA8286Cd08B",
+    "earnedTokenAddress": "0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2",
+    "earnContractAddress": "0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2",
+    "tokenDescription": "DFyn"
+  },
+  "ape-matic-usdt": {
+    "id": "ape-matic-usdt",
+    "tokenAddress": "0x65D43B64E3B31965Cd5EA367D4c2b94c03084797",
+    "earnedTokenAddress": "0x1BE356364a1e849af2F7a513Fc46dAB6063Db485",
+    "earnContractAddress": "0x1BE356364a1e849af2F7a513Fc46dAB6063Db485",
+    "tokenDescription": "ApeSwap"
+  },
+  "ape-matic-dai": {
+    "id": "ape-matic-dai",
+    "tokenAddress": "0xd32f3139A214034A0f9777c87eE0a064c1FF6AE2",
+    "earnedTokenAddress": "0x584611DA226b4d4C0c4D880E6f1E0c0E8522f3AE",
+    "earnContractAddress": "0x584611DA226b4d4C0c4D880E6f1E0c0E8522f3AE",
+    "tokenDescription": "ApeSwap"
+  },
+  "quick-eth-ramp": {
+    "id": "quick-eth-ramp",
+    "tokenAddress": "0xe55739E1fEb9F9aED4Ce34830a06cA6Cc37494A0",
+    "earnedTokenAddress": "0x94242E121F056FA7F0892452e6a17678124981c1",
+    "earnContractAddress": "0x94242E121F056FA7F0892452e6a17678124981c1",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-usdc-rusd": {
+    "id": "quick-usdc-rusd",
+    "tokenAddress": "0x5EF8747d1dc4839e92283794a10d448357973aC0",
+    "earnedTokenAddress": "0x2b17aD11c5e9553c79a18F33Df4dE565eF0ad5b0",
+    "earnContractAddress": "0x2b17aD11c5e9553c79a18F33Df4dE565eF0ad5b0",
+    "tokenDescription": "QuickSwap"
+  },
+  "sushi-wbtc-ibbtc": {
+    "id": "sushi-wbtc-ibbtc",
+    "tokenAddress": "0x8F8e95Ff4B4c5E354ccB005c6B0278492D7B5907",
+    "earnedTokenAddress": "0xD35B3733c2ceaf3635bE246B2c6C42f10e5b6B78",
+    "earnContractAddress": "0xD35B3733c2ceaf3635bE246B2c6C42f10e5b6B78",
+    "tokenDescription": "SushiSwap"
+  },
+  "ape-eth-matic": {
+    "id": "ape-eth-matic",
+    "tokenAddress": "0x6Cf8654e85AB489cA7e70189046D507ebA233613",
+    "earnedTokenAddress": "0xc24Cf5fA29E619f2D5ccbEC46F2295876c3722ff",
+    "earnContractAddress": "0xc24Cf5fA29E619f2D5ccbEC46F2295876c3722ff",
+    "tokenDescription": "ApeSwap"
+  },
+  "ape-btc-matic": {
+    "id": "ape-btc-matic",
+    "tokenAddress": "0xe82635a105c520fd58e597181cBf754961d51E3e",
+    "earnedTokenAddress": "0x76F0e4a08c1e85d020dfD7C66B991ecd4A7551AF",
+    "earnContractAddress": "0x76F0e4a08c1e85d020dfD7C66B991ecd4A7551AF",
+    "tokenDescription": "ApeSwap"
+  },
+  "ape-bnb-matic": {
+    "id": "ape-bnb-matic",
+    "tokenAddress": "0x0359001070cF696D5993E0697335157a6f7dB289",
+    "earnedTokenAddress": "0x6888f67662d1f442C4428129e0Bdb27a275e0a65",
+    "earnContractAddress": "0x6888f67662d1f442C4428129e0Bdb27a275e0a65",
+    "tokenDescription": "ApeSwap"
+  },
+  "ape-banana-matic": {
+    "id": "ape-banana-matic",
+    "tokenAddress": "0x034293F21F1cCE5908BC605CE5850dF2b1059aC0",
+    "earnedTokenAddress": "0xADA7F98fb2594E76914EB593e74B348A498Ea5Bd",
+    "earnContractAddress": "0xADA7F98fb2594E76914EB593e74B348A498Ea5Bd",
+    "tokenDescription": "ApeSwap"
+  },
+  "sushi-usdc-bifi": {
+    "id": "sushi-usdc-bifi",
+    "tokenAddress": "0x180237bd326d5245D0898336F54b3c8012c5c62f",
+    "earnedTokenAddress": "0x03F69AAF4c8512f533Da46cC9eFd49C4969e3CB8",
+    "earnContractAddress": "0x03F69AAF4c8512f533Da46cC9eFd49C4969e3CB8",
+    "tokenDescription": "SushiSwap"
+  },
+  "quick-pbnb-quick": {
+    "id": "quick-pbnb-quick",
+    "tokenAddress": "0x53e27DaDf6473d062717be8807C453Af212c7102",
+    "earnedTokenAddress": "0x1A90Ea15e00a6c647478e86e3A3DB1aC1eB23cE5",
+    "earnContractAddress": "0x1A90Ea15e00a6c647478e86e3A3DB1aC1eB23cE5",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-usdc-pbnb": {
+    "id": "quick-usdc-pbnb",
+    "tokenAddress": "0xE55cb144E02Cffb6fBD65d9a4BD62378998Bc267",
+    "earnedTokenAddress": "0x61f55dc5243398D57acd5d6265e228da65C4Cb52",
+    "earnContractAddress": "0x61f55dc5243398D57acd5d6265e228da65C4Cb52",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-dai-usdt": {
+    "id": "quick-dai-usdt",
+    "tokenAddress": "0x59153f27eeFE07E5eCE4f9304EBBa1DA6F53CA88",
+    "earnedTokenAddress": "0x8F1F1FB23A208041e1f4Bf4A3b4E165bcCA25Bbb",
+    "earnContractAddress": "0x8F1F1FB23A208041e1f4Bf4A3b4E165bcCA25Bbb",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-eth-fff": {
+    "id": "quick-eth-fff",
+    "tokenAddress": "0x4935270Aa19bA0B88Fe99eA9FeB10519feAfA758",
+    "earnedTokenAddress": "0xa5b0E0f38BC86723a9893B828a4B9595ecb22F42",
+    "earnContractAddress": "0xa5b0E0f38BC86723a9893B828a4B9595ecb22F42",
+    "tokenDescription": "QuickSwap"
+  },
+  "wexpoly-wbtc-usdc": {
+    "id": "wexpoly-wbtc-usdc",
+    "tokenAddress": "0x30eEf213D4B9C809f5776Ae56cC39f02f19F742f",
+    "earnedTokenAddress": "0x5c7fd860fC0072cFef2Cc4aB17CC7fF25B639d8b",
+    "earnContractAddress": "0x5c7fd860fC0072cFef2Cc4aB17CC7fF25B639d8b",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-wbtc-eth": {
+    "id": "wexpoly-wbtc-eth",
+    "tokenAddress": "0x30AdBCAb9Fbb4436109fcf3058D1Af27E6E33F3F",
+    "earnedTokenAddress": "0x75A59e8d6611e90e7A8e439Cb59D9f78e738d16F",
+    "earnContractAddress": "0x75A59e8d6611e90e7A8e439Cb59D9f78e738d16F",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-matic-eth": {
+    "id": "wexpoly-matic-eth",
+    "tokenAddress": "0x679B8Ab80F298bF802fB294137765C6386D43dcA",
+    "earnedTokenAddress": "0xCB171DF46CA6FF7AfEF6c4935128204435E4F05C",
+    "earnContractAddress": "0xCB171DF46CA6FF7AfEF6c4935128204435E4F05C",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-snx-eth": {
+    "id": "wexpoly-snx-eth",
+    "tokenAddress": "0x2857Ec555c1E4fA20982AcBf985b8b8807157A5B",
+    "earnedTokenAddress": "0xf7e1226F6f98D1981e88Da328347F0E2131A2864",
+    "earnContractAddress": "0xf7e1226F6f98D1981e88Da328347F0E2131A2864",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-link-eth": {
+    "id": "wexpoly-link-eth",
+    "tokenAddress": "0x70bF5ffCC6090A8D243FD05485Ec4c084BD10Ae5",
+    "earnedTokenAddress": "0x23Ee6ED971ae7731F53913D9f8a45C7C1af3D6D5",
+    "earnContractAddress": "0x23Ee6ED971ae7731F53913D9f8a45C7C1af3D6D5",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-aave-eth": {
+    "id": "wexpoly-aave-eth",
+    "tokenAddress": "0x58401db5eD194cBA60f2b7D59b9619D54e0B493c",
+    "earnedTokenAddress": "0xc4cC677bb8b7E6EEA6409Ee2af9F434BAB004192",
+    "earnContractAddress": "0xc4cC677bb8b7E6EEA6409Ee2af9F434BAB004192",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-dai-eth": {
+    "id": "wexpoly-dai-eth",
+    "tokenAddress": "0xaEF35d720C56eF3c259BCCdB6931F331c7f15b3F",
+    "earnedTokenAddress": "0x3a3a9784Af130d692E19A3f1C1b13eF44301D0f7",
+    "earnContractAddress": "0x3a3a9784Af130d692E19A3f1C1b13eF44301D0f7",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-usdc-dai": {
+    "id": "wexpoly-usdc-dai",
+    "tokenAddress": "0x8E5c5AE2542116b5715b12bb2d391A770a607075",
+    "earnedTokenAddress": "0x5E7156F7c0B5E2005000C38beb38540ba9c283df",
+    "earnContractAddress": "0x5E7156F7c0B5E2005000C38beb38540ba9c283df",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-matic-usdc": {
+    "id": "wexpoly-matic-usdc",
+    "tokenAddress": "0x8312A29A91D9Fac706F4d2ADEB1FA4540faD1673",
+    "earnedTokenAddress": "0xeCBb84E73760d0E22BDBeE79490c691386B5008F",
+    "earnContractAddress": "0xeCBb84E73760d0E22BDBeE79490c691386B5008F",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-usdc-usdt": {
+    "id": "wexpoly-usdc-usdt",
+    "tokenAddress": "0x7242e19A0937ac33472febD69462668a4cf5bbC5",
+    "earnedTokenAddress": "0x58C55B5675B106b440635E2c550A771f4E256D35",
+    "earnContractAddress": "0x58C55B5675B106b440635E2c550A771f4E256D35",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-wex-usdc": {
+    "id": "wexpoly-wex-usdc",
+    "tokenAddress": "0x5DE6a3CcA10d3F788EEdbD4923e31D4658bf6f9a",
+    "earnedTokenAddress": "0xe3B5a0d5dFDCD6dE7e22a5c2B6b957aB76d2A085",
+    "earnContractAddress": "0xe3B5a0d5dFDCD6dE7e22a5c2B6b957aB76d2A085",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-wex": {
+    "id": "wexpoly-wex",
+    "tokenAddress": "0x4c4BF319237D98a30A929A96112EfFa8DA3510EB",
+    "earnedTokenAddress": "0x1A1432b90a093CbFFeCb44cf6965e2fd11005373",
+    "earnContractAddress": "0x1A1432b90a093CbFFeCb44cf6965e2fd11005373",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-wex-matic": {
+    "id": "wexpoly-wex-matic",
+    "tokenAddress": "0xC46991072C7eAC184F7bd69d3122cd1750300b27",
+    "earnedTokenAddress": "0xe09888EEab19bce85e67eDC59521F3f290B1BCcE",
+    "earnContractAddress": "0xe09888EEab19bce85e67eDC59521F3f290B1BCcE",
+    "tokenDescription": "WaultFinance"
+  },
+  "wexpoly-bifi-matic": {
+    "id": "wexpoly-bifi-matic",
+    "tokenAddress": "0xE60afed80406190C3AB2C17501d417097Dd741DB",
+    "earnedTokenAddress": "0x247303D4Be227Aa87Bd52F05aDDAD772794DE394",
+    "earnContractAddress": "0x247303D4Be227Aa87Bd52F05aDDAD772794DE394",
+    "tokenDescription": "WaultFinance"
+  },
+  "sushi-eth-wfil": {
+    "id": "sushi-eth-wfil",
+    "tokenAddress": "0x21Ef14B5580a852477ef31E7Ea9373485bF50377",
+    "earnedTokenAddress": "0xA4fB94990f99A8C1290e83d40DB9C648fD868D14",
+    "earnContractAddress": "0xA4fB94990f99A8C1290e83d40DB9C648fD868D14",
+    "tokenDescription": "SushiSwap"
+  },
+  "quick-usdc-dai": {
+    "id": "quick-usdc-dai",
+    "tokenAddress": "0xf04adBF75cDFc5eD26eeA4bbbb991DB002036Bdd",
+    "earnedTokenAddress": "0x0dFd8c4dd493d8f87Be362878E41537Ca7Ee4d9e",
+    "earnContractAddress": "0x0dFd8c4dd493d8f87Be362878E41537Ca7Ee4d9e",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-quick-uni": {
+    "id": "quick-quick-uni",
+    "tokenAddress": "0x4B4C614b9219397c02296f6F4e2351259840B3C7",
+    "earnedTokenAddress": "0xaF34573353aBd160889889D52d7841B2bBCE7Cf9",
+    "earnContractAddress": "0xaF34573353aBd160889889D52d7841B2bBCE7Cf9",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-link-quick": {
+    "id": "quick-link-quick",
+    "tokenAddress": "0xDEA8f0F1E6E98C6AEE891601600E5fBa294B5e36",
+    "earnedTokenAddress": "0xdD32ca42a5bab4073D319BC26bb4e951e767Ba6E",
+    "earnContractAddress": "0xdD32ca42a5bab4073D319BC26bb4e951e767Ba6E",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-usdc-eth": {
+    "id": "quick-usdc-eth",
+    "tokenAddress": "0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d",
+    "earnedTokenAddress": "0x5d4B83B3011B1E14e55185c5D432987e76f6DE3C",
+    "earnContractAddress": "0x5d4B83B3011B1E14e55185c5D432987e76f6DE3C",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-dai-eth": {
+    "id": "quick-dai-eth",
+    "tokenAddress": "0x4A35582a710E1F4b2030A3F826DA20BfB6703C09",
+    "earnedTokenAddress": "0x9DA4048550C1a73686E594f726310F0b0585fBA3",
+    "earnContractAddress": "0x9DA4048550C1a73686E594f726310F0b0585fBA3",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-fff-quick": {
+    "id": "quick-fff-quick",
+    "tokenAddress": "0x2648ec89875d944e38f55925Df77D9Cfe0B01Edd",
+    "earnedTokenAddress": "0x2D4cf116A59e24Dd0aB8821c93AE87658a9483b6",
+    "earnContractAddress": "0x2D4cf116A59e24Dd0aB8821c93AE87658a9483b6",
+    "tokenDescription": "QuickSwap"
+  },
+  "aave-wbtc": {
+    "id": "aave-wbtc",
+    "tokenAddress": "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
+    "earnedTokenAddress": "0xD3395577febc6AdaB25490a69955ebC47040766C",
+    "earnContractAddress": "0xD3395577febc6AdaB25490a69955ebC47040766C",
+    "tokenDescription": "Aave"
+  },
+  "aave-eth": {
+    "id": "aave-eth",
+    "tokenAddress": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+    "earnedTokenAddress": "0x77276a7c9Ff3a6cbD334524d6F1f6219D039ac0E",
+    "earnContractAddress": "0x77276a7c9Ff3a6cbD334524d6F1f6219D039ac0E",
+    "tokenDescription": "Aave"
+  },
+  "sushi-grt-eth": {
+    "id": "sushi-grt-eth",
+    "tokenAddress": "0x1cedA73C034218255F50eF8a2c282E6B4c301d60",
+    "earnedTokenAddress": "0x8efCf419813F9E018cCaCda36151e5079c274fa4",
+    "earnContractAddress": "0x8efCf419813F9E018cCaCda36151e5079c274fa4",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-frax-fxs": {
+    "id": "sushi-frax-fxs",
+    "tokenAddress": "0xd53a56AE0f48c9a03660cd36c2E4ae20493a1Eca",
+    "earnedTokenAddress": "0xddD5F39d044Dbaeef7b348cf04C3628acd3F1D8f",
+    "earnContractAddress": "0xddD5F39d044Dbaeef7b348cf04C3628acd3F1D8f",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-frax-usdc": {
+    "id": "sushi-frax-usdc",
+    "tokenAddress": "0x9e20a8d3501BF96EDA8e69b96DD84840058a1cB0",
+    "earnedTokenAddress": "0x5B19A2e8E5878cF2b1E9b1AC7CEA50346671B2Fc",
+    "earnContractAddress": "0x5B19A2e8E5878cF2b1E9b1AC7CEA50346671B2Fc",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-wmatic-woofy": {
+    "id": "sushi-wmatic-woofy",
+    "tokenAddress": "0x211F8e61113eDAf00cf37A804B0bA721875Ef560",
+    "earnedTokenAddress": "0x544551E4E7D7bDd1CfbD55F07e304F5C9fD514Dd",
+    "earnContractAddress": "0x544551E4E7D7bDd1CfbD55F07e304F5C9fD514Dd",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-usdc-dai": {
+    "id": "sushi-usdc-dai",
+    "tokenAddress": "0xCD578F016888B57F1b1e3f887f392F0159E26747",
+    "earnedTokenAddress": "0x75424BE5378621AeC2eEF25965f40FeB59039B52",
+    "earnContractAddress": "0x75424BE5378621AeC2eEF25965f40FeB59039B52",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-snx-eth": {
+    "id": "sushi-snx-eth",
+    "tokenAddress": "0x116Ff0d1Caa91a6b94276b3471f33dbeB52073E7",
+    "earnedTokenAddress": "0x3AD9cd8d75f7a711Caea58e725425A9dC0D249c4",
+    "earnContractAddress": "0x3AD9cd8d75f7a711Caea58e725425A9dC0D249c4",
+    "tokenDescription": "SushiSwap"
+  },
+  "quick-bifi-eth": {
+    "id": "quick-bifi-eth",
+    "tokenAddress": "0x8b80417D92571720949fC22404200AB8FAf7775f",
+    "earnedTokenAddress": "0x21bA98fCb000dFeD8eC3B94cB41BeA51A601A94c",
+    "earnContractAddress": "0x21bA98fCb000dFeD8eC3B94cB41BeA51A601A94c",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-bifi-quick": {
+    "id": "quick-bifi-quick",
+    "tokenAddress": "0xC6a23BDd628c3B17fc0dF270e6BF8E48511950e2",
+    "earnedTokenAddress": "0xCC2755476B0573F0ee0D5a754Bb6fE720c3641Bb",
+    "earnContractAddress": "0xCC2755476B0573F0ee0D5a754Bb6fE720c3641Bb",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-degen-quick": {
+    "id": "quick-degen-quick",
+    "tokenAddress": "0x75a4917aeE97BDA48D3572f431e04003743da85e",
+    "earnedTokenAddress": "0xe942A8Ef245EAC3CEa951486e3Df5764C79b9621",
+    "earnContractAddress": "0xe942A8Ef245EAC3CEa951486e3Df5764C79b9621",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-cc10-quick": {
+    "id": "quick-cc10-quick",
+    "tokenAddress": "0x42fD10ddc7628b82d80c3b2C286F3e79555Fd7A1",
+    "earnedTokenAddress": "0x226a18Fb5eb7d9d1c4Eb1b5Cff957E0F1e3fd9Ed",
+    "earnContractAddress": "0x226a18Fb5eb7d9d1c4Eb1b5Cff957E0F1e3fd9Ed",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-defi5-quick": {
+    "id": "quick-defi5-quick",
+    "tokenAddress": "0xa975CEEb05B379Cf67FdfA63e7b2770f9F1D72c6",
+    "earnedTokenAddress": "0x191E0b3B023fd8911c1D7632086A46C0D2dB39ed",
+    "earnContractAddress": "0x191E0b3B023fd8911c1D7632086A46C0D2dB39ed",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-btc-usdc": {
+    "id": "quick-btc-usdc",
+    "tokenAddress": "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498",
+    "earnedTokenAddress": "0x91a55E4b057119e20334258f7C5EAB8822491CEb",
+    "earnContractAddress": "0x91a55E4b057119e20334258f7C5EAB8822491CEb",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-matic-usdc": {
+    "id": "quick-matic-usdc",
+    "tokenAddress": "0x6e7a5FAFcec6BB1e78bAE2A1F0B612012BF14827",
+    "earnedTokenAddress": "0xC1A2e8274D390b67A7136708203D71BF3877f158",
+    "earnContractAddress": "0xC1A2e8274D390b67A7136708203D71BF3877f158",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-vision-eth": {
+    "id": "quick-vision-eth",
+    "tokenAddress": "0x47Be4b1b6921a36591142E108B8C9E04BB55E015",
+    "earnedTokenAddress": "0xAbA81D550C326DFf2cE0D31bC7Aa6289d576591E",
+    "earnContractAddress": "0xAbA81D550C326DFf2cE0D31bC7Aa6289d576591E",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-degen-eth": {
+    "id": "quick-degen-eth",
+    "tokenAddress": "0xFdBDb3A2bbdC7d9dC6203DcEf9D53f1735135951",
+    "earnedTokenAddress": "0xF7A5eC9168B4C5688b3ad599Aa5c8E1922fEacAE",
+    "earnContractAddress": "0xF7A5eC9168B4C5688b3ad599Aa5c8E1922fEacAE",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-cc10-eth": {
+    "id": "quick-cc10-eth",
+    "tokenAddress": "0xBF646010B1ae86aD7fBb4cFf5fd93C7019331Cc9",
+    "earnedTokenAddress": "0x6F6bbbCA49b4b2cE0E27eb0156977048AC3434B9",
+    "earnContractAddress": "0x6F6bbbCA49b4b2cE0E27eb0156977048AC3434B9",
+    "tokenDescription": "QuickSwap"
+  },
+  "pzap-pzap-usdc": {
+    "id": "pzap-pzap-usdc",
+    "tokenAddress": "0x1df7ADAeD1F7f36C822A3079198815b284aD8475",
+    "earnedTokenAddress": "0xBA4FA9A5e1e573fA5267970238af5Edf40727315",
+    "earnContractAddress": "0xBA4FA9A5e1e573fA5267970238af5Edf40727315",
+    "tokenDescription": "Polyzap"
+  },
+  "pzap-pzap-matic": {
+    "id": "pzap-pzap-matic",
+    "tokenAddress": "0xf627E14c318045066dAe0A36997c8C1F34fC0D4c",
+    "earnedTokenAddress": "0xf2984c27B963A14F9f3B7326096c54fb05d5b9AF",
+    "earnContractAddress": "0xf2984c27B963A14F9f3B7326096c54fb05d5b9AF",
+    "tokenDescription": "Polyzap"
+  },
+  "cometh-bifi-eth": {
+    "id": "cometh-bifi-eth",
+    "tokenAddress": "0xee3987aa1B20944EF4f8f049Cf1763007C06cFBC",
+    "earnedTokenAddress": "0x9649e6E5c689f21BC27B47CE4177f7c5f7281E20",
+    "earnContractAddress": "0x9649e6E5c689f21BC27B47CE4177f7c5f7281E20",
+    "tokenDescription": "Cometh"
+  },
+  "cometh-bifi-must": {
+    "id": "cometh-bifi-must",
+    "tokenAddress": "0x9292aa90F81dc77fE6e6BB34b276502b6a047F7d",
+    "earnedTokenAddress": "0x66b3d910c30f2305EA0078E06DF65e0c1745ceF0",
+    "earnContractAddress": "0x66b3d910c30f2305EA0078E06DF65e0c1745ceF0",
+    "tokenDescription": "Cometh"
+  },
+  "aave-matic": {
+    "id": "aave-matic",
+    "earnedTokenAddress": "0x1d23ecC0645B07791b7D99349e253ECEbe43f614",
+    "earnContractAddress": "0x1d23ecC0645B07791b7D99349e253ECEbe43f614",
+    "tokenDescription": "Aave"
+  },
+  "aave-aave": {
+    "id": "aave-aave",
+    "tokenAddress": "0xD6DF932A45C0f255f85145f286eA0b292B21C90B",
+    "earnedTokenAddress": "0xe4b3CCbB1E48c579Ea3D764Fb258Bc908e46487E",
+    "earnContractAddress": "0xe4b3CCbB1E48c579Ea3D764Fb258Bc908e46487E",
+    "tokenDescription": "Aave"
+  },
+  "aave-dai": {
+    "id": "aave-dai",
+    "tokenAddress": "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
+    "earnedTokenAddress": "0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018",
+    "earnContractAddress": "0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018",
+    "tokenDescription": "Aave"
+  },
+  "aave-usdc": {
+    "id": "aave-usdc",
+    "tokenAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    "earnedTokenAddress": "0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F",
+    "earnContractAddress": "0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F",
+    "tokenDescription": "Aave"
+  },
+  "sushi-crv-eth": {
+    "id": "sushi-crv-eth",
+    "tokenAddress": "0x396E655C309676cAF0acf4607a868e0CDed876dB",
+    "earnedTokenAddress": "0xE695fCeD8fD93eeE54204a7fC33323a60d41865A",
+    "earnContractAddress": "0xE695fCeD8fD93eeE54204a7fC33323a60d41865A",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-usdc-usdt": {
+    "id": "sushi-usdc-usdt",
+    "tokenAddress": "0x4B1F1e2435A9C96f7330FAea190Ef6A7C8D70001",
+    "earnedTokenAddress": "0xB6B89a05ad8228b98d0D8a77e1a695c54500db3b",
+    "earnContractAddress": "0xB6B89a05ad8228b98d0D8a77e1a695c54500db3b",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-link-eth": {
+    "id": "sushi-link-eth",
+    "tokenAddress": "0x74D23F21F780CA26B47Db16B0504F2e3832b9321",
+    "earnedTokenAddress": "0xaE65a66B3c7f8cc1ba71cEA740C953aBa0F3Ce8b",
+    "earnContractAddress": "0xaE65a66B3c7f8cc1ba71cEA740C953aBa0F3Ce8b",
+    "tokenDescription": "SushiSwap"
+  },
+  "quick-mocean-matic": {
+    "id": "quick-mocean-matic",
+    "tokenAddress": "0x5a94F81D25c73eDdBDD84b84E8F6D36C58270510",
+    "earnedTokenAddress": "0x82303a4b2c821204A84AB2a068eC8EDf3Bc23061",
+    "earnContractAddress": "0x82303a4b2c821204A84AB2a068eC8EDf3Bc23061",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-any-quick": {
+    "id": "quick-any-quick",
+    "tokenAddress": "0xeb275d1d930F157504cca7D7AFCe38360C7302b5",
+    "earnedTokenAddress": "0x2849095eE44eCd5f60Ed04f94e5BB45623A8e75a",
+    "earnContractAddress": "0x2849095eE44eCd5f60Ed04f94e5BB45623A8e75a",
+    "tokenDescription": "QuickSwap"
+  },
+  "sushi-aave-eth": {
+    "id": "sushi-aave-eth",
+    "tokenAddress": "0x2813D43463C374a680f235c428FB1D7f08dE0B69",
+    "earnedTokenAddress": "0x866a910F3375d0dEBDdD904A36B3940aFcD29900",
+    "earnContractAddress": "0x866a910F3375d0dEBDdD904A36B3940aFcD29900",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-eth-dai": {
+    "id": "sushi-eth-dai",
+    "tokenAddress": "0x6FF62bfb8c12109E8000935A6De54daD83a4f39f",
+    "earnedTokenAddress": "0x6b6ca47520dDC9333B8bD09a1e64204648B63274",
+    "earnContractAddress": "0x6b6ca47520dDC9333B8bD09a1e64204648B63274",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-btc-eth": {
+    "id": "sushi-btc-eth",
+    "tokenAddress": "0xE62Ec2e799305E0D367b0Cc3ee2CdA135bF89816",
+    "earnedTokenAddress": "0x6530E351074f1f9fdf254dC7d7d8A44324E158a4",
+    "earnContractAddress": "0x6530E351074f1f9fdf254dC7d7d8A44324E158a4",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-eth-usdt": {
+    "id": "sushi-eth-usdt",
+    "tokenAddress": "0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9",
+    "earnedTokenAddress": "0xE8417099971151CD5CfAE264e25634Fac05cA2b3",
+    "earnContractAddress": "0xE8417099971151CD5CfAE264e25634Fac05cA2b3",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-usdc-eth": {
+    "id": "sushi-usdc-eth",
+    "tokenAddress": "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27",
+    "earnedTokenAddress": "0xE4DB97A2AAFbfef40D1a4AE8B709f61d6756F8e1",
+    "earnContractAddress": "0xE4DB97A2AAFbfef40D1a4AE8B709f61d6756F8e1",
+    "tokenDescription": "SushiSwap"
+  },
+  "sushi-matic-eth": {
+    "id": "sushi-matic-eth",
+    "tokenAddress": "0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E",
+    "earnedTokenAddress": "0xC8e809a9180d637Cc23dAf60b41B70CA1ad5Fc08",
+    "earnContractAddress": "0xC8e809a9180d637Cc23dAf60b41B70CA1ad5Fc08",
+    "tokenDescription": "SushiSwap"
+  },
+  "quick-usdc-usdt": {
+    "id": "quick-usdc-usdt",
+    "tokenAddress": "0x2cF7252e74036d1Da831d11089D326296e64a728",
+    "earnedTokenAddress": "0x4462817b53E76b722c2D174D0148ddb81452f1dE",
+    "earnContractAddress": "0x4462817b53E76b722c2D174D0148ddb81452f1dE",
+    "tokenDescription": "QuickSwap"
+  },
+  "cometh-must-eth": {
+    "id": "cometh-must-eth",
+    "tokenAddress": "0x8826C072657983939c26E684edcfb0e4133f0B3d",
+    "earnedTokenAddress": "0x7CE2332fAF6328986C75e3A8fCc1CB79621aeB1F",
+    "earnContractAddress": "0x7CE2332fAF6328986C75e3A8fCc1CB79621aeB1F",
+    "tokenDescription": "Cometh"
+  },
+  "quick-eth-btc": {
+    "id": "quick-eth-btc",
+    "tokenAddress": "0xdC9232E2Df177d7a12FdFf6EcBAb114E2231198D",
+    "earnedTokenAddress": "0xf26607237355D7c6183ea66EC908729E9c6eEB6b",
+    "earnContractAddress": "0xf26607237355D7c6183ea66EC908729E9c6eEB6b",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-ubt-eth": {
+    "id": "quick-ubt-eth",
+    "tokenAddress": "0xcc203f45A31aE086218170F6A9e9623fA1655486",
+    "earnedTokenAddress": "0x942aa6324E5D0C102d3Ad6607495ac5e798a991a",
+    "earnContractAddress": "0x942aa6324E5D0C102d3Ad6607495ac5e798a991a",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-defi5-eth": {
+    "id": "quick-defi5-eth",
+    "tokenAddress": "0x654E651b658f784406125400cf648588CB9773e8",
+    "earnedTokenAddress": "0x53e674D5cC969930420d73E4b79Ee0D46cCdf6c4",
+    "earnContractAddress": "0x53e674D5cC969930420d73E4b79Ee0D46cCdf6c4",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-wise-eth": {
+    "id": "quick-wise-eth",
+    "tokenAddress": "0xDF8139e9BebecAdEcF48BeC8c8064CcEfB618e2b",
+    "earnedTokenAddress": "0x76cE86B1e1b7a3983B26F7E57B2A0C8896f7eB0D",
+    "earnContractAddress": "0x76cE86B1e1b7a3983B26F7E57B2A0C8896f7eB0D",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-cel-eth": {
+    "id": "quick-cel-eth",
+    "tokenAddress": "0xEAA5E4620373d9Ded4DCB9267F46fcfc6698c867",
+    "earnedTokenAddress": "0xeF1870FddC25586636bf8a3d7cCf4d298f6E072e",
+    "earnContractAddress": "0xeF1870FddC25586636bf8a3d7cCf4d298f6E072e",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-quick-eth": {
+    "id": "quick-quick-eth",
+    "tokenAddress": "0x1Bd06B96dd42AdA85fDd0795f3B4A79DB914ADD5",
+    "earnedTokenAddress": "0x66df1B2d22759D03A9f37BAaAc826089e56a5936",
+    "earnContractAddress": "0x66df1B2d22759D03A9f37BAaAc826089e56a5936",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-aave-eth": {
+    "id": "quick-aave-eth",
+    "tokenAddress": "0x90bc3E68Ba8393a3Bf2D79309365089975341a43",
+    "earnedTokenAddress": "0x752948B4493d2Ee09c95F944A76005aEBF410087",
+    "earnContractAddress": "0x752948B4493d2Ee09c95F944A76005aEBF410087",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-link-eth": {
+    "id": "quick-link-eth",
+    "tokenAddress": "0x5cA6CA6c3709E1E6CFe74a50Cf6B2B6BA2Dadd67",
+    "earnedTokenAddress": "0xaB4105375FbE5F502B0da986F46ADf7a21762e52",
+    "earnContractAddress": "0xaB4105375FbE5F502B0da986F46ADf7a21762e52",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-eth-usdt": {
+    "id": "quick-eth-usdt",
+    "tokenAddress": "0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046",
+    "earnedTokenAddress": "0xC422261EdC5dB679CAd9BC403e886351De540e77",
+    "earnContractAddress": "0xC422261EdC5dB679CAd9BC403e886351De540e77",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-eth-matic": {
+    "id": "quick-eth-matic",
+    "tokenAddress": "0xadbF1854e5883eB8aa7BAf50705338739e558E5b",
+    "earnedTokenAddress": "0x8b89477dFde285849E1B07947E25012206F4D674",
+    "earnContractAddress": "0x8b89477dFde285849E1B07947E25012206F4D674",
+    "tokenDescription": "QuickSwap"
+  },
+  "quick-quick-matic": {
+    "id": "quick-quick-matic",
+    "tokenAddress": "0x019ba0325f1988213D448b3472fA1cf8D07618d7",
+    "earnedTokenAddress": "0xa008B727ddBa283Ddb178b47BB227Cdbea5C1bfD",
+    "earnContractAddress": "0xa008B727ddBa283Ddb178b47BB227Cdbea5C1bfD",
+    "tokenDescription": "QuickSwap"
+  },
+  "cometh-eth-matic": {
+    "id": "cometh-eth-matic",
+    "tokenAddress": "0x462390EA53F70F7570EEB2002c0150aF519f93A9",
+    "earnedTokenAddress": "0xa5aaE3a55cA356C62b5425AA4bFC212542B17777",
+    "earnContractAddress": "0xa5aaE3a55cA356C62b5425AA4bFC212542B17777",
+    "tokenDescription": "Cometh"
+  },
+  "cometh-matic-must": {
+    "id": "cometh-matic-must",
+    "tokenAddress": "0x80676b414a905De269D0ac593322Af821b683B92",
+    "earnedTokenAddress": "0x7f6fE34C51d5352A0CF375C0Fbe03bD19eCD8460",
+    "earnContractAddress": "0x7f6fE34C51d5352A0CF375C0Fbe03bD19eCD8460",
+    "tokenDescription": "Cometh"
+  },
+  "cometh-usdc-must": {
+    "id": "cometh-usdc-must",
+    "tokenAddress": "0x12A2aBcFcADc04681929F0c199bDf812967207E4",
+    "earnedTokenAddress": "0x8a198BCbF313A5565c64A7Ed61FaA413eB4E0931",
+    "earnContractAddress": "0x8a198BCbF313A5565c64A7Ed61FaA413eB4E0931",
+    "tokenDescription": "Cometh"
+  }
+}

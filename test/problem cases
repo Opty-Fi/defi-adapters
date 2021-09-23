@@ -1,0 +1,101 @@
+    //uniswap - insufficient output amount
+    "quick-quick-rendgb": {
+        "wantToken": "0x5Cb85aa163B1B443F88A1f9124153E70F6586400",
+        "beefyVault": "0x6d486dD56e2191E87c275722FBADA1aADa2F2Aff",
+        "tokens": ["0x6d486dD56e2191E87c275722FBADA1aADa2F2Aff"],
+        "platform": "QuickSwap"
+    },
+    Error: Transaction reverted without a reason string
+        "quick-usdc-rusd": {
+        "wantToken": "0x5EF8747d1dc4839e92283794a10d448357973aC0",
+        "beefyVault": "0x2b17aD11c5e9553c79a18F33Df4dE565eF0ad5b0",
+        "tokens": ["0x2b17aD11c5e9553c79a18F33Df4dE565eF0ad5b0"],
+        "platform": "QuickSwap"
+    },
+         Error: VM Exception while processing transaction: reverted with reason string 'UniswapV2: INSUFFICIENT_OUTPUT_AMOUNT'
+             "quick-fff-quick": {
+        "wantToken": "0x2648ec89875d944e38f55925Df77D9Cfe0B01Edd",
+        "beefyVault": "0x2D4cf116A59e24Dd0aB8821c93AE87658a9483b6",
+        "tokens": ["0x2D4cf116A59e24Dd0aB8821c93AE87658a9483b6"],
+        "platform": "QuickSwap"
+    },
+
+        Error: VM Exception while processing transaction: reverted with reason string 'UniswapV2: INSUFFICIENT_OUTPUT_AMOUNT'
+            "quick-defi5-eth": {
+        "wantToken": "0x654E651b658f784406125400cf648588CB9773e8",
+        "beefyVault": "0x53e674D5cC969930420d73E4b79Ee0D46cCdf6c4",
+        "tokens": ["0x53e674D5cC969930420d73E4b79Ee0D46cCdf6c4"],
+        "platform": "QuickSwap"
+    },
+     Error: Transaction reverted without a reason string
+           at <UnrecognizedContract>.<unknown> (0x1b02da8cb0d097eb8d57a175b88c7d8b47997506) - Sushiswap router - problem at addLiquidity?
+                  "dinoswap-xmark-usdc": {
+        "wantToken": "0x97A95deb56d689802F02f50c25EBCda5d0A49591",
+        "beefyVault": "0xFa08E2EFE3aa5a8a0142f26add94354f9FdFe1DE",
+        "tokens": ["0xFa08E2EFE3aa5a8a0142f26add94354f9FdFe1DE"],
+        "platform": "SushiSwap (DinoSwap)"
+    },
+
+ Error: VM Exception while processing transaction: reverted with reason string 'UniswapV2: INSUFFICIENT_LIQUIDITY_MINTED'
+        "sushi-wbtc-ibbtc": {
+        "wantToken": "0x8F8e95Ff4B4c5E354ccB005c6B0278492D7B5907",
+        "beefyVault": "0xD35B3733c2ceaf3635bE246B2c6C42f10e5b6B78",
+        "tokens": ["0xD35B3733c2ceaf3635bE246B2c6C42f10e5b6B78"],
+        "platform": "SushiSwap"
+    },
+
+         Error: Transaction reverted without a reason string
+    "wexpoly-snx-eth": {
+        "wantToken": "0x2857Ec555c1E4fA20982AcBf985b8b8807157A5B",
+        "beefyVault": "0xf7e1226F6f98D1981e88Da328347F0E2131A2864",
+        "tokens": ["0xf7e1226F6f98D1981e88Da328347F0E2131A2864"],
+        "platform": "WaultFinance"
+    },
+
+Error: Transaction reverted without a reason string
+            "wexpoly-usdc-wusd": {
+        "wantToken": "0x7B93196CD4861f345509c2da31058CA4B1c30D63",
+        "beefyVault": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
+        "tokens": ["0x955EAC48a81D8a8A312884A022D806015E901CDE"],
+        "platform": "WaultFinance"
+    },
+
+         Error: Transaction reverted without a reason string
+         "wexpoly-wbtc-wex": {
+        "wantToken": "0xaE183DB956FAf760Aa29bFcfDa4BDDdB02fbdd0E",
+        "beefyVault": "0xA1B2Ef1b6D5823D832DDa2AE2B489793832Fd082",
+        "tokens": ["0xA1B2Ef1b6D5823D832DDa2AE2B489793832Fd082"],
+        "platform": "WaultFinance"
+    },
+
+         Error: Transaction reverted without a reason string
+          "wexpoly-wbtc-usdc": {
+        "wantToken": "0x30eEf213D4B9C809f5776Ae56cC39f02f19F742f",
+        "beefyVault": "0x5c7fd860fC0072cFef2Cc4aB17CC7fF25B639d8b",
+        "tokens": ["0x5c7fd860fC0072cFef2Cc4aB17CC7fF25B639d8b"],
+        "platform": "WaultFinance"
+    },
+     Error: Transaction reverted without a reason string
+        "wexpoly-wbtc-eth": {
+        "wantToken": "0x30AdBCAb9Fbb4436109fcf3058D1Af27E6E33F3F",
+        "beefyVault": "0x75A59e8d6611e90e7A8e439Cb59D9f78e738d16F",
+        "tokens": ["0x75A59e8d6611e90e7A8e439Cb59D9f78e738d16F"],
+        "platform": "WaultFinance"
+    },
+     Error: Transaction reverted without a reason string
+    "wexpoly-aave-eth": {
+        "wantToken": "0x58401db5eD194cBA60f2b7D59b9619D54e0B493c",
+        "beefyVault": "0xc4cC677bb8b7E6EEA6409Ee2af9F434BAB004192",
+        "tokens": ["0xc4cC677bb8b7E6EEA6409Ee2af9F434BAB004192"],
+        "platform": "WaultFinance"
+    },
+
+
+
+     Error: VM Exception while processing transaction: reverted with reason string 'UniswapV2Router: INVALID_PATH'
+    "dinoswap-dfyn-ust-usdt": {
+        "wantToken": "0x39BEd7f1C412ab64443196A6fEcb2ac20C707224",
+        "beefyVault": "0xa2e51538fce9d2D8082988921be4C0afC3Fe089a",
+        "tokens": ["0xa2e51538fce9d2D8082988921be4C0afC3Fe089a"],
+        "platform": "DFyn"
+    },

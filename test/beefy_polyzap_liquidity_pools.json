@@ -1,0 +1,14 @@
+{
+  "pzap-pzap-usdc": {
+    "wantToken": "0x1df7ADAeD1F7f36C822A3079198815b284aD8475",
+    "beefyVault": "0xBA4FA9A5e1e573fA5267970238af5Edf40727315",
+    "tokens": ["0xBA4FA9A5e1e573fA5267970238af5Edf40727315"],
+    "platform": "Polyzap"
+  },
+  "pzap-pzap-matic": {
+    "wantToken": "0xf627E14c318045066dAe0A36997c8C1F34fC0D4c",
+    "beefyVault": "0xf2984c27B963A14F9f3B7326096c54fb05d5b9AF",
+    "tokens": ["0xf2984c27B963A14F9f3B7326096c54fb05d5b9AF"],
+    "platform": "Polyzap"
+  }
+}

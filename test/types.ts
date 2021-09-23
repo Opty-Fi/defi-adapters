@@ -14,20 +14,13 @@ export interface Signers {
   charlie: SignerWithAddress;
   dave: SignerWithAddress;
   eve: SignerWithAddress;
-  daiWhale: SignerWithAddress;
-  usdcWhale: SignerWithAddress;
-  usdtWhale: SignerWithAddress;
-  wethWhale: SignerWithAddress;
-  wbtcWhale: SignerWithAddress;
-  bifiWhale: SignerWithAddress;
 }
 
 export interface PoolItem {
-  pool: string;
-  lpToken: string;
-  stakingPool?: string;
-  rewardTokens?: string[];
+  wantToken: string;
+  beefyVault: string;
   tokens: string[];
+  platform: string;
 }
 
 export interface LiquidityPool {

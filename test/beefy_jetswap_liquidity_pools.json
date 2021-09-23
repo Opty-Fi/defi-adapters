@@ -1,0 +1,14 @@
+{
+  "jetswap-poly-usdc-usdt": {
+    "wantToken": "0x20BF018FDDBa3b352f3d913FE1c81b846fE0F490",
+    "beefyVault": "0x93c9f29CF2496e73f3d8b07055e2359267207147",
+    "tokens": ["0x93c9f29CF2496e73f3d8b07055e2359267207147"],
+    "platform": "JetSwap"
+  },
+  "jetswap-poly-pwings-matic": {
+    "wantToken": "0xA0A6e9A5185d5737CF6F7920CB417EA2F07F03B3",
+    "beefyVault": "0x97fe99a9bc7db115EC89Bc2627eC7f0518409121",
+    "tokens": ["0x97fe99a9bc7db115EC89Bc2627eC7f0518409121"],
+    "platform": "JetSwap"
+  }
+}
