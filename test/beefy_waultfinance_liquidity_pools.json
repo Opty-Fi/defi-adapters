@@ -1,4 +1,10 @@
 {
+  "wexpoly-usdc-wusd": {
+    "wantToken": "0x7B93196CD4861f345509c2da31058CA4B1c30D63",
+    "beefyVault": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
+    "tokens": ["0x955EAC48a81D8a8A312884A022D806015E901CDE"],
+    "platform": "WaultFinance"
+  },
   "farmhero-wault-usdc-honor": {
     "wantToken": "0x4Bd5dF4300b7c5309cB1A0143e4A6d0184B878e1",
     "beefyVault": "0x0cFc878111e72e800ecA9E0B2a6358bcc15EB9FE",

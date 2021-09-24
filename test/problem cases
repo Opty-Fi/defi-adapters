@@ -45,20 +45,15 @@
     },
 
          Error: Transaction reverted without a reason string
-    "wexpoly-snx-eth": {
-        "wantToken": "0x2857Ec555c1E4fA20982AcBf985b8b8807157A5B",
-        "beefyVault": "0xf7e1226F6f98D1981e88Da328347F0E2131A2864",
-        "tokens": ["0xf7e1226F6f98D1981e88Da328347F0E2131A2864"],
-        "platform": "WaultFinance"
-    },
+  "wexpoly-snx-eth": {
+    "wantToken": "0x2857Ec555c1E4fA20982AcBf985b8b8807157A5B",
+    "beefyVault": "0xf7e1226F6f98D1981e88Da328347F0E2131A2864",
+    "tokens": ["0xf7e1226F6f98D1981e88Da328347F0E2131A2864"],
+    "platform": "WaultFinance"
+},
 
 Error: Transaction reverted without a reason string
-            "wexpoly-usdc-wusd": {
-        "wantToken": "0x7B93196CD4861f345509c2da31058CA4B1c30D63",
-        "beefyVault": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
-        "tokens": ["0x955EAC48a81D8a8A312884A022D806015E901CDE"],
-        "platform": "WaultFinance"
-    },
+
 
          Error: Transaction reverted without a reason string
          "wexpoly-wbtc-wex": {

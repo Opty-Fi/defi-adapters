@@ -77,18 +77,6 @@
     "tokens": ["0xb74792F6a2cF81E3f704930621cb4832ffFcC840"],
     "platform": "QuickSwap"
   },
-  "polypup-ball-usdc-ball": {
-    "wantToken": "0x0097692463fD591aEf388851FE2d756505f498AC",
-    "beefyVault": "0x1bCe9A53f3f71DD6B6551712a622E891cf05F477",
-    "tokens": ["0x1bCe9A53f3f71DD6B6551712a622E891cf05F477"],
-    "platform": "QuickSwap"
-  },
-  "polypup-ball-wmatic-ball": {
-    "wantToken": "0xe11eb426206960e9533828031cDFED0B4B61749C",
-    "beefyVault": "0xC10ac3fe9b11ff6763F9f1dE3c1C00267974553B",
-    "tokens": ["0xC10ac3fe9b11ff6763F9f1dE3c1C00267974553B"],
-    "platform": "QuickSwap"
-  },
   "farmhero-quick-usdc-honor": {
     "wantToken": "0x46489f825f11d7473D20279699b108aCAA246e73",
     "beefyVault": "0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c",
