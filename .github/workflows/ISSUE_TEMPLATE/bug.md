@@ -1,7 +1,6 @@
 ---
 name: Bug report
 about: Report a bug in opty.fi's defi-adapters
-
 ---
 
 <!-- Briefly describe the issue you're experiencing. Tell us what you were trying to do and what happened instead. -->
