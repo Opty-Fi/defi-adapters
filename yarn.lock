@@ -961,9 +961,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opty-fi/defi-adapter-kit@workspace:.":
+"@opty_fi/defi-adapters@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@opty-fi/defi-adapter-kit@workspace:."
+  resolution: "@opty_fi/defi-adapters@workspace:."
   dependencies:
     "@codechecks/client": ^0.1.11
     "@commitlint/cli": ^13.1.0
