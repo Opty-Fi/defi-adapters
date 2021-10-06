@@ -1,8 +1,8 @@
 <img src="https://avatars.githubusercontent.com/u/71294241?s=400&u=0b62a061c11a7536c27b1d53760152b5e9bd40f5&v=4" alt="Header" style="width:200px;align=center;float: right;" />
 
-## DeFi Adapter Kit
+## DeFi Adapters
 
-Starter kit for defi adapter development compatible with Opty-Fi's earn-protocol
+Collection of defi adapters compatible with opty.fi's defi adapter kit
 
 ### Prerequisites
 
@@ -43,21 +43,11 @@ yarn install
 
 > Pro Tip : Inherit IAdapterFull interface from [IAdapterFull.sol](./contracts/interfaces/opty/IAdapterFull.sol) to Adapter Contract if the protocol you choose required implementation of all the above interfaces.
 
-### Developing DeFiAdapter
-
-#### Step #1 - Use this template
-
-- This is a GitHub template, so click on green button "Use this template" on the top-right corner of the page to create new defi adapter.
-
-#### Step #2 - Pool, LP token and underlying token(s) address gathering
-
-- Choose a DeFi protocol and gather the pool contract addresses similar to [harvest.finance-pools.json](./test/harvest.finance-pools.json).
-
-#### Step #3 - Implementing `IAdapter` interface
+#### Implementing `IAdapter` interface
 
 - Implement an adapter contract using above interface(s) similar to [HarvestFinanceAdapter.sol](./contracts/adapters/HarvestFinanceAdapters.sol)
 
-#### Step #4 - Unit Tests
+#### Unit Tests
 
 - Write unit tests for all the functions across all the pool contracts gathered in Step 1.
 - You might want to use a test utility contract like [TestDeFiAdapter](./contracts/mock/TestDeFiAdapter.sol) for creating a sandbox environment to execute the transaction based on function signature and target address returned from `getCodes()`-style functions from DeFiAdapter.

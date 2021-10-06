@@ -1,16 +1,16 @@
 {
-  "name": "@opty-fi/defi-adapter-kit",
-  "description": "Starter kit for defi adapter development compatible with Opty-Fi's earn-protocol",
+  "name": "@opty_fi/defi-adapters",
+  "description": "Collection of defi adapters compatible with opty.fi's earn protocol",
   "version": "1.0.0",
   "author": "opty.fi",
   "homepage": "https://opty.fi",
   "repository": {
     "type": "git",
-    "url": "https://github.com/opty-fi/defi-adapter-kit"
+    "url": "https://github.com/opty-fi/defi-adapters"
   },
   "private": true,
   "bugs": {
-    "url": "https://github.com/opty-fi/defi-adapter-kit/issues",
+    "url": "https://github.com/opty-fi/defi-adapters/issues",
     "email": "info@opty.fi"
   },
   "devDependencies": {
