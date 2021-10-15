@@ -12,6 +12,7 @@ import {
   eBinanceSmartChainNetwork,
   eEthereumNetwork,
   eFantomNetwork,
+  eNetwork,
   ePolygonNetwork,
   eXDaiNetwork,
 } from "./helpers/types";
@@ -32,7 +33,7 @@ if (!SKIP_LOAD) {
   require("./tasks/deployers");
 }
 
-const getCommonNetworkConfig = (networkName: string, networkId: number): NetworkUserConfig | undefined => ({
+const getCommonNetworkConfig = (networkName: eNetwork, networkId: number): NetworkUserConfig | undefined => ({
   url: NETWORKS_RPC_URL[networkName],
   hardfork: HARDFORK,
   gasPrice: "auto",

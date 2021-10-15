@@ -41,7 +41,7 @@ export const NETWORKS_RPC_URL = {
   matic: MATIC_RPC_URL,
   xdai: XDAI_RPC_URL,
   avalanche: AVALANCHE_RPC_URL,
-  eAvalancheNetwork: FUJI_RPC_URL,
+  fuji: FUJI_RPC_URL,
   arbitrum1: ARBITRUM1_RPC_URL,
   rinkarby: RINKARBY_RPC_URL,
   fantom: FANTOM_RPC_URL,
