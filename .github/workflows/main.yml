@@ -92,3 +92,6 @@ jobs:
       - name: Test Ethereum
         run: |
           yarn test:ethereum:fork
+      - name: Test Matic
+        run: |
+          yarn test:matic:fork
