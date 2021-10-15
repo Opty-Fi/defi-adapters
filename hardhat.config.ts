@@ -1,68 +1,85 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "solidity-coverage";
+import { resolve } from "path";
+import { config as dotenvConfig } from "dotenv";
+import { HardhatUserConfig, NetworkUserConfig } from "hardhat/types";
+import {
+  eArbitrumNetwork,
+  eAvalancheNetwork,
+  eBinanceSmartChainNetwork,
+  eEthereumNetwork,
+  eFantomNetwork,
+  ePolygonNetwork,
+  eXDaiNetwork,
+} from "./helpers/types";
+import { NETWORKS_RPC_URL, buildForkConfig, NETWORKS_CHAIN_ID, NETWORKS_DEFAULT_GAS } from "./helper-hardhat-config";
 
-if (!process.env.SKIP_LOAD) {
+dotenvConfig({ path: resolve(__dirname, "./.env") });
+
+const SKIP_LOAD = process.env.SKIP_LOAD === "true";
+const HARDFORK = "london";
+const MNEMONIC_PATH = "m/44'/60'/0'/0";
+const MNEMONIC = process.env.MNEMONIC || "";
+const NETWORK = process.env.NETWORK || "";
+
+// Prevent to load scripts before compilation and typechain
+if (!SKIP_LOAD) {
   require("./tasks/accounts");
   require("./tasks/clean");
   require("./tasks/deployers");
 }
 
-import { resolve } from "path";
+const getCommonNetworkConfig = (networkName: string, networkId: number): NetworkUserConfig | undefined => ({
+  url: NETWORKS_RPC_URL[networkName],
+  hardfork: HARDFORK,
+  gasPrice: "auto",
+  chainId: networkId,
+  initialBaseFeePerGas: 1_00_000_000,
+  accounts: {
+    mnemonic: MNEMONIC,
+    path: MNEMONIC_PATH,
+    initialIndex: 0,
+    count: 20,
+    accountsBalance: "10000000000000000000000",
+  },
+});
 
-import { config as dotenvConfig } from "dotenv";
-import { HardhatUserConfig } from "hardhat/config";
-
-dotenvConfig({ path: resolve(__dirname, "./.env") });
-
-const chainIds = {
-  hardhat: 31337,
-};
-
-/////////////////////////////////////////////////////////////////
-/// Ensure that we have all the environment variables we need.///
-/////////////////////////////////////////////////////////////////
-
-// Ensure that we have mnemonic phrase set as an environment variable
-const mnemonic: string | undefined = process.env.MNEMONIC;
-if (!mnemonic) {
-  throw new Error("Please set your MNEMONIC in a .env file");
-}
-// Ensure that we have archive mainnet node URL set as an environment variable
-const archiveMainnetNodeURL: string | undefined = process.env.ARCHIVE_MAINNET_NODE_URL;
-if (!archiveMainnetNodeURL) {
-  throw new Error("Please set your ARCHIVE_MAINNET_NODE_URL in a .env file");
-}
-
-////////////////////////////////////////////////////////////
-/// HARDHAT NETWORK CONFIGURATION FOR THE FORKED MAINNET ///
-////////////////////////////////////////////////////////////
 const config: HardhatUserConfig = {
-  defaultNetwork: "hardhat",
   networks: {
+    kovan: getCommonNetworkConfig(eEthereumNetwork.kovan, NETWORKS_CHAIN_ID[eEthereumNetwork.kovan]),
+    ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, NETWORKS_CHAIN_ID[eEthereumNetwork.ropsten]),
+    main: getCommonNetworkConfig(eEthereumNetwork.main, NETWORKS_CHAIN_ID[eEthereumNetwork.main]),
+    matic: getCommonNetworkConfig(ePolygonNetwork.matic, NETWORKS_CHAIN_ID[ePolygonNetwork.matic]),
+    mumbai: getCommonNetworkConfig(ePolygonNetwork.mumbai, NETWORKS_CHAIN_ID[ePolygonNetwork.mumbai]),
+    xdai: getCommonNetworkConfig(eXDaiNetwork.xdai, NETWORKS_CHAIN_ID[eXDaiNetwork.xdai]),
+    avalanche: getCommonNetworkConfig(eAvalancheNetwork.avalanche, NETWORKS_CHAIN_ID[eAvalancheNetwork.avalanche]),
+    fuji: getCommonNetworkConfig(eAvalancheNetwork.fuji, NETWORKS_CHAIN_ID[eAvalancheNetwork.fuji]),
+    arbitrum1: getCommonNetworkConfig(eArbitrumNetwork.arbitrum1, NETWORKS_CHAIN_ID[eArbitrumNetwork.arbitrum1]),
+    rinkarby: getCommonNetworkConfig(eArbitrumNetwork.rinkarby, NETWORKS_CHAIN_ID[eArbitrumNetwork.rinkarby]),
+    fantom: getCommonNetworkConfig(eFantomNetwork.fantom, NETWORKS_CHAIN_ID[eFantomNetwork.fantom]),
+    fantom_test: getCommonNetworkConfig(eFantomNetwork.fantom_test, NETWORKS_CHAIN_ID[eFantomNetwork.fantom_test]),
+    bsc: getCommonNetworkConfig(eBinanceSmartChainNetwork.bsc, NETWORKS_CHAIN_ID[eBinanceSmartChainNetwork.bsc]),
+    bsc_test: getCommonNetworkConfig(
+      eBinanceSmartChainNetwork.bsc_test,
+      NETWORKS_CHAIN_ID[eBinanceSmartChainNetwork.bsc_test],
+    ),
     hardhat: {
+      hardfork: "london",
+      gasPrice: NETWORKS_DEFAULT_GAS[NETWORK],
+      chainId: NETWORKS_CHAIN_ID[NETWORK],
       initialBaseFeePerGas: 1_00_000_000,
-      gasPrice: "auto",
       accounts: {
         initialIndex: 0,
         count: 20,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
+        mnemonic: MNEMONIC,
+        path: MNEMONIC_PATH,
         accountsBalance: "10000000000000000000000",
       },
-      forking: {
-        url: archiveMainnetNodeURL,
-        blockNumber: 13270269,
-      },
-      chainId: chainIds.hardhat,
-      hardfork: "london",
+      forking: buildForkConfig(),
     },
-  },
-  paths: {
-    artifacts: "./artifacts",
-    cache: "./cache",
-    sources: "./contracts",
-    tests: "./test",
   },
   solidity: {
     version: "0.6.12",
@@ -79,6 +96,12 @@ const config: HardhatUserConfig = {
         runs: 200,
       },
     },
+  },
+  paths: {
+    artifacts: "./artifacts",
+    cache: "./cache",
+    sources: "./contracts",
+    tests: "./test",
   },
   typechain: {
     outDir: "typechain",

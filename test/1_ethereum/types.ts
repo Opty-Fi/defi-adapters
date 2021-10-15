@@ -1,8 +1,8 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { Fixture } from "ethereum-waffle";
-import { IUniswapV2Router02 } from "../typechain";
-import { HarvestFinanceAdapter } from "../typechain/HarvestFinanceAdapter";
-import { TestDeFiAdapter } from "../typechain/TestDeFiAdapter";
+import { IUniswapV2Router02 } from "../../typechain/IUniswapV2Router02";
+import { HarvestFinanceAdapter } from "../../typechain/HarvestFinanceAdapter";
+import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
 
 export interface Signers {
   admin: SignerWithAddress;

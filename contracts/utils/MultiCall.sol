@@ -4,7 +4,7 @@ pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
 // interfaces
-import { IMultiCall } from "../interfaces/utils/IMultiCall.sol";
+import { IMultiCall } from "./interfaces/IMultiCall.sol";
 
 /////////////////////////////////////////////////////
 /// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///

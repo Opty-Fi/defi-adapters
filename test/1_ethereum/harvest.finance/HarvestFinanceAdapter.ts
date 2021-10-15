@@ -2,13 +2,13 @@ import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { getAddress } from "ethers/lib/utils";
-import { HarvestFinanceAdapter } from "../../typechain/HarvestFinanceAdapter";
-import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
+import { HarvestFinanceAdapter } from "../../../typechain/HarvestFinanceAdapter";
+import { TestDeFiAdapter } from "../../../typechain/TestDeFiAdapter";
 import { LiquidityPool, Signers } from "../types";
 import { shouldBehaveLikeHarvestFinanceAdapter } from "./HarvestFinanceAdapter.behavior";
-import { default as HarvestFinancePools } from "../harvest.finance-pools.json";
-import { IUniswapV2Router02 } from "../../typechain";
-import { getOverrideOptions } from "../utils";
+import { default as HarvestFinancePools } from "./harvest.finance-pools.json";
+import { IUniswapV2Router02 } from "../../../typechain";
+import { getOverrideOptions } from "../../utils";
 
 const { deployContract } = hre.waffle;
 

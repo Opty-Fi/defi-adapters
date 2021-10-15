@@ -101,7 +101,7 @@ export interface iAvalancheParamsPerNetwork<T> {
 
 export interface iArbitrumParamsPerNetwork<T> {
   [eArbitrumNetwork.arbitrum1]: T;
-  [eAvalancheNetwork.fuji]: T;
+  [eArbitrumNetwork.rinkarby]: T;
 }
 
 export interface iFantomParamsPerNetwork<T> {

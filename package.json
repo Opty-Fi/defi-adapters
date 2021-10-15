@@ -84,7 +84,8 @@
     "postinstall": "husky install",
     "prettier": "prettier --config ./.prettierrc.yaml --write \"**/*.{js,json,md,sol,ts}\"",
     "prettier:check": "prettier --check --config ./.prettierrc.yaml \"**/*.{js,json,md,sol,ts}\"",
-    "test": "hardhat test",
+    "test:ethereum:fork": "env FORK=main NETWORK=main TS_NODE_TRANSPILE_ONLY=1 hardhat test ./test/1_ethereum/**/*.ts",
+    "test:matic:fork": "env FORK=matic NETWORK=matic TS_NODE_TRANSPILE_ONLY=1 hardhat test ./test/2_matic/**/*.ts",
     "typechain": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat typechain"
   },
   "contributors": [

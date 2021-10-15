@@ -17,7 +17,8 @@ jobs:
         node-version: [12.x.x]
     
     env:
-      ARCHIVE_MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
+      MAIN_RPC_URL: ${{ secrets.MAIN_RPC_URL}}
+      MATIC_RPC_URL: ${{ secrets.MATIC_RPC_URL}}
       MNEMONIC: ${{ secrets.MNEMONIC}}
 
     steps:
@@ -43,7 +44,8 @@ jobs:
         node-version: [12.x.x]
     
     env:
-      ARCHIVE_MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
+      MAIN_RPC_URL: ${{ secrets.MAIN_RPC_URL}}
+      MATIC_RPC_URL: ${{ secrets.MATIC_RPC_URL}}
       MNEMONIC: ${{ secrets.MNEMONIC}}
 
     steps:
@@ -69,7 +71,8 @@ jobs:
         node-version: [12.x.x]
     
     env:
-      ARCHIVE_MAINNET_NODE_URL: ${{ secrets.ARCHIVE_MAINNET_NODE_URL}}
+      MAIN_RPC_URL: ${{ secrets.MAIN_RPC_URL}}
+      MATIC_RPC_URL: ${{ secrets.MATIC_RPC_URL}}
       MNEMONIC: ${{ secrets.MNEMONIC}}
 
     steps:
@@ -85,7 +88,7 @@ jobs:
       - name: Install
         run: |
           yarn install --frozen-lockfile
-      - name: Test
-        run: |
           yarn typechain
-          yarn test
+      - name: Test Ethereum
+        run: |
+          yarn test:ethereum:fork
