@@ -1,5 +1,5 @@
 {
-  "name": "@opty_fi/defi-adapters",
+  "name": "@optyfi/defi-adapters",
   "description": "Collection of defi adapters compatible with opty.fi's earn protocol",
   "version": "1.0.0",
   "author": "opty.fi",
