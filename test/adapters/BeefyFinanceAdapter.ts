@@ -3,11 +3,11 @@ import { Artifact } from "hardhat/types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { BeefyFinanceAdapter } from "../../typechain/BeefyFinanceAdapter";
 import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
-import { LiquidityPool, Signers } from "../types";
+import { LiquidityPool, StakingPool, Signers } from "../types";
 import { shouldBehaveLikeBeefyFinanceAdapter } from "./BeefyFinanceAdapter.behavior";
-// import { shouldStakeLikeBeefyFinanceAdapter } from "./BeefyFinanceAdapter.behavior";
-import { default as BeefyFinanceLiquidityPools } from "../beefy_dfyn_liquidity_pools.json";
-// import { default as BeefyStakingPools } from "../beefy.staking-pools.json";
+import { shouldStakeLikeBeefyFinanceAdapter } from "./BeefyFinanceAdapter.behavior";
+import { default as BeefyFinanceLiquidityPools } from "../beefy_single_asset_pools.json";
+import { default as BeefyStakingPools } from "../beefy.staking-pools.json";
 import { IUniswapV2Router02 } from "../../typechain";
 import { getOverrideOptions } from "../utils";
 //
@@ -37,7 +37,6 @@ describe("Unit tests", function () {
     );
 
     for (const pool of Object.values(BeefyFinanceLiquidityPools)) {
-      const LP_TOKEN_CONTRACT = await hre.ethers.getContractAt("IUniswapV2Pair", pool.wantToken);
       let hostRouterAddress, swapRouterAddress, wmatic_address;
       switch (pool.platform) {
         case "QuickSwap":
@@ -96,81 +95,115 @@ describe("Unit tests", function () {
           wmatic_address = "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270";
           break;
       }
+
       // get the UniswapV2Router contract instance that hosts this liquidity pool
       this.swapRouter = <IUniswapV2Router02>await hre.ethers.getContractAt("IUniswapV2Router02", swapRouterAddress); //changed this to polygon apeswap router
-      console.log("swaprouter alive");
-      //get the addresses of the two respective tokens
-      const token0_address = await LP_TOKEN_CONTRACT.token0();
-      const token1_address = await LP_TOKEN_CONTRACT.token1();
-      console.log(token0_address);
 
-      // swap 100 MATIC for token0 and token1 respectively
-      if (token0_address == hre.ethers.utils.getAddress(wmatic_address)) {
-        const wmatic_token = await hre.ethers.getContractAt("IWETH", token0_address);
-        await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
-      } else {
-        try {
-          await this.swapRouter.swapExactETHForTokens(
-            0,
-            [wmatic_address, token0_address],
-            this.signers.admin.address,
-            Date.now() + 900,
-            { value: hre.ethers.utils.parseEther("50") },
-          );
-          console.log("swap1 done");
-        } catch (err) {
-          console.log("First swap failed");
-          console.log(err);
+      if (pool.platform == "single_asset") {
+        //case where want is a single token
+        const wantTokenAddress = pool.wantToken;
+        if (wantTokenAddress == hre.ethers.utils.getAddress(wmatic_address)) {
+          const wmatic_token = await hre.ethers.getContractAt("IWETH", wantTokenAddress);
+          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
+        } else {
+          try {
+            await this.swapRouter.swapExactETHForTokens(
+              0,
+              [wmatic_address, wantTokenAddress],
+              this.signers.admin.address,
+              Date.now() + 900,
+              { value: hre.ethers.utils.parseEther("50") },
+            );
+            console.log("swap into single asset done");
+          } catch (err) {
+            console.log("First swap failed");
+            console.log(err);
+          }
         }
-      }
-      if (token1_address == hre.ethers.utils.getAddress(wmatic_address)) {
-        const wmatic_token = await hre.ethers.getContractAt("IWETH", token1_address);
-        await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
+        const WANT_TOKEN_CONTRACT = await hre.ethers.getContractAt("IERC20", pool.wantToken);
+
+        const initialWantTokenBalance = await WANT_TOKEN_CONTRACT.balanceOf(this.signers.admin.address);
+
+        // fund TestDeFiAdapter with initialWantTokenBalance
+        await WANT_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialWantTokenBalance, getOverrideOptions());
+
+        // console.log(`${await WANT_TOKEN_CONTRACT.symbol()} funded`);
       } else {
-        try {
-          await this.swapRouter.swapExactETHForTokens(
-            0,
-            [wmatic_address, token1_address],
-            this.signers.admin.address,
-            Date.now() + 900,
-            { value: hre.ethers.utils.parseEther("50") },
-          );
-          console.log("swap2 done");
-        } catch (err) {
-          console.log("Second swap failed");
-          console.log(err);
+        //case where want is an LPtoken
+        const LP_TOKEN_CONTRACT = await hre.ethers.getContractAt("IUniswapV2Pair", pool.wantToken);
+        //get the addresses of the two respective tokens
+        const token0_address = await LP_TOKEN_CONTRACT.token0();
+        const token1_address = await LP_TOKEN_CONTRACT.token1();
+        console.log(token0_address);
+
+        // swap 100 MATIC for token0 and token1 respectively
+        if (token0_address == hre.ethers.utils.getAddress(wmatic_address)) {
+          const wmatic_token = await hre.ethers.getContractAt("IWETH", token0_address);
+          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
+        } else {
+          try {
+            await this.swapRouter.swapExactETHForTokens(
+              0,
+              [wmatic_address, token0_address],
+              this.signers.admin.address,
+              Date.now() + 900,
+              { value: hre.ethers.utils.parseEther("50") },
+            );
+            console.log("swap1 done");
+          } catch (err) {
+            console.log("First swap failed");
+            console.log(err);
+          }
         }
+        if (token1_address == hre.ethers.utils.getAddress(wmatic_address)) {
+          const wmatic_token = await hre.ethers.getContractAt("IWETH", token1_address);
+          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
+        } else {
+          try {
+            await this.swapRouter.swapExactETHForTokens(
+              0,
+              [wmatic_address, token1_address],
+              this.signers.admin.address,
+              Date.now() + 900,
+              { value: hre.ethers.utils.parseEther("50") },
+            );
+            console.log("swap2 done");
+          } catch (err) {
+            console.log("Second swap failed");
+            console.log(err);
+          }
+        }
+        // get the UniswapV2Router contract instance that hosts this liquidity pool
+        this.hostRouter = <IUniswapV2Router02>await hre.ethers.getContractAt("IUniswapV2Router02", hostRouterAddress); //changed this to polygon apeswap router
+
+        //approve spending token 0
+        const token0 = await hre.ethers.getContractAt("ERC20", token0_address);
+        var token0Balance = await token0.balanceOf(this.signers.admin.address);
+        await token0.approve(this.hostRouter.address, token0Balance);
+
+        //approve spending token 1
+        const token1 = await hre.ethers.getContractAt("ERC20", token1_address);
+        var token1Balance = await token1.balanceOf(this.signers.admin.address);
+        await token1.approve(this.hostRouter.address, token1Balance);
+        console.log("approvals done");
+        //add liquidity to get LP tokens for deposit
+        await this.hostRouter.addLiquidity(
+          token0_address,
+          token1_address,
+          token0Balance,
+          token1Balance,
+          0,
+          0,
+          this.signers.admin.address,
+          Date.now() + 900,
+        );
+        console.log("liquidity added");
+        const initialLPtokenBalance = await LP_TOKEN_CONTRACT.balanceOf(this.signers.admin.address);
+
+        // fund TestDeFiAdapter with initialLPtokenBalance
+        await LP_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialLPtokenBalance, getOverrideOptions());
+        console.log(`${await LP_TOKEN_CONTRACT.symbol()} funded`);
       }
-      // get the UniswapV2Router contract instance that hosts this liquidity pool
-      this.hostRouter = <IUniswapV2Router02>await hre.ethers.getContractAt("IUniswapV2Router02", hostRouterAddress); //changed this to polygon apeswap router
-
-      //approve spending token 0
-      const token0 = await hre.ethers.getContractAt("ERC20", token0_address);
-      var token0Balance = await token0.balanceOf(this.signers.admin.address);
-      await token0.approve(this.hostRouter.address, token0Balance);
-
-      //approve spending token 1
-      const token1 = await hre.ethers.getContractAt("ERC20", token1_address);
-      var token1Balance = await token1.balanceOf(this.signers.admin.address);
-      await token1.approve(this.hostRouter.address, token1Balance);
-      console.log("approvals done");
-      //add liquidity to get LP tokens for deposit
-      await this.hostRouter.addLiquidity(
-        token0_address,
-        token1_address,
-        token0Balance,
-        token1Balance,
-        0,
-        0,
-        this.signers.admin.address,
-        Date.now() + 900,
-      );
-      console.log("liquidity added");
-      const initialLPtokenBalance = await LP_TOKEN_CONTRACT.balanceOf(this.signers.admin.address);
-
-      // fund TestDeFiAdapter with initialLPtokenBalance
-      await LP_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialLPtokenBalance, getOverrideOptions());
-      console.log(`${await LP_TOKEN_CONTRACT.symbol()} funded`);
     }
   });
 
@@ -180,9 +213,9 @@ describe("Unit tests", function () {
     });
   });
 
-  // describe("BeefyFinanceAdapter", function () {
-  //   Object.keys(BeefyStakingPools).map(async (token: string) => {
-  //     shouldStakeLikeBeefyFinanceAdapter(token, (BeefyStakingPools as LiquidityPool)[token]);
-  //   });
-  // });
+  describe("BeefyFinanceAdapter", function () {
+    Object.keys(BeefyStakingPools).map(async (token: string) => {
+      shouldStakeLikeBeefyFinanceAdapter(token, (BeefyStakingPools as StakingPool)[token]);
+    });
+  });
 });

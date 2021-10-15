@@ -23,6 +23,19 @@ export interface PoolItem {
   platform: string;
 }
 
+export interface StakingPoolItem {
+  tokens: string[];
+  stakingPool: string;
+  rewardTokens: string[];
+  pool: string;
+  lpToken: string;
+  whale: string;
+}
+
+export interface StakingPool {
+  [name: string]: StakingPoolItem;
+}
+
 export interface LiquidityPool {
   [name: string]: PoolItem;
 }
