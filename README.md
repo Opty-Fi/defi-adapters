@@ -2,7 +2,7 @@
 
 ## DeFi Adapters
 
-Collection of defi adapters compatible with opty.fi's defi adapter kit
+Collection of defi adapters compatible with opty.fi's yield protocol - earn-protocol
 
 ### Prerequisites
 
@@ -20,7 +20,7 @@ And passion for financial freedom...
 ### Development Setup
 
 - Create a `.env` file and set a BIP-39 compatible mnemonic as an environment variable. Follow the example in `.env.example`. If you don't already have a mnemonic, use this [website](https://iancoleman.io/bip39/) to generate one.
-- You will require access to archive Node URL for forking the mainnet.
+- You are only required to get the archive node URL of the network which is being used for developing/testing of defi Adapters.
 
 Proceed with installing dependencies:
 
@@ -35,37 +35,36 @@ yarn install
   - transactions like deposit, withdraw, staking, un-staking, adding liquidity, claim reward and harvesting of the reward.
   - read calls for liquidity pool token contract address, liquidity pool token balance, staked token balance, balance in underlying token of both staked and non-staked liquidity pool token, unclaimed reward tokens and reward token contract address
 - A DeFi Adapter smart contract requires implementation of following interfaces :
-  - [IAdapter.sol](./contracts/interfaces/opty/IAdapter.sol) **(Mandatory)**
-  - [IAdapterHarvestReward.sol](./contracts/interfaces/opty/IAdapterHarvestReward.sol) **(Optional)**
-  - [IAdapterStaking.sol](./contracts/interfaces/opty/IAdapterStaking.sol) **(Optional)**
-  - [IAdapterBorrow.sol](./contracts/interfaces/opty/IAdapterBorrow.sol) **(Optional)**
-  - [IAdapterInvestmentLimit.sol](./contracts/interfaces/opty/IAdapterInvestmentLimit.sol) **(Optional)**
+  - [IAdapter.sol](./contracts/opty/interfaces/defiAdapters/IAdapter.sol) **(Mandatory)**
+  - [IAdapterHarvestReward.sol](./contracts/opty/interfaces/defiAdapters/IAdapterHarvestReward.sol) **(Optional)**
+  - [IAdapterStaking.sol](./contracts/opty/interfaces/defiAdapters/IAdapterStaking.sol) **(Optional)**
+  - [IAdapterBorrow.sol](./contracts/opty/interfaces/defiAdapters/IAdapterBorrow.sol) **(Optional)**
+  - [IAdapterInvestmentLimit.sol](./contracts/opty/interfaces/defiAdapters/IAdapterInvestmentLimit.sol) **(Optional)**
 
-> Pro Tip : Inherit IAdapterFull interface from [IAdapterFull.sol](./contracts/interfaces/opty/IAdapterFull.sol) to Adapter Contract if the protocol you choose required implementation of all the above interfaces.
+> Pro Tip : Inherit IAdapterFull interface from [IAdapterFull.sol](./contracts/opty/interfaces/defiAdapters/IAdapterFull.sol) to Adapter Contract if the protocol you choose required implementation of all the above interfaces.
 
 #### Implementing `IAdapter` interface
 
-- Implement an adapter contract using above interface(s) similar to [HarvestFinanceAdapter.sol](./contracts/adapters/HarvestFinanceAdapters.sol)
+- Implement an adapter contract using above interface(s) similar to [HarvestFinanceAdapter.sol](./contracts/1_ethereum/harvest.finance/HarvestFinanceAdapter.sol)
 
 #### Unit Tests
 
 - Write unit tests for all the functions across all the pool contracts gathered in Step 1.
 - You might want to use a test utility contract like [TestDeFiAdapter](./contracts/mock/TestDeFiAdapter.sol) for creating a sandbox environment to execute the transaction based on function signature and target address returned from `getCodes()`-style functions from DeFiAdapter.
 - All other functions can be directly tested from the DeFiAdapter contract.
-- The unit test for `HarvestFinanceAdapter.sol` can be found in [HarvestFinanceAdapter.ts](./test/adapters/HarvestFinanceAdapter.ts)
+- The unit test for `HarvestFinanceAdapter.sol` can be found in [HarvestFinanceAdapter.ts](./test/1_ethereum/harvest.finance/HarvestFinanceAdapter.ts)
 
 #### Useful commands
 
-| Usage                                                                           | Command            |
-| ------------------------------------------------------------------------------- | ------------------ |
-| Compile the smart contracts with Hardhat                                        | `$ yarn compile`   |
-| Compile the smart contracts and generate TypeChain artifacts                    | `$ yarn typechain` |
-| Lint the Solidity Code                                                          | `$ yarn lint:sol`  |
-| Lint the TypeScript Code                                                        | `$ yarn lint:ts`   |
-| Run the Mocha tests                                                             | `$ yarn test`      |
-| Generate the code coverage report                                               | `$ yarn coverage`  |
-| Delete the smart contract artifacts, the coverage reports and the Hardhat cache | `$ yarn clean`     |
-| Deploy the adapter to Hardhat Network                                           | `$ yarn deploy`    |
+| Usage                                                                           | Command                      |
+| ------------------------------------------------------------------------------- | ---------------------------- |
+| Compile the smart contracts with Hardhat                                        | `$ yarn compile`             |
+| Compile the smart contracts and generate TypeChain artifacts                    | `$ yarn typechain`           |
+| Lint the Solidity Code                                                          | `$ yarn lint:sol`            |
+| Lint the TypeScript Code                                                        | `$ yarn lint:ts`             |
+| Run the Mocha tests                                                             | `$ yarn test:{network}:fork` |
+| Generate the code coverage report                                               | `$ yarn coverage:{network}`  |
+| Delete the smart contract artifacts, the coverage reports and the Hardhat cache | `$ yarn clean`               |
 
 #### Syntax Highlighting
 
