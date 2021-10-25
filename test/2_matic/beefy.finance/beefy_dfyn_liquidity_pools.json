@@ -1,0 +1,44 @@
+{
+  "ironswap-ice-usdc": {
+    "wantToken": "0x34832D9AC4127a232C1919d840f7aaE0fcb7315B",
+    "beefyVault": "0x0564889d4Ff0dA0371Ec8a898AC39ABC99065BfA",
+    "tokens": ["0x0564889d4Ff0dA0371Ec8a898AC39ABC99065BfA"],
+    "platform": "DFyn"
+  },
+  "ironswap-ice-iron": {
+    "wantToken": "0x7e2cc09d3d36b3aF6EdfF55B214fd62885234E95",
+    "beefyVault": "0xBD8B03a3fF5F63093000Df6De33B0A6C9E5bb501",
+    "tokens": ["0xBD8B03a3fF5F63093000Df6De33B0A6C9E5bb501"],
+    "platform": "DFyn"
+  },
+  "dinoswap-dfyn-route-eth": {
+    "wantToken": "0xeBC4f9B1cE66258AC3A48578FFEEba1330dDB68B",
+    "beefyVault": "0x655AF65e1f26ccB1dD18EF1DA93E813911818c5e",
+    "tokens": ["0x655AF65e1f26ccB1dD18EF1DA93E813911818c5e"],
+    "platform": "DFyn"
+  },
+  "dinoswap-dfyn-eth-dfyn": {
+    "wantToken": "0x6fA867BBFDd025780a8CFE988475220AfF51FB8b",
+    "beefyVault": "0x05064BF1Bc9f6778c69c3f68E17Ba8d9427594D8",
+    "tokens": ["0x05064BF1Bc9f6778c69c3f68E17Ba8d9427594D8"],
+    "platform": "DFyn"
+  },
+  "dfyn-ice-dfyn": {
+    "wantToken": "0x9bb608dc0F9308B9beCA2F7c80865454d02E74cA",
+    "beefyVault": "0xB198A916123394f2d9c31D4645468566e87080d5",
+    "tokens": ["0xB198A916123394f2d9c31D4645468566e87080d5"],
+    "platform": "DFyn"
+  },
+  "dfyn-bifi-dfyn": {
+    "wantToken": "0x759738096589b9C39dA78A603565635a3Cee6013",
+    "beefyVault": "0x74b00bbb693de4dC07d8aB79Ac935b323e2A136a",
+    "tokens": ["0x74b00bbb693de4dC07d8aB79Ac935b323e2A136a"],
+    "platform": "DFyn"
+  },
+  "dfyn-route-dfyn": {
+    "wantToken": "0xB0dc320ea9eea823a150763AbB4A7bA8286Cd08B",
+    "beefyVault": "0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2",
+    "tokens": ["0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2"],
+    "platform": "DFyn"
+  }
+}

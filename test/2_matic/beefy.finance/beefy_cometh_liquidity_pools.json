@@ -1,0 +1,50 @@
+{
+  "cometh-eth-wbtc": {
+    "wantToken": "0x4282C6b1c21CD1A0C363a70e4292f8Bf4D7c898c",
+    "beefyVault": "0x55eebAd2b295d5229cf853368c9307e48B9CD955",
+    "tokens": ["0x55eebAd2b295d5229cf853368c9307e48B9CD955"],
+    "platform": "Cometh"
+  },
+  "cometh-eth-usdc": {
+    "wantToken": "0x1Edb2D8f791D2a51D56979bf3A25673D6E783232",
+    "beefyVault": "0x47036A1ecC5D02e122Ae6604973ee1529E76e022",
+    "tokens": ["0x47036A1ecC5D02e122Ae6604973ee1529E76e022"],
+    "platform": "Cometh"
+  },
+  "cometh-bifi-eth": {
+    "wantToken": "0xee3987aa1B20944EF4f8f049Cf1763007C06cFBC",
+    "beefyVault": "0x9649e6E5c689f21BC27B47CE4177f7c5f7281E20",
+    "tokens": ["0x9649e6E5c689f21BC27B47CE4177f7c5f7281E20"],
+    "platform": "Cometh"
+  },
+  "cometh-bifi-must": {
+    "wantToken": "0x9292aa90F81dc77fE6e6BB34b276502b6a047F7d",
+    "beefyVault": "0x66b3d910c30f2305EA0078E06DF65e0c1745ceF0",
+    "tokens": ["0x66b3d910c30f2305EA0078E06DF65e0c1745ceF0"],
+    "platform": "Cometh"
+  },
+  "cometh-must-eth": {
+    "wantToken": "0x8826C072657983939c26E684edcfb0e4133f0B3d",
+    "beefyVault": "0x7CE2332fAF6328986C75e3A8fCc1CB79621aeB1F",
+    "tokens": ["0x7CE2332fAF6328986C75e3A8fCc1CB79621aeB1F"],
+    "platform": "Cometh"
+  },
+  "cometh-eth-matic": {
+    "wantToken": "0x462390EA53F70F7570EEB2002c0150aF519f93A9",
+    "beefyVault": "0xa5aaE3a55cA356C62b5425AA4bFC212542B17777",
+    "tokens": ["0xa5aaE3a55cA356C62b5425AA4bFC212542B17777"],
+    "platform": "Cometh"
+  },
+  "cometh-matic-must": {
+    "wantToken": "0x80676b414a905De269D0ac593322Af821b683B92",
+    "beefyVault": "0x7f6fE34C51d5352A0CF375C0Fbe03bD19eCD8460",
+    "tokens": ["0x7f6fE34C51d5352A0CF375C0Fbe03bD19eCD8460"],
+    "platform": "Cometh"
+  },
+  "cometh-usdc-must": {
+    "wantToken": "0x12A2aBcFcADc04681929F0c199bDf812967207E4",
+    "beefyVault": "0x8a198BCbF313A5565c64A7Ed61FaA413eB4E0931",
+    "tokens": ["0x8a198BCbF313A5565c64A7Ed61FaA413eB4E0931"],
+    "platform": "Cometh"
+  }
+}

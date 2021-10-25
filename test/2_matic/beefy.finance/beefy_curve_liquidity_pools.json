@@ -1,0 +1,8 @@
+{
+  "curve-poly-ren": {
+    "wantToken": "0xf8a57c1d3b9629b77b6726a042ca48990A84Fb49",
+    "beefyVault": "0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141",
+    "tokens": ["0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141"],
+    "platform": "Curve"
+  }
+}
