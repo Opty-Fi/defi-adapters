@@ -5,7 +5,7 @@ import { Artifact } from "hardhat/types";
 import { IUniswapV2Router02 } from "../../../typechain";
 import { ConvexFinanceAdapter } from "../../../typechain/ConvexFinanceAdapter";
 import { TestDeFiAdapter } from "../../../typechain/TestDeFiAdapter";
-import { default as ConvexFinancePools } from "../../convex.finance-pools.json";
+import { default as ConvexFinancePools } from "./convex.finance-pools.json";
 import { LiquidityPool, Signers } from "../types";
 import { getOverrideOptions } from "../../utils";
 import { shouldBehaveLikeConvexFinanceAdapter } from "./ConvexFinanceAdapter.behavior";

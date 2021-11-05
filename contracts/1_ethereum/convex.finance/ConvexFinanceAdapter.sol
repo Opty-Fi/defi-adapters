@@ -12,15 +12,15 @@ pragma experimental ABIEncoderV2;
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
 //  interfaces
-import { IConvexDeposit } from "../interfaces/convex.finance/IConvexDeposit.sol";
-import { IConvexStake } from "../interfaces/convex.finance/IConvexStake.sol";
+import { IAdapter } from "../../opty/interfaces/defiAdapters/IAdapter.sol";
+import { IAdapterHarvestReward } from "../../opty/interfaces/defiAdapters/IAdapterHarvestReward.sol";
+import { IAdapterStaking } from "../../opty/interfaces/defiAdapters/IAdapterStaking.sol";
+import { IConvexDeposit } from "./interfaces/IConvexDeposit.sol";
+import { IConvexStake } from "./interfaces/IConvexStake.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IAdapter } from "../interfaces/opty/defiAdapters/IAdapter.sol";
-import { IAdapterHarvestReward } from "../interfaces/opty/defiAdapters/IAdapterHarvestReward.sol";
-import { IAdapterStaking } from "../interfaces/opty/defiAdapters/IAdapterStaking.sol";
-import { ICurvePoolInfo } from "../interfaces/utils/ICurvePoolInfo.sol";
-import { ICurveStableSwap } from "../interfaces/utils/ICurveStableSwap.sol";
-import { ICurveStableSwap2, ICurveStableSwap3, ICurveStableSwap4 } from "../interfaces/utils/ICurveStableSwap.sol";
+import { ICurvePoolInfo } from "./interfaces/ICurvePoolInfo.sol";
+import { ICurveStableSwap } from "./interfaces/ICurveStableSwap.sol";
+import { ICurveStableSwap2, ICurveStableSwap3, ICurveStableSwap4 } from "./interfaces/ICurveStableSwap.sol";
 import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 
 /**

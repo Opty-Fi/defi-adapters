@@ -4,7 +4,7 @@ import { BigNumber, utils } from "ethers";
 import { getAddress } from "ethers/lib/utils";
 import hre from "hardhat";
 import { PoolItem } from "../types";
-import { getOverrideOptions } from "../utils";
+import { getOverrideOptions } from "../../utils";
 
 chai.use(solidity);
 
