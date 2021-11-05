@@ -23,6 +23,7 @@ interface ILidoDeposit {
      * @notice Adds eth to the pool
      * @return StETH Amount of StETH generated
      */
+    // solhint-disable-next-line var-name-mixedcase
     function submit(address _referral) external payable returns (uint256 StETH);
 
     /**

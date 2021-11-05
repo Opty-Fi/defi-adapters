@@ -18,6 +18,7 @@ interface ICurveStableSwapStEth {
         int128 i,
         int128 j,
         uint256 dx,
+        // solhint-disable-next-line var-name-mixedcase
         uint256 min_dy
     ) external returns (uint256);
 }
