@@ -5,13 +5,16 @@ export type eNetwork =
   | eAvalancheNetwork
   | eArbitrumNetwork
   | eFantomNetwork
-  | eBinanceSmartChainNetwork;
+  | eBinanceSmartChainNetwork
+  | eOptimisticEthereumNetwork;
 
 export enum eEthereumNetwork {
   main = "main",
   hardhat = "hardhat",
   kovan = "kovan",
   ropsten = "ropsten",
+  goerli = "goerli",
+  rinkeby = "rinkeby",
 }
 
 export enum ePolygonNetwork {
@@ -30,7 +33,7 @@ export enum eAvalancheNetwork {
 
 export enum eArbitrumNetwork {
   arbitrum1 = "arbitrum1",
-  rinkarby = "rinkarby",
+  rinkeby_arbitrum1 = "rinkeby_arbitrum1",
 }
 
 export enum eFantomNetwork {
@@ -43,21 +46,32 @@ export enum eBinanceSmartChainNetwork {
   bsc_test = "bsc_test",
 }
 
+export enum eOptimisticEthereumNetwork {
+  oethereum = "oethereum",
+  kovan_oethereum = "kovan_oethereum",
+  goerli_oethereum = "goerli_oethereum",
+}
+
 export enum EthereumNetworkNames {
+  main = "main",
   kovan = "kovan",
   ropsten = "ropsten",
-  main = "main",
+  goerli = "goerli",
+  rinkeby = "rinkeby",
   matic = "matic",
   mumbai = "mumbai",
   xdai = "xdai",
   avalanche = "avalanche",
   fuji = "fuji",
   arbitrum1 = "arbitrum1",
-  rinkarby = "rinkarby",
+  rinkeby_arbitrum1 = "rinkeby_arbitrum1",
   fantom = "fantom",
   fantom_test = "fantom_test",
   bsc = "bsc",
   bsc_test = "bsc_test",
+  oethereum = "oethereum",
+  kovan_oethereum = "kovan_oethereum",
+  goerli_oethereum = "goerli_oethereum",
 }
 
 export type iParamsPerNetwork<T> =
@@ -67,7 +81,8 @@ export type iParamsPerNetwork<T> =
   | iAvalancheParamsPerNetwork<T>
   | iArbitrumParamsPerNetwork<T>
   | iFantomParamsPerNetwork<T>
-  | iBinanceSmartChainParamsPerNetwork<T>;
+  | iBinanceSmartChainParamsPerNetwork<T>
+  | iOptimisticEthereumParamsPerNetwork<T>;
 
 export interface iParamsPerNetworkAll<T>
   extends iEthereumParamsPerNetwork<T>,
@@ -83,6 +98,8 @@ export interface iEthereumParamsPerNetwork<T> {
   [eEthereumNetwork.ropsten]: T;
   [eEthereumNetwork.main]: T;
   [eEthereumNetwork.hardhat]: T;
+  [eEthereumNetwork.rinkeby]: T;
+  [eEthereumNetwork.goerli]: T;
 }
 
 export interface iPolygonParamsPerNetwork<T> {
@@ -101,7 +118,7 @@ export interface iAvalancheParamsPerNetwork<T> {
 
 export interface iArbitrumParamsPerNetwork<T> {
   [eArbitrumNetwork.arbitrum1]: T;
-  [eArbitrumNetwork.rinkarby]: T;
+  [eArbitrumNetwork.rinkeby_arbitrum1]: T;
 }
 
 export interface iFantomParamsPerNetwork<T> {
@@ -112,4 +129,10 @@ export interface iFantomParamsPerNetwork<T> {
 export interface iBinanceSmartChainParamsPerNetwork<T> {
   [eBinanceSmartChainNetwork.bsc]: T;
   [eBinanceSmartChainNetwork.bsc_test]: T;
+}
+
+export interface iOptimisticEthereumParamsPerNetwork<T> {
+  [eOptimisticEthereumNetwork.oethereum]: T;
+  [eOptimisticEthereumNetwork.kovan_oethereum]: T;
+  [eOptimisticEthereumNetwork.goerli_oethereum]: T;
 }

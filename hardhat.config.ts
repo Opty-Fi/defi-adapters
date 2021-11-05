@@ -3,7 +3,8 @@
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "solidity-coverage";
-import { resolve } from "path";
+import { resolve, join } from "path";
+import fs from "fs";
 import { config as dotenvConfig } from "dotenv";
 import { HardhatUserConfig, NetworkUserConfig } from "hardhat/types";
 import {
@@ -13,6 +14,7 @@ import {
   eEthereumNetwork,
   eFantomNetwork,
   eNetwork,
+  eOptimisticEthereumNetwork,
   ePolygonNetwork,
   eXDaiNetwork,
 } from "./helpers/types";
@@ -24,20 +26,29 @@ const SKIP_LOAD = process.env.SKIP_LOAD === "true";
 const HARDFORK = "london";
 const MNEMONIC_PATH = "m/44'/60'/0'/0";
 const MNEMONIC = process.env.MNEMONIC || "";
-const NETWORK = process.env.NETWORK || "";
+const NETWORK = process.env.NETWORK || "hardhat";
 
 // Prevent to load scripts before compilation and typechain
 if (!SKIP_LOAD) {
+  ["1_ethereum", "2_matic", "3_avalanche", "4_arbitrum", "5_xdai", "6_fantom", "7_bsc", "8_oethereum"].forEach(
+    folder => {
+      const tasksPath = join(__dirname, "tasks", folder);
+      fs.readdirSync(tasksPath)
+        .filter(pth => pth.includes(".ts"))
+        .forEach(task => {
+          require(`${tasksPath}/${task}`);
+        });
+    },
+  );
   require("./tasks/accounts");
   require("./tasks/clean");
-  require("./tasks/deployers");
 }
 
-const getCommonNetworkConfig = (networkName: eNetwork, networkId: number): NetworkUserConfig | undefined => ({
+const getCommonNetworkConfig = (networkName: eNetwork): NetworkUserConfig | undefined => ({
   url: NETWORKS_RPC_URL[networkName],
   hardfork: HARDFORK,
   gasPrice: "auto",
-  chainId: networkId,
+  chainId: NETWORKS_CHAIN_ID[networkName],
   initialBaseFeePerGas: 1_00_000_000,
   accounts: {
     mnemonic: MNEMONIC,
@@ -50,23 +61,25 @@ const getCommonNetworkConfig = (networkName: eNetwork, networkId: number): Netwo
 
 const config: HardhatUserConfig = {
   networks: {
-    kovan: getCommonNetworkConfig(eEthereumNetwork.kovan, NETWORKS_CHAIN_ID[eEthereumNetwork.kovan]),
-    ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, NETWORKS_CHAIN_ID[eEthereumNetwork.ropsten]),
-    main: getCommonNetworkConfig(eEthereumNetwork.main, NETWORKS_CHAIN_ID[eEthereumNetwork.main]),
-    matic: getCommonNetworkConfig(ePolygonNetwork.matic, NETWORKS_CHAIN_ID[ePolygonNetwork.matic]),
-    mumbai: getCommonNetworkConfig(ePolygonNetwork.mumbai, NETWORKS_CHAIN_ID[ePolygonNetwork.mumbai]),
-    xdai: getCommonNetworkConfig(eXDaiNetwork.xdai, NETWORKS_CHAIN_ID[eXDaiNetwork.xdai]),
-    avalanche: getCommonNetworkConfig(eAvalancheNetwork.avalanche, NETWORKS_CHAIN_ID[eAvalancheNetwork.avalanche]),
-    fuji: getCommonNetworkConfig(eAvalancheNetwork.fuji, NETWORKS_CHAIN_ID[eAvalancheNetwork.fuji]),
-    arbitrum1: getCommonNetworkConfig(eArbitrumNetwork.arbitrum1, NETWORKS_CHAIN_ID[eArbitrumNetwork.arbitrum1]),
-    rinkarby: getCommonNetworkConfig(eArbitrumNetwork.rinkarby, NETWORKS_CHAIN_ID[eArbitrumNetwork.rinkarby]),
-    fantom: getCommonNetworkConfig(eFantomNetwork.fantom, NETWORKS_CHAIN_ID[eFantomNetwork.fantom]),
-    fantom_test: getCommonNetworkConfig(eFantomNetwork.fantom_test, NETWORKS_CHAIN_ID[eFantomNetwork.fantom_test]),
-    bsc: getCommonNetworkConfig(eBinanceSmartChainNetwork.bsc, NETWORKS_CHAIN_ID[eBinanceSmartChainNetwork.bsc]),
-    bsc_test: getCommonNetworkConfig(
-      eBinanceSmartChainNetwork.bsc_test,
-      NETWORKS_CHAIN_ID[eBinanceSmartChainNetwork.bsc_test],
-    ),
+    kovan: getCommonNetworkConfig(eEthereumNetwork.kovan),
+    ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten),
+    main: getCommonNetworkConfig(eEthereumNetwork.main),
+    rinkeby: getCommonNetworkConfig(eEthereumNetwork.main),
+    goerli: getCommonNetworkConfig(eEthereumNetwork.main),
+    matic: getCommonNetworkConfig(ePolygonNetwork.matic),
+    mumbai: getCommonNetworkConfig(ePolygonNetwork.mumbai),
+    xdai: getCommonNetworkConfig(eXDaiNetwork.xdai),
+    avalanche: getCommonNetworkConfig(eAvalancheNetwork.avalanche),
+    fuji: getCommonNetworkConfig(eAvalancheNetwork.fuji),
+    arbitrum1: getCommonNetworkConfig(eArbitrumNetwork.arbitrum1),
+    rinkeby_arbitrum1: getCommonNetworkConfig(eArbitrumNetwork.rinkeby_arbitrum1),
+    fantom: getCommonNetworkConfig(eFantomNetwork.fantom),
+    fantom_test: getCommonNetworkConfig(eFantomNetwork.fantom_test),
+    bsc: getCommonNetworkConfig(eBinanceSmartChainNetwork.bsc),
+    bsc_test: getCommonNetworkConfig(eBinanceSmartChainNetwork.bsc_test),
+    oethereum: getCommonNetworkConfig(eOptimisticEthereumNetwork.oethereum),
+    kovan_oethereum: getCommonNetworkConfig(eOptimisticEthereumNetwork.kovan_oethereum),
+    goerli_oethereum: getCommonNetworkConfig(eOptimisticEthereumNetwork.goerli_oethereum),
     hardhat: {
       hardfork: "london",
       gasPrice: NETWORKS_DEFAULT_GAS[NETWORK],
