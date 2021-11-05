@@ -1,9 +1,9 @@
 import { task } from "hardhat/config";
 import { TaskArguments } from "hardhat/types";
 
-import { HarvestFinanceAdapter, HarvestFinanceAdapter__factory } from "../../typechain";
+import { HarvestFinanceAdapter, HarvestFinanceAdapter__factory } from "../../../typechain";
 
-task("deploy:HarvestFinanceAdapter").setAction(async function (taskArguments: TaskArguments, { ethers }) {
+task("deploy-harvest.finance-adapter").setAction(async function (taskArguments: TaskArguments, { ethers }) {
   const harvestFinanceAdapterFactory: HarvestFinanceAdapter__factory = await ethers.getContractFactory(
     "HarvestFinanceAdapter",
   );

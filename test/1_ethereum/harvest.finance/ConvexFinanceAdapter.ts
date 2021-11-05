@@ -2,12 +2,12 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-wit
 import { getAddress } from "ethers/lib/utils";
 import hre from "hardhat";
 import { Artifact } from "hardhat/types";
-import { IUniswapV2Router02 } from "../../typechain";
-import { ConvexFinanceAdapter } from "../../typechain/ConvexFinanceAdapter";
-import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
-import { default as ConvexFinancePools } from "../convex.finance-pools.json";
+import { IUniswapV2Router02 } from "../../../typechain";
+import { ConvexFinanceAdapter } from "../../../typechain/ConvexFinanceAdapter";
+import { TestDeFiAdapter } from "../../../typechain/TestDeFiAdapter";
+import { default as ConvexFinancePools } from "../../convex.finance-pools.json";
 import { LiquidityPool, Signers } from "../types";
-import { getOverrideOptions } from "../utils";
+import { getOverrideOptions } from "../../utils";
 import { shouldBehaveLikeConvexFinanceAdapter } from "./ConvexFinanceAdapter.behavior";
 
 const { deployContract } = hre.waffle;

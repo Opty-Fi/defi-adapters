@@ -1,0 +1,122 @@
+name: Opty-Fi protocol's DeFi adapter kit Install, lint and test pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x.x]
+    
+    env:
+      MAIN_RPC_URL: ${{ secrets.MAIN_RPC_URL}}
+      MATIC_RPC_URL: ${{ secrets.MATIC_RPC_URL}}
+      MNEMONIC: ${{ secrets.MNEMONIC}}
+
+    steps:
+      - name: Checkout Use Node.js ${{ matrix.node-version}}
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: npm-v2-
+      - name: Install
+        run: |
+          yarn install --frozen-lockfile
+      - name: Lint
+        run: |
+          yarn lint
+  compile:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x.x]
+    
+    env:
+      MAIN_RPC_URL: ${{ secrets.MAIN_RPC_URL}}
+      MATIC_RPC_URL: ${{ secrets.MATIC_RPC_URL}}
+      MNEMONIC: ${{ secrets.MNEMONIC}}
+
+    steps:
+      - name: Checkout Use Node.js ${{ matrix.node-version}}
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: npm-v2-
+      - name: Install
+        run: |
+          yarn install --frozen-lockfile
+      - name: Compile
+        run: |
+          yarn compile
+  ethereum-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x.x]
+    
+    env:
+      MAIN_RPC_URL: ${{ secrets.MAIN_RPC_URL}}
+      MATIC_RPC_URL: ${{ secrets.MATIC_RPC_URL}}
+      MNEMONIC: ${{ secrets.MNEMONIC}}
+
+    steps:
+      - name: Checkout Use Node.js ${{ matrix.node-version}}
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: npm-v2-
+      - name: Install
+        run: |
+          yarn install --frozen-lockfile
+          yarn typechain
+      - name: Test
+        run: |
+          yarn test:ethereum:fork
+  matic-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x.x]
+    
+    env:
+      MAIN_RPC_URL: ${{ secrets.MAIN_RPC_URL}}
+      MATIC_RPC_URL: ${{ secrets.MATIC_RPC_URL}}
+      MNEMONIC: ${{ secrets.MNEMONIC}}
+
+    steps:
+      - name: Checkout Use Node.js ${{ matrix.node-version}}
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: npm-v2-
+      - name: Install
+        run: |
+          yarn install --frozen-lockfile
+          yarn typechain
+      - name: Test
+        run: |
+          yarn test:matic:fork

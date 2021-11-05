@@ -4,7 +4,7 @@ import { solidity } from "ethereum-waffle";
 import { getAddress } from "ethers/lib/utils";
 import { BigNumber, utils } from "ethers";
 import { PoolItem } from "../types";
-import { getOverrideOptions } from "../utils";
+import { getOverrideOptions } from "../../utils";
 
 chai.use(solidity);
 
@@ -185,5 +185,5 @@ export function shouldBehaveLikeHarvestFinanceAdapter(token: string, pool: PoolI
       this.testDeFiAdapter.address,
     );
     expect(actualUnderlyingTokenBalanceAfterWithdraw).to.be.eq(expectedUnderlyingTokenBalanceAfterWithdraw);
-  });
+  }).timeout(100000);
 }

@@ -10,7 +10,7 @@ pragma experimental ABIEncoderV2;
  */
 interface IMultiCall {
     /**
-     * @notice Executes any functionlaity and check if it is working or not
+     * @notice Executes any functionality and check if it is working or not
      * @dev Execute the code and revert with error message if code provided is incorrect
      * @param _code Encoded data in bytes which acts as code to execute
      * @param _errorMsg Error message to throw when code execution call fails
@@ -18,7 +18,7 @@ interface IMultiCall {
     function executeCode(bytes calldata _code, string calldata _errorMsg) external;
 
     /**
-     * @notice Executes bunch of functionlaities and check if they are working or not
+     * @notice Executes bunch of functionalities and check if they are working or not
      * @dev Execute the codes array and revert with error message if code provided is incorrect
      * @param _codes Array of encoded data in bytes which acts as code to execute
      * @param _errorMsg Error message to throw when code execution call fails

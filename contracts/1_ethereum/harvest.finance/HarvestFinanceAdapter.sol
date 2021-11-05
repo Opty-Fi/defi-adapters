@@ -12,12 +12,12 @@ pragma experimental ABIEncoderV2;
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
 //  interfaces
-import { IHarvestDeposit } from "../interfaces/harvest.finance/IHarvestDeposit.sol";
-import { IHarvestFarm } from "../interfaces/harvest.finance/IHarvestFarm.sol";
+import { IHarvestDeposit } from "./interfaces/IHarvestDeposit.sol";
+import { IHarvestFarm } from "./interfaces/IHarvestFarm.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IAdapter } from "../interfaces/opty/defiAdapters/IAdapter.sol";
-import { IAdapterHarvestReward } from "../interfaces/opty/defiAdapters/IAdapterHarvestReward.sol";
-import { IAdapterStaking } from "../interfaces/opty/defiAdapters/IAdapterStaking.sol";
+import { IAdapter } from "../../opty/interfaces/defiAdapters/IAdapter.sol";
+import { IAdapterHarvestReward } from "../../opty/interfaces/defiAdapters/IAdapterHarvestReward.sol";
+import { IAdapterStaking } from "../../opty/interfaces/defiAdapters/IAdapterStaking.sol";
 import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 
 /**
