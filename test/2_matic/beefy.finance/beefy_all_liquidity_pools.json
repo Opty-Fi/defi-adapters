@@ -1,0 +1,825 @@
+{
+  "quick-wise-eth": {
+    "wantToken": "0xDF8139e9BebecAdEcF48BeC8c8064CcEfB618e2b",
+    "beefyVault": "0x76cE86B1e1b7a3983B26F7E57B2A0C8896f7eB0D",
+    "tokens": ["0x76cE86B1e1b7a3983B26F7E57B2A0C8896f7eB0D"],
+    "platform": "QuickSwap"
+  },
+  "quick-cel-eth": {
+    "wantToken": "0xEAA5E4620373d9Ded4DCB9267F46fcfc6698c867",
+    "beefyVault": "0xeF1870FddC25586636bf8a3d7cCf4d298f6E072e",
+    "tokens": ["0xeF1870FddC25586636bf8a3d7cCf4d298f6E072e"],
+    "platform": "QuickSwap"
+  },
+  "quick-quick-eth": {
+    "wantToken": "0x1Bd06B96dd42AdA85fDd0795f3B4A79DB914ADD5",
+    "beefyVault": "0x66df1B2d22759D03A9f37BAaAc826089e56a5936",
+    "tokens": ["0x66df1B2d22759D03A9f37BAaAc826089e56a5936"],
+    "platform": "QuickSwap"
+  },
+  "quick-aave-eth": {
+    "wantToken": "0x90bc3E68Ba8393a3Bf2D79309365089975341a43",
+    "beefyVault": "0x752948B4493d2Ee09c95F944A76005aEBF410087",
+    "tokens": ["0x752948B4493d2Ee09c95F944A76005aEBF410087"],
+    "platform": "QuickSwap"
+  },
+  "quick-link-eth": {
+    "wantToken": "0x5cA6CA6c3709E1E6CFe74a50Cf6B2B6BA2Dadd67",
+    "beefyVault": "0xaB4105375FbE5F502B0da986F46ADf7a21762e52",
+    "tokens": ["0xaB4105375FbE5F502B0da986F46ADf7a21762e52"],
+    "platform": "QuickSwap"
+  },
+  "quick-eth-usdt": {
+    "wantToken": "0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046",
+    "beefyVault": "0xC422261EdC5dB679CAd9BC403e886351De540e77",
+    "tokens": ["0xC422261EdC5dB679CAd9BC403e886351De540e77"],
+    "platform": "QuickSwap"
+  },
+  "quick-eth-matic": {
+    "wantToken": "0xadbF1854e5883eB8aa7BAf50705338739e558E5b",
+    "beefyVault": "0x8b89477dFde285849E1B07947E25012206F4D674",
+    "tokens": ["0x8b89477dFde285849E1B07947E25012206F4D674"],
+    "platform": "QuickSwap"
+  },
+  "quick-quick-matic": {
+    "wantToken": "0x019ba0325f1988213D448b3472fA1cf8D07618d7",
+    "beefyVault": "0xa008B727ddBa283Ddb178b47BB227Cdbea5C1bfD",
+    "tokens": ["0xa008B727ddBa283Ddb178b47BB227Cdbea5C1bfD"],
+    "platform": "QuickSwap"
+  },
+  "telxchange-quick-quick-tel": {
+    "wantToken": "0xE88e24F49338f974B528AcE10350Ac4576c5c8A1",
+    "beefyVault": "0xda3E3ee01Ee7284e3D0d900Ca3fb3D09484E1ce0",
+    "tokens": ["0xda3E3ee01Ee7284e3D0d900Ca3fb3D09484E1ce0"],
+    "platform": "QuickSwap"
+  },
+  "telxchange-quick-wmatic-tel": {
+    "wantToken": "0x9b5c71936670e9f1F36e63F03384De7e06E60d2a",
+    "beefyVault": "0x2AaB02eDE64d4A686EA1d1A70B688E46cce50fFd",
+    "tokens": ["0x2AaB02eDE64d4A686EA1d1A70B688E46cce50fFd"],
+    "platform": "QuickSwap"
+  },
+  "telxchange-quick-eth-tel": {
+    "wantToken": "0xFc2fC983a411C4B1E238f7Eb949308CF0218C750",
+    "beefyVault": "0xDC52e53f9E8b2cf42b557A6b3cE36e79De39ACd6",
+    "tokens": ["0xDC52e53f9E8b2cf42b557A6b3cE36e79De39ACd6"],
+    "platform": "QuickSwap"
+  },
+  "telxchange-quick-aave-tel": {
+    "wantToken": "0x4917bC6b8E705Ad462ef525937E7eB7C6c87C356",
+    "beefyVault": "0xBa58D7131Ca50DdFB458f37ea0De6fdcebFe836B",
+    "tokens": ["0xBa58D7131Ca50DdFB458f37ea0De6fdcebFe836B"],
+    "platform": "QuickSwap"
+  },
+  "telxchange-quick-wbtc-tel": {
+    "wantToken": "0xaDdc9C73f3CBaD4E647eAFf691715898825Ac20c",
+    "beefyVault": "0xb74792F6a2cF81E3f704930621cb4832ffFcC840",
+    "tokens": ["0xb74792F6a2cF81E3f704930621cb4832ffFcC840"],
+    "platform": "QuickSwap"
+  },
+  "farmhero-quick-usdc-honor": {
+    "wantToken": "0x46489f825f11d7473D20279699b108aCAA246e73",
+    "beefyVault": "0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c",
+    "tokens": ["0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdc-rbnb": {
+    "wantToken": "0x40A5Df3E37152d4DaF279e0450289Af76472b02e",
+    "beefyVault": "0xCd414F00d9E4e76f75F5de77DB376cb4ECe2b17f",
+    "tokens": ["0xCd414F00d9E4e76f75F5de77DB376cb4ECe2b17f"],
+    "platform": "QuickSwap"
+  },
+  "quick-qi-eth": {
+    "wantToken": "0x8C1b40Ea78081B70F661C3286c74E71b4602C9C0",
+    "beefyVault": "0x8c864B1FD2BbB20F614661ddD992eFaeEeF0b2Ac",
+    "tokens": ["0x8c864B1FD2BbB20F614661ddD992eFaeEeF0b2Ac"],
+    "platform": "QuickSwap"
+  },
+  "quick-mai-usdt": {
+    "wantToken": "0xE89faE1B4AdA2c869f05a0C96C87022DaDC7709a",
+    "beefyVault": "0xe5844a9Af7748492dAba745506bfB2b91f19be62",
+    "tokens": ["0xe5844a9Af7748492dAba745506bfB2b91f19be62"],
+    "platform": "QuickSwap"
+  },
+  "quick-dai-mai": {
+    "wantToken": "0x74214F5d8AA71b8dc921D8A963a1Ba3605050781",
+    "beefyVault": "0x64fbCDfd1335AfdC8f81383919483c593399c738",
+    "tokens": ["0x64fbCDfd1335AfdC8f81383919483c593399c738"],
+    "platform": "QuickSwap"
+  },
+  "quick-mai-matic": {
+    "wantToken": "0x7805B64e2d99412d3b8F10Dfe8fc55217C5cc954",
+    "beefyVault": "0xD6eB31D849eE79B5F5fA1b7c470cDDFa515965cD",
+    "tokens": ["0xD6eB31D849eE79B5F5fA1b7c470cDDFa515965cD"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdt-matic": {
+    "wantToken": "0x604229c960e5CACF2aaEAc8Be68Ac07BA9dF81c3",
+    "beefyVault": "0x7c0E28652523e36f0dF89C5A895cF59D493cb04c",
+    "tokens": ["0x7c0E28652523e36f0dF89C5A895cF59D493cb04c"],
+    "platform": "QuickSwap"
+  },
+  "quick-eth-rendoge": {
+    "wantToken": "0xAB1403De66519B898b38028357B74DF394a54a37",
+    "beefyVault": "0xC4FABD1E2A99c84b7fd152a41426B77c217c5764",
+    "tokens": ["0xC4FABD1E2A99c84b7fd152a41426B77c217c5764"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdc-quick": {
+    "wantToken": "0x1F1E4c845183EF6d50E9609F16f6f9cAE43BC9Cb",
+    "beefyVault": "0xeD7148949c2dC8AA59A5aD8658eF347Bd7387fA8",
+    "tokens": ["0xeD7148949c2dC8AA59A5aD8658eF347Bd7387fA8"],
+    "platform": "QuickSwap"
+  },
+  "quick-wmatic-avax": {
+    "wantToken": "0xEb477AE74774b697B5D515eF8ca09e24FEe413b5",
+    "beefyVault": "0x764B2aAcfDE7e33888566a6d44005Dc982F02031",
+    "tokens": ["0x764B2aAcfDE7e33888566a6d44005Dc982F02031"],
+    "platform": "QuickSwap"
+  },
+  "quick-wmatic-ht": {
+    "wantToken": "0x20e28214946B4e0F18B2c1aA7C976dF087695a5d",
+    "beefyVault": "0x69df355fD685d87b44e86728f3A0b92D01341E40",
+    "tokens": ["0x69df355fD685d87b44e86728f3A0b92D01341E40"],
+    "platform": "QuickSwap"
+  },
+  "quick-sol-matic": {
+    "wantToken": "0x898386DD8756779a4ba4f1462891B92dd76b78eF",
+    "beefyVault": "0x8802fbcb669c7BbcC3989455B3FdBF9235176bD4",
+    "tokens": ["0x8802fbcb669c7BbcC3989455B3FdBF9235176bD4"],
+    "platform": "QuickSwap"
+  },
+  "quick-uni-eth": {
+    "wantToken": "0xF7135272a5584Eb116f5a77425118a8B4A2ddfDb",
+    "beefyVault": "0x80fcA0946fb75724f5d84Dd49edC694062E3111C",
+    "tokens": ["0x80fcA0946fb75724f5d84Dd49edC694062E3111C"],
+    "platform": "QuickSwap"
+  },
+  "quick-guard-usdc": {
+    "wantToken": "0xD2EeeEdfcAF1457F7BC9cbA28d5316F73BB83b49",
+    "beefyVault": "0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc",
+    "tokens": ["0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc"],
+    "platform": "QuickSwap"
+  },
+  "quick-quick-yamp": {
+    "wantToken": "0x66fF795535CF162D29f6B15ed546a3e148Eff0Fb",
+    "beefyVault": "0x0BeCc1ff5f13b00A77cA359d0a15a0989766380E",
+    "tokens": ["0x0BeCc1ff5f13b00A77cA359d0a15a0989766380E"],
+    "platform": "QuickSwap"
+  },
+  "quick-quick-woo": {
+    "wantToken": "0x7622804bA94940A9EFdDD1546D12d8D0d6a16e53",
+    "beefyVault": "0xb1d1F8fE4E9BbE6Dd2a7CaF732898DbA8acdF4A8",
+    "tokens": ["0xb1d1F8fE4E9BbE6Dd2a7CaF732898DbA8acdF4A8"],
+    "platform": "QuickSwap"
+  },
+  "quick-woo-eth": {
+    "wantToken": "0x70294d7aa244BD342C536F9B502152564057162e",
+    "beefyVault": "0x0cDa3593f1a0dBbB362Ce6ADad0c5CCb089fb6D1",
+    "tokens": ["0x0cDa3593f1a0dBbB362Ce6ADad0c5CCb089fb6D1"],
+    "platform": "QuickSwap"
+  },
+  "quick-start-quick": {
+    "wantToken": "0x9E2B254c7D6AD24aFb334A75cE21e216A9AA25fc",
+    "beefyVault": "0xA5D1b4c7Ff12e6f7AFcfa1073d139fFBfed81089",
+    "tokens": ["0xA5D1b4c7Ff12e6f7AFcfa1073d139fFBfed81089"],
+    "platform": "QuickSwap"
+  },
+  "quick-quick-polydoge": {
+    "wantToken": "0xbedEE6a7c572aa855a0c84d2f504311d482862F4",
+    "beefyVault": "0x4A2De8466873fCb21D7bDE5A754Baaf244729c72",
+    "tokens": ["0x4A2De8466873fCb21D7bDE5A754Baaf244729c72"],
+    "platform": "QuickSwap"
+  },
+  "quick-yamp-usdc": {
+    "wantToken": "0x87d68f797623590E45982AD0f21228557207FdDa",
+    "beefyVault": "0x72eF74242Ac0bf0802c0e938B7A397001Ab34C06",
+    "tokens": ["0x72eF74242Ac0bf0802c0e938B7A397001Ab34C06"],
+    "platform": "QuickSwap"
+  },
+  "quick-nexo-eth": {
+    "wantToken": "0x10062ec62C0bE26cC9e2f50a1CF784a89ded075F",
+    "beefyVault": "0xba1548b3f673950094dc00eDc1eB71683f371696",
+    "tokens": ["0xba1548b3f673950094dc00eDc1eB71683f371696"],
+    "platform": "QuickSwap"
+  },
+  "quick-qi-quick": {
+    "wantToken": "0x25d56E2416f20De1Efb1F18fd06dD12eFeC3D3D0",
+    "beefyVault": "0x1d7A7182043F521ab57Fe07a8420Fee9843E365e",
+    "tokens": ["0x1d7A7182043F521ab57Fe07a8420Fee9843E365e"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdc-mimatic": {
+    "wantToken": "0x160532D2536175d65C03B97b0630A9802c274daD",
+    "beefyVault": "0xf62c521c4fb3Fbc20EaB50E1871A90A53632f22e",
+    "tokens": ["0xf62c521c4fb3Fbc20EaB50E1871A90A53632f22e"],
+    "platform": "QuickSwap"
+  },
+  "quick-polybunny-eth": {
+    "wantToken": "0x62052b489Cb5bC72a9DC8EEAE4B24FD50639921a",
+    "beefyVault": "0x6C4593D4f91c790404cCEe5007E929d2b7bF45bD",
+    "tokens": ["0x6C4593D4f91c790404cCEe5007E929d2b7bF45bD"],
+    "platform": "QuickSwap"
+  },
+  "quick-polybunny-quick": {
+    "wantToken": "0x976b7B7fE4293111CaCd946C422a64f24A223564",
+    "beefyVault": "0x0e229c6381f00F4be47a9529CBDde18016dD9369",
+    "tokens": ["0x0e229c6381f00F4be47a9529CBDde18016dD9369"],
+    "platform": "QuickSwap"
+  },
+  "quick-eth-ramp": {
+    "wantToken": "0xe55739E1fEb9F9aED4Ce34830a06cA6Cc37494A0",
+    "beefyVault": "0x94242E121F056FA7F0892452e6a17678124981c1",
+    "tokens": ["0x94242E121F056FA7F0892452e6a17678124981c1"],
+    "platform": "QuickSwap"
+  },
+  "quick-pbnb-quick": {
+    "wantToken": "0x53e27DaDf6473d062717be8807C453Af212c7102",
+    "beefyVault": "0x1A90Ea15e00a6c647478e86e3A3DB1aC1eB23cE5",
+    "tokens": ["0x1A90Ea15e00a6c647478e86e3A3DB1aC1eB23cE5"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdc-pbnb": {
+    "wantToken": "0xE55cb144E02Cffb6fBD65d9a4BD62378998Bc267",
+    "beefyVault": "0x61f55dc5243398D57acd5d6265e228da65C4Cb52",
+    "tokens": ["0x61f55dc5243398D57acd5d6265e228da65C4Cb52"],
+    "platform": "QuickSwap"
+  },
+  "quick-dai-usdt": {
+    "wantToken": "0x59153f27eeFE07E5eCE4f9304EBBa1DA6F53CA88",
+    "beefyVault": "0x8F1F1FB23A208041e1f4Bf4A3b4E165bcCA25Bbb",
+    "tokens": ["0x8F1F1FB23A208041e1f4Bf4A3b4E165bcCA25Bbb"],
+    "platform": "QuickSwap"
+  },
+  "quick-eth-fff": {
+    "wantToken": "0x4935270Aa19bA0B88Fe99eA9FeB10519feAfA758",
+    "beefyVault": "0xa5b0E0f38BC86723a9893B828a4B9595ecb22F42",
+    "tokens": ["0xa5b0E0f38BC86723a9893B828a4B9595ecb22F42"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdc-dai": {
+    "wantToken": "0xf04adBF75cDFc5eD26eeA4bbbb991DB002036Bdd",
+    "beefyVault": "0x0dFd8c4dd493d8f87Be362878E41537Ca7Ee4d9e",
+    "tokens": ["0x0dFd8c4dd493d8f87Be362878E41537Ca7Ee4d9e"],
+    "platform": "QuickSwap"
+  },
+  "quick-quick-uni": {
+    "wantToken": "0x4B4C614b9219397c02296f6F4e2351259840B3C7",
+    "beefyVault": "0xaF34573353aBd160889889D52d7841B2bBCE7Cf9",
+    "tokens": ["0xaF34573353aBd160889889D52d7841B2bBCE7Cf9"],
+    "platform": "QuickSwap"
+  },
+  "quick-link-quick": {
+    "wantToken": "0xDEA8f0F1E6E98C6AEE891601600E5fBa294B5e36",
+    "beefyVault": "0xdD32ca42a5bab4073D319BC26bb4e951e767Ba6E",
+    "tokens": ["0xdD32ca42a5bab4073D319BC26bb4e951e767Ba6E"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdc-eth": {
+    "wantToken": "0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d",
+    "beefyVault": "0x5d4B83B3011B1E14e55185c5D432987e76f6DE3C",
+    "tokens": ["0x5d4B83B3011B1E14e55185c5D432987e76f6DE3C"],
+    "platform": "QuickSwap"
+  },
+  "quick-dai-eth": {
+    "wantToken": "0x4A35582a710E1F4b2030A3F826DA20BfB6703C09",
+    "beefyVault": "0x9DA4048550C1a73686E594f726310F0b0585fBA3",
+    "tokens": ["0x9DA4048550C1a73686E594f726310F0b0585fBA3"],
+    "platform": "QuickSwap"
+  },
+  "quick-bifi-eth": {
+    "wantToken": "0x8b80417D92571720949fC22404200AB8FAf7775f",
+    "beefyVault": "0x21bA98fCb000dFeD8eC3B94cB41BeA51A601A94c",
+    "tokens": ["0x21bA98fCb000dFeD8eC3B94cB41BeA51A601A94c"],
+    "platform": "QuickSwap"
+  },
+  "quick-bifi-quick": {
+    "wantToken": "0xC6a23BDd628c3B17fc0dF270e6BF8E48511950e2",
+    "beefyVault": "0xCC2755476B0573F0ee0D5a754Bb6fE720c3641Bb",
+    "tokens": ["0xCC2755476B0573F0ee0D5a754Bb6fE720c3641Bb"],
+    "platform": "QuickSwap"
+  },
+  "quick-degen-quick": {
+    "wantToken": "0x75a4917aeE97BDA48D3572f431e04003743da85e",
+    "beefyVault": "0xe942A8Ef245EAC3CEa951486e3Df5764C79b9621",
+    "tokens": ["0xe942A8Ef245EAC3CEa951486e3Df5764C79b9621"],
+    "platform": "QuickSwap"
+  },
+  "quick-cc10-quick": {
+    "wantToken": "0x42fD10ddc7628b82d80c3b2C286F3e79555Fd7A1",
+    "beefyVault": "0x226a18Fb5eb7d9d1c4Eb1b5Cff957E0F1e3fd9Ed",
+    "tokens": ["0x226a18Fb5eb7d9d1c4Eb1b5Cff957E0F1e3fd9Ed"],
+    "platform": "QuickSwap"
+  },
+  "quick-defi5-quick": {
+    "wantToken": "0xa975CEEb05B379Cf67FdfA63e7b2770f9F1D72c6",
+    "beefyVault": "0x191E0b3B023fd8911c1D7632086A46C0D2dB39ed",
+    "tokens": ["0x191E0b3B023fd8911c1D7632086A46C0D2dB39ed"],
+    "platform": "QuickSwap"
+  },
+  "quick-btc-usdc": {
+    "wantToken": "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498",
+    "beefyVault": "0x91a55E4b057119e20334258f7C5EAB8822491CEb",
+    "tokens": ["0x91a55E4b057119e20334258f7C5EAB8822491CEb"],
+    "platform": "QuickSwap"
+  },
+  "quick-matic-usdc": {
+    "wantToken": "0x6e7a5FAFcec6BB1e78bAE2A1F0B612012BF14827",
+    "beefyVault": "0xC1A2e8274D390b67A7136708203D71BF3877f158",
+    "tokens": ["0xC1A2e8274D390b67A7136708203D71BF3877f158"],
+    "platform": "QuickSwap"
+  },
+  "quick-vision-eth": {
+    "wantToken": "0x47Be4b1b6921a36591142E108B8C9E04BB55E015",
+    "beefyVault": "0xAbA81D550C326DFf2cE0D31bC7Aa6289d576591E",
+    "tokens": ["0xAbA81D550C326DFf2cE0D31bC7Aa6289d576591E"],
+    "platform": "QuickSwap"
+  },
+  "quick-degen-eth": {
+    "wantToken": "0xFdBDb3A2bbdC7d9dC6203DcEf9D53f1735135951",
+    "beefyVault": "0xF7A5eC9168B4C5688b3ad599Aa5c8E1922fEacAE",
+    "tokens": ["0xF7A5eC9168B4C5688b3ad599Aa5c8E1922fEacAE"],
+    "platform": "QuickSwap"
+  },
+  "quick-cc10-eth": {
+    "wantToken": "0xBF646010B1ae86aD7fBb4cFf5fd93C7019331Cc9",
+    "beefyVault": "0x6F6bbbCA49b4b2cE0E27eb0156977048AC3434B9",
+    "tokens": ["0x6F6bbbCA49b4b2cE0E27eb0156977048AC3434B9"],
+    "platform": "QuickSwap"
+  },
+  "quick-mocean-matic": {
+    "wantToken": "0x5a94F81D25c73eDdBDD84b84E8F6D36C58270510",
+    "beefyVault": "0x82303a4b2c821204A84AB2a068eC8EDf3Bc23061",
+    "tokens": ["0x82303a4b2c821204A84AB2a068eC8EDf3Bc23061"],
+    "platform": "QuickSwap"
+  },
+  "quick-any-quick": {
+    "wantToken": "0xeb275d1d930F157504cca7D7AFCe38360C7302b5",
+    "beefyVault": "0x2849095eE44eCd5f60Ed04f94e5BB45623A8e75a",
+    "tokens": ["0x2849095eE44eCd5f60Ed04f94e5BB45623A8e75a"],
+    "platform": "QuickSwap"
+  },
+  "quick-usdc-usdt": {
+    "wantToken": "0x2cF7252e74036d1Da831d11089D326296e64a728",
+    "beefyVault": "0x4462817b53E76b722c2D174D0148ddb81452f1dE",
+    "tokens": ["0x4462817b53E76b722c2D174D0148ddb81452f1dE"],
+    "platform": "QuickSwap"
+  },
+  "quick-eth-btc": {
+    "wantToken": "0xdC9232E2Df177d7a12FdFf6EcBAb114E2231198D",
+    "beefyVault": "0xf26607237355D7c6183ea66EC908729E9c6eEB6b",
+    "tokens": ["0xf26607237355D7c6183ea66EC908729E9c6eEB6b"],
+    "platform": "QuickSwap"
+  },
+  "quick-ubt-eth": {
+    "wantToken": "0xcc203f45A31aE086218170F6A9e9623fA1655486",
+    "beefyVault": "0x942aa6324E5D0C102d3Ad6607495ac5e798a991a",
+    "tokens": ["0x942aa6324E5D0C102d3Ad6607495ac5e798a991a"],
+    "platform": "QuickSwap"
+  },
+  "ape-watch-matic": {
+    "wantToken": "0xf67DE5Cf1fB01DC4df842a846Df2a7Ec07c41b93",
+    "beefyVault": "0xb2A56dFdbC890c102Dcd5e30afcfB43cD3343762",
+    "tokens": ["0xb2A56dFdbC890c102Dcd5e30afcfB43cD3343762"],
+    "platform": "ApeSwap"
+  },
+  "ape-usdc-dai": {
+    "wantToken": "0x5b13B583D4317aB15186Ed660A1E4C65C10da659",
+    "beefyVault": "0x8440DAe4E1002e83D57fbFD6d33E6F3684a35036",
+    "tokens": ["0x8440DAe4E1002e83D57fbFD6d33E6F3684a35036"],
+    "platform": "ApeSwap"
+  },
+  "ape-matic-usdt": {
+    "wantToken": "0x65D43B64E3B31965Cd5EA367D4c2b94c03084797",
+    "beefyVault": "0x1BE356364a1e849af2F7a513Fc46dAB6063Db485",
+    "tokens": ["0x1BE356364a1e849af2F7a513Fc46dAB6063Db485"],
+    "platform": "ApeSwap"
+  },
+  "ape-matic-dai": {
+    "wantToken": "0xd32f3139A214034A0f9777c87eE0a064c1FF6AE2",
+    "beefyVault": "0x584611DA226b4d4C0c4D880E6f1E0c0E8522f3AE",
+    "tokens": ["0x584611DA226b4d4C0c4D880E6f1E0c0E8522f3AE"],
+    "platform": "ApeSwap"
+  },
+  "ape-eth-matic": {
+    "wantToken": "0x6Cf8654e85AB489cA7e70189046D507ebA233613",
+    "beefyVault": "0xc24Cf5fA29E619f2D5ccbEC46F2295876c3722ff",
+    "tokens": ["0xc24Cf5fA29E619f2D5ccbEC46F2295876c3722ff"],
+    "platform": "ApeSwap"
+  },
+  "ape-btc-matic": {
+    "wantToken": "0xe82635a105c520fd58e597181cBf754961d51E3e",
+    "beefyVault": "0x76F0e4a08c1e85d020dfD7C66B991ecd4A7551AF",
+    "tokens": ["0x76F0e4a08c1e85d020dfD7C66B991ecd4A7551AF"],
+    "platform": "ApeSwap"
+  },
+  "ape-bnb-matic": {
+    "wantToken": "0x0359001070cF696D5993E0697335157a6f7dB289",
+    "beefyVault": "0x6888f67662d1f442C4428129e0Bdb27a275e0a65",
+    "tokens": ["0x6888f67662d1f442C4428129e0Bdb27a275e0a65"],
+    "platform": "ApeSwap"
+  },
+  "ape-banana-matic": {
+    "wantToken": "0x034293F21F1cCE5908BC605CE5850dF2b1059aC0",
+    "beefyVault": "0xADA7F98fb2594E76914EB593e74B348A498Ea5Bd",
+    "tokens": ["0xADA7F98fb2594E76914EB593e74B348A498Ea5Bd"],
+    "platform": "ApeSwap"
+  },
+  "cometh-eth-wbtc": {
+    "wantToken": "0x4282C6b1c21CD1A0C363a70e4292f8Bf4D7c898c",
+    "beefyVault": "0x55eebAd2b295d5229cf853368c9307e48B9CD955",
+    "tokens": ["0x55eebAd2b295d5229cf853368c9307e48B9CD955"],
+    "platform": "Cometh"
+  },
+  "cometh-eth-usdc": {
+    "wantToken": "0x1Edb2D8f791D2a51D56979bf3A25673D6E783232",
+    "beefyVault": "0x47036A1ecC5D02e122Ae6604973ee1529E76e022",
+    "tokens": ["0x47036A1ecC5D02e122Ae6604973ee1529E76e022"],
+    "platform": "Cometh"
+  },
+  "cometh-bifi-eth": {
+    "wantToken": "0xee3987aa1B20944EF4f8f049Cf1763007C06cFBC",
+    "beefyVault": "0x9649e6E5c689f21BC27B47CE4177f7c5f7281E20",
+    "tokens": ["0x9649e6E5c689f21BC27B47CE4177f7c5f7281E20"],
+    "platform": "Cometh"
+  },
+  "cometh-bifi-must": {
+    "wantToken": "0x9292aa90F81dc77fE6e6BB34b276502b6a047F7d",
+    "beefyVault": "0x66b3d910c30f2305EA0078E06DF65e0c1745ceF0",
+    "tokens": ["0x66b3d910c30f2305EA0078E06DF65e0c1745ceF0"],
+    "platform": "Cometh"
+  },
+  "cometh-must-eth": {
+    "wantToken": "0x8826C072657983939c26E684edcfb0e4133f0B3d",
+    "beefyVault": "0x7CE2332fAF6328986C75e3A8fCc1CB79621aeB1F",
+    "tokens": ["0x7CE2332fAF6328986C75e3A8fCc1CB79621aeB1F"],
+    "platform": "Cometh"
+  },
+  "cometh-eth-matic": {
+    "wantToken": "0x462390EA53F70F7570EEB2002c0150aF519f93A9",
+    "beefyVault": "0xa5aaE3a55cA356C62b5425AA4bFC212542B17777",
+    "tokens": ["0xa5aaE3a55cA356C62b5425AA4bFC212542B17777"],
+    "platform": "Cometh"
+  },
+  "cometh-matic-must": {
+    "wantToken": "0x80676b414a905De269D0ac593322Af821b683B92",
+    "beefyVault": "0x7f6fE34C51d5352A0CF375C0Fbe03bD19eCD8460",
+    "tokens": ["0x7f6fE34C51d5352A0CF375C0Fbe03bD19eCD8460"],
+    "platform": "Cometh"
+  },
+  "cometh-usdc-must": {
+    "wantToken": "0x12A2aBcFcADc04681929F0c199bDf812967207E4",
+    "beefyVault": "0x8a198BCbF313A5565c64A7Ed61FaA413eB4E0931",
+    "tokens": ["0x8a198BCbF313A5565c64A7Ed61FaA413eB4E0931"],
+    "platform": "Cometh"
+  },
+  "curve-poly-ren": {
+    "wantToken": "0xf8a57c1d3b9629b77b6726a042ca48990A84Fb49",
+    "beefyVault": "0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141",
+    "tokens": ["0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141"],
+    "platform": "Curve"
+  },
+  "ironswap-ice-usdc": {
+    "wantToken": "0x34832D9AC4127a232C1919d840f7aaE0fcb7315B",
+    "beefyVault": "0x0564889d4Ff0dA0371Ec8a898AC39ABC99065BfA",
+    "tokens": ["0x0564889d4Ff0dA0371Ec8a898AC39ABC99065BfA"],
+    "platform": "DFyn"
+  },
+  "ironswap-ice-iron": {
+    "wantToken": "0x7e2cc09d3d36b3aF6EdfF55B214fd62885234E95",
+    "beefyVault": "0xBD8B03a3fF5F63093000Df6De33B0A6C9E5bb501",
+    "tokens": ["0xBD8B03a3fF5F63093000Df6De33B0A6C9E5bb501"],
+    "platform": "DFyn"
+  },
+  "dinoswap-dfyn-route-eth": {
+    "wantToken": "0xeBC4f9B1cE66258AC3A48578FFEEba1330dDB68B",
+    "beefyVault": "0x655AF65e1f26ccB1dD18EF1DA93E813911818c5e",
+    "tokens": ["0x655AF65e1f26ccB1dD18EF1DA93E813911818c5e"],
+    "platform": "DFyn"
+  },
+  "dinoswap-dfyn-eth-dfyn": {
+    "wantToken": "0x6fA867BBFDd025780a8CFE988475220AfF51FB8b",
+    "beefyVault": "0x05064BF1Bc9f6778c69c3f68E17Ba8d9427594D8",
+    "tokens": ["0x05064BF1Bc9f6778c69c3f68E17Ba8d9427594D8"],
+    "platform": "DFyn"
+  },
+  "dfyn-ice-dfyn": {
+    "wantToken": "0x9bb608dc0F9308B9beCA2F7c80865454d02E74cA",
+    "beefyVault": "0xB198A916123394f2d9c31D4645468566e87080d5",
+    "tokens": ["0xB198A916123394f2d9c31D4645468566e87080d5"],
+    "platform": "DFyn"
+  },
+  "dfyn-bifi-dfyn": {
+    "wantToken": "0x759738096589b9C39dA78A603565635a3Cee6013",
+    "beefyVault": "0x74b00bbb693de4dC07d8aB79Ac935b323e2A136a",
+    "tokens": ["0x74b00bbb693de4dC07d8aB79Ac935b323e2A136a"],
+    "platform": "DFyn"
+  },
+  "dfyn-route-dfyn": {
+    "wantToken": "0xB0dc320ea9eea823a150763AbB4A7bA8286Cd08B",
+    "beefyVault": "0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2",
+    "tokens": ["0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2"],
+    "platform": "DFyn"
+  },
+  "ironswap-ice-eth": {
+    "wantToken": "0xf1EE78544a1118F2efb87f7EaCd9f1E6e80e1ea5",
+    "beefyVault": "0x90D0F2050e62a6d4AF088dD09d802D9A18253c40",
+    "tokens": ["0x90D0F2050e62a6d4AF088dD09d802D9A18253c40"],
+    "platform": "FireBird"
+  },
+  "jetswap-poly-usdc-usdt": {
+    "wantToken": "0x20BF018FDDBa3b352f3d913FE1c81b846fE0F490",
+    "beefyVault": "0x93c9f29CF2496e73f3d8b07055e2359267207147",
+    "tokens": ["0x93c9f29CF2496e73f3d8b07055e2359267207147"],
+    "platform": "JetSwap"
+  },
+  "jetswap-poly-pwings-matic": {
+    "wantToken": "0xA0A6e9A5185d5737CF6F7920CB417EA2F07F03B3",
+    "beefyVault": "0x97fe99a9bc7db115EC89Bc2627eC7f0518409121",
+    "tokens": ["0x97fe99a9bc7db115EC89Bc2627eC7f0518409121"],
+    "platform": "JetSwap"
+  },
+  "pzap-pzap-usdc": {
+    "wantToken": "0x1df7ADAeD1F7f36C822A3079198815b284aD8475",
+    "beefyVault": "0xBA4FA9A5e1e573fA5267970238af5Edf40727315",
+    "tokens": ["0xBA4FA9A5e1e573fA5267970238af5Edf40727315"],
+    "platform": "Polyzap"
+  },
+  "pzap-pzap-matic": {
+    "wantToken": "0xf627E14c318045066dAe0A36997c8C1F34fC0D4c",
+    "beefyVault": "0xf2984c27B963A14F9f3B7326096c54fb05d5b9AF",
+    "tokens": ["0xf2984c27B963A14F9f3B7326096c54fb05d5b9AF"],
+    "platform": "Polyzap"
+  },
+  "quick": {
+    "wantToken": "0x831753DD7087CaC61aB5644b308642cc1c33Dc13",
+    "beefyVault": "0x659418cc3cf755F5367a51aDb586a7F770Da6d29",
+    "tokens": ["0x659418cc3cf755F5367a51aDb586a7F770Da6d29"],
+    "platform": "single_asset"
+  },
+  "pwings": {
+    "wantToken": "0x845E76A8691423fbc4ECb8Dd77556Cb61c09eE25",
+    "beefyVault": "0xa55e8326a9AC7B0bFcA5E6Fc9Cf1141E2dc11f67",
+    "tokens": ["0xa55e8326a9AC7B0bFcA5E6Fc9Cf1141E2dc11f67"],
+    "platform": "single_asset"
+  },
+  "wexpoly": {
+    "wantToken": "0x4c4BF319237D98a30A929A96112EfFa8DA3510EB",
+    "beefyVault": "0x1A1432b90a093CbFFeCb44cf6965e2fd11005373",
+    "tokens": ["0x1A1432b90a093CbFFeCb44cf6965e2fd11005373"],
+    "platform": "single_asset"
+  },
+  "dai": {
+    "wantToken": "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
+    "beefyVault": "0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018",
+    "tokens": ["0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018"],
+    "platform": "single_asset"
+  },
+  "usdc": {
+    "wantToken": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    "beefyVault": "0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F",
+    "tokens": ["0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F"],
+    "platform": "single_asset"
+  },
+  "weth": {
+    "wantToken": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+    "beefyVault": "0x77276a7c9Ff3a6cbD334524d6F1f6219D039ac0E",
+    "tokens": ["0x77276a7c9Ff3a6cbD334524d6F1f6219D039ac0E"],
+    "platform": "single_asset"
+  },
+  "wbtc": {
+    "wantToken": "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
+    "beefyVault": "0xD3395577febc6AdaB25490a69955ebC47040766C",
+    "tokens": ["0xD3395577febc6AdaB25490a69955ebC47040766C"],
+    "platform": "single_asset"
+  },
+  "bifi": {
+    "wantToken": "0xFbdd194376de19a88118e84E279b977f165d01b8",
+    "beefyVault": "0xfEcf784F48125ccb7d8855cdda7C5ED6b5024Cb3",
+    "tokens": ["0xfEcf784F48125ccb7d8855cdda7C5ED6b5024Cb3"],
+    "platform": "single_asset"
+  },
+  "aave": {
+    "wantToken": "0xD6DF932A45C0f255f85145f286eA0b292B21C90B",
+    "beefyVault": "0xe4b3CCbB1E48c579Ea3D764Fb258Bc908e46487E",
+    "tokens": ["0xe4b3CCbB1E48c579Ea3D764Fb258Bc908e46487E"],
+    "platform": "single_asset"
+  },
+  "dinoswap-dino-usdc": {
+    "wantToken": "0x3324af8417844e70b81555A6D1568d78f4D4Bf1f",
+    "beefyVault": "0x6a195660472a51f267230c3324F86055D2A8B1E2",
+    "tokens": ["0x6a195660472a51f267230c3324F86055D2A8B1E2"],
+    "platform": "SushiSwap"
+  },
+  "sushi-usdc-bifi": {
+    "wantToken": "0x180237bd326d5245D0898336F54b3c8012c5c62f",
+    "beefyVault": "0x03F69AAF4c8512f533Da46cC9eFd49C4969e3CB8",
+    "tokens": ["0x03F69AAF4c8512f533Da46cC9eFd49C4969e3CB8"],
+    "platform": "SushiSwap"
+  },
+  "sushi-eth-wfil": {
+    "wantToken": "0x21Ef14B5580a852477ef31E7Ea9373485bF50377",
+    "beefyVault": "0xA4fB94990f99A8C1290e83d40DB9C648fD868D14",
+    "tokens": ["0xA4fB94990f99A8C1290e83d40DB9C648fD868D14"],
+    "platform": "SushiSwap"
+  },
+  "sushi-grt-eth": {
+    "wantToken": "0x1cedA73C034218255F50eF8a2c282E6B4c301d60",
+    "beefyVault": "0x8efCf419813F9E018cCaCda36151e5079c274fa4",
+    "tokens": ["0x8efCf419813F9E018cCaCda36151e5079c274fa4"],
+    "platform": "SushiSwap"
+  },
+  "sushi-frax-fxs": {
+    "wantToken": "0xd53a56AE0f48c9a03660cd36c2E4ae20493a1Eca",
+    "beefyVault": "0xddD5F39d044Dbaeef7b348cf04C3628acd3F1D8f",
+    "tokens": ["0xddD5F39d044Dbaeef7b348cf04C3628acd3F1D8f"],
+    "platform": "SushiSwap"
+  },
+  "sushi-frax-usdc": {
+    "wantToken": "0x9e20a8d3501BF96EDA8e69b96DD84840058a1cB0",
+    "beefyVault": "0x5B19A2e8E5878cF2b1E9b1AC7CEA50346671B2Fc",
+    "tokens": ["0x5B19A2e8E5878cF2b1E9b1AC7CEA50346671B2Fc"],
+    "platform": "SushiSwap"
+  },
+  "sushi-wmatic-woofy": {
+    "wantToken": "0x211F8e61113eDAf00cf37A804B0bA721875Ef560",
+    "beefyVault": "0x544551E4E7D7bDd1CfbD55F07e304F5C9fD514Dd",
+    "tokens": ["0x544551E4E7D7bDd1CfbD55F07e304F5C9fD514Dd"],
+    "platform": "SushiSwap"
+  },
+  "sushi-usdc-dai": {
+    "wantToken": "0xCD578F016888B57F1b1e3f887f392F0159E26747",
+    "beefyVault": "0x75424BE5378621AeC2eEF25965f40FeB59039B52",
+    "tokens": ["0x75424BE5378621AeC2eEF25965f40FeB59039B52"],
+    "platform": "SushiSwap"
+  },
+  "sushi-snx-eth": {
+    "wantToken": "0x116Ff0d1Caa91a6b94276b3471f33dbeB52073E7",
+    "beefyVault": "0x3AD9cd8d75f7a711Caea58e725425A9dC0D249c4",
+    "tokens": ["0x3AD9cd8d75f7a711Caea58e725425A9dC0D249c4"],
+    "platform": "SushiSwap"
+  },
+  "sushi-crv-eth": {
+    "wantToken": "0x396E655C309676cAF0acf4607a868e0CDed876dB",
+    "beefyVault": "0xE695fCeD8fD93eeE54204a7fC33323a60d41865A",
+    "tokens": ["0xE695fCeD8fD93eeE54204a7fC33323a60d41865A"],
+    "platform": "SushiSwap"
+  },
+  "sushi-usdc-usdt": {
+    "wantToken": "0x4B1F1e2435A9C96f7330FAea190Ef6A7C8D70001",
+    "beefyVault": "0xB6B89a05ad8228b98d0D8a77e1a695c54500db3b",
+    "tokens": ["0xB6B89a05ad8228b98d0D8a77e1a695c54500db3b"],
+    "platform": "SushiSwap"
+  },
+  "sushi-link-eth": {
+    "wantToken": "0x74D23F21F780CA26B47Db16B0504F2e3832b9321",
+    "beefyVault": "0xaE65a66B3c7f8cc1ba71cEA740C953aBa0F3Ce8b",
+    "tokens": ["0xaE65a66B3c7f8cc1ba71cEA740C953aBa0F3Ce8b"],
+    "platform": "SushiSwap"
+  },
+  "sushi-aave-eth": {
+    "wantToken": "0x2813D43463C374a680f235c428FB1D7f08dE0B69",
+    "beefyVault": "0x866a910F3375d0dEBDdD904A36B3940aFcD29900",
+    "tokens": ["0x866a910F3375d0dEBDdD904A36B3940aFcD29900"],
+    "platform": "SushiSwap"
+  },
+  "sushi-eth-dai": {
+    "wantToken": "0x6FF62bfb8c12109E8000935A6De54daD83a4f39f",
+    "beefyVault": "0x6b6ca47520dDC9333B8bD09a1e64204648B63274",
+    "tokens": ["0x6b6ca47520dDC9333B8bD09a1e64204648B63274"],
+    "platform": "SushiSwap"
+  },
+  "sushi-btc-eth": {
+    "wantToken": "0xE62Ec2e799305E0D367b0Cc3ee2CdA135bF89816",
+    "beefyVault": "0x6530E351074f1f9fdf254dC7d7d8A44324E158a4",
+    "tokens": ["0x6530E351074f1f9fdf254dC7d7d8A44324E158a4"],
+    "platform": "SushiSwap"
+  },
+  "sushi-eth-usdt": {
+    "wantToken": "0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9",
+    "beefyVault": "0xE8417099971151CD5CfAE264e25634Fac05cA2b3",
+    "tokens": ["0xE8417099971151CD5CfAE264e25634Fac05cA2b3"],
+    "platform": "SushiSwap"
+  },
+  "sushi-usdc-eth": {
+    "wantToken": "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27",
+    "beefyVault": "0xE4DB97A2AAFbfef40D1a4AE8B709f61d6756F8e1",
+    "tokens": ["0xE4DB97A2AAFbfef40D1a4AE8B709f61d6756F8e1"],
+    "platform": "SushiSwap"
+  },
+  "sushi-matic-eth": {
+    "wantToken": "0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E",
+    "beefyVault": "0xC8e809a9180d637Cc23dAf60b41B70CA1ad5Fc08",
+    "tokens": ["0xC8e809a9180d637Cc23dAf60b41B70CA1ad5Fc08"],
+    "platform": "SushiSwap"
+  },
+  "sushi-axs-eth": {
+    "wantToken": "0x7BA331A8b360F4c31E6014aBdd6852F92Fb21557",
+    "beefyVault": "0x3404361876897A92579DcEBd9eDC94A1662dC4aF",
+    "tokens": ["0x3404361876897A92579DcEBd9eDC94A1662dC4aF"],
+    "platform": "SushiSwap"
+  },
+  "sushi-avax-weth": {
+    "wantToken": "0x1274De0DE2e9D9b1d0E06313c0E5EdD01CC335eF",
+    "beefyVault": "0xf5881fF8fF609C1202E0c6481bc16B4273407A04",
+    "tokens": ["0xf5881fF8fF609C1202E0c6481bc16B4273407A04"],
+    "platform": "SushiSwap"
+  },
+  "polygonfarm-spade-matic": {
+    "wantToken": "0xCcCEc4A90b3435065f5e1feC6346be9Da1B7B5eD",
+    "beefyVault": "0x07628d57b68E3ec227496740820A6fDa1b0DD0d8",
+    "tokens": ["0x07628d57b68E3ec227496740820A6fDa1b0DD0d8"],
+    "platform": "SushiSwap"
+  },
+  "polygonfarm-spade-usdc": {
+    "wantToken": "0x6Fd8aAe9f85A7Db14c45453daAB81aa3085E4bA3",
+    "beefyVault": "0xEEc9a4Ecd1C0caB2Eb20081A10b8b0A07336dA14",
+    "tokens": ["0xEEc9a4Ecd1C0caB2Eb20081A10b8b0A07336dA14"],
+    "platform": "SushiSwap"
+  },
+  "wexpoly-usdc-wusd": {
+    "wantToken": "0x7B93196CD4861f345509c2da31058CA4B1c30D63",
+    "beefyVault": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
+    "tokens": ["0x955EAC48a81D8a8A312884A022D806015E901CDE"],
+    "platform": "WaultFinance"
+  },
+  "farmhero-wault-usdc-honor": {
+    "wantToken": "0x4Bd5dF4300b7c5309cB1A0143e4A6d0184B878e1",
+    "beefyVault": "0x0cFc878111e72e800ecA9E0B2a6358bcc15EB9FE",
+    "tokens": ["0x0cFc878111e72e800ecA9E0B2a6358bcc15EB9FE"],
+    "platform": "FarmHero (Wault)"
+  },
+  "wexpoly-usdc-wex": {
+    "wantToken": "0x5DE6a3CcA10d3F788EEdbD4923e31D4658bf6f9a",
+    "beefyVault": "0xc58475e5385b056D29ab455F40634450a613e789",
+    "tokens": ["0xc58475e5385b056D29ab455F40634450a613e789"],
+    "platform": "WaultFinance"
+  },
+  "pearzap-pear-usdc": {
+    "wantToken": "0xa1d88Ce0d030B51342a05f9Dcc10AC4214592DAc",
+    "beefyVault": "0x3e9C032052e774B85CbF5f1D6382be06144e1Bac",
+    "tokens": ["0x3e9C032052e774B85CbF5f1D6382be06144e1Bac"],
+    "platform": "WaultFinance (PearZap)"
+  },
+  "pearzap-pear-matic": {
+    "wantToken": "0x51BEffd36EB8c81a9b440B7ee51f98ba9eFda707",
+    "beefyVault": "0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65",
+    "tokens": ["0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65"],
+    "platform": "WaultFinance (PearZap)"
+  },
+  "wexpoly-matic-eth": {
+    "wantToken": "0x679B8Ab80F298bF802fB294137765C6386D43dcA",
+    "beefyVault": "0xCB171DF46CA6FF7AfEF6c4935128204435E4F05C",
+    "tokens": ["0xCB171DF46CA6FF7AfEF6c4935128204435E4F05C"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-link-eth": {
+    "wantToken": "0x70bF5ffCC6090A8D243FD05485Ec4c084BD10Ae5",
+    "beefyVault": "0x23Ee6ED971ae7731F53913D9f8a45C7C1af3D6D5",
+    "tokens": ["0x23Ee6ED971ae7731F53913D9f8a45C7C1af3D6D5"],
+    "platform": "WaultFinance"
+  },
+
+  "wexpoly-dai-eth": {
+    "wantToken": "0xaEF35d720C56eF3c259BCCdB6931F331c7f15b3F",
+    "beefyVault": "0x3a3a9784Af130d692E19A3f1C1b13eF44301D0f7",
+    "tokens": ["0x3a3a9784Af130d692E19A3f1C1b13eF44301D0f7"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-usdc-dai": {
+    "wantToken": "0x8E5c5AE2542116b5715b12bb2d391A770a607075",
+    "beefyVault": "0x5E7156F7c0B5E2005000C38beb38540ba9c283df",
+    "tokens": ["0x5E7156F7c0B5E2005000C38beb38540ba9c283df"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-matic-usdc": {
+    "wantToken": "0x8312A29A91D9Fac706F4d2ADEB1FA4540faD1673",
+    "beefyVault": "0xeCBb84E73760d0E22BDBeE79490c691386B5008F",
+    "tokens": ["0xeCBb84E73760d0E22BDBeE79490c691386B5008F"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-usdc-usdt": {
+    "wantToken": "0x7242e19A0937ac33472febD69462668a4cf5bbC5",
+    "beefyVault": "0x58C55B5675B106b440635E2c550A771f4E256D35",
+    "tokens": ["0x58C55B5675B106b440635E2c550A771f4E256D35"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-wex-usdc": {
+    "wantToken": "0x5DE6a3CcA10d3F788EEdbD4923e31D4658bf6f9a",
+    "beefyVault": "0xe3B5a0d5dFDCD6dE7e22a5c2B6b957aB76d2A085",
+    "tokens": ["0xe3B5a0d5dFDCD6dE7e22a5c2B6b957aB76d2A085"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-wex-matic": {
+    "wantToken": "0xC46991072C7eAC184F7bd69d3122cd1750300b27",
+    "beefyVault": "0xe09888EEab19bce85e67eDC59521F3f290B1BCcE",
+    "tokens": ["0xe09888EEab19bce85e67eDC59521F3f290B1BCcE"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-bifi-matic": {
+    "wantToken": "0xE60afed80406190C3AB2C17501d417097Dd741DB",
+    "beefyVault": "0x247303D4Be227Aa87Bd52F05aDDAD772794DE394",
+    "tokens": ["0x247303D4Be227Aa87Bd52F05aDDAD772794DE394"],
+    "platform": "WaultFinance"
+  }
+}

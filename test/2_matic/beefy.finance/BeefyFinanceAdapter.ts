@@ -6,9 +6,10 @@ import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
 import { LiquidityPool, StakingPool, Signers } from "../types";
 import { shouldBehaveLikeBeefyFinanceAdapter } from "./BeefyFinanceAdapter.behavior";
 import { shouldStakeLikeBeefyFinanceAdapter } from "./BeefyFinanceAdapter.behavior";
-import { default as BeefyFinanceLiquidityPools } from "./beefy_single_asset_pools.json";
+import { default as BeefyFinanceLiquidityPools } from "./beefy_all_liquidity_pools.json";
 import { default as BeefyStakingPools } from "./beefy.staking-pools.json";
-import { IUniswapV2Router02 } from "../../typechain";
+import { IUniswapV2Router02 } from "../../../typechain";
+import { IUniswapV2Pair } from "../../../typechain";
 import { getOverrideOptions } from "../../utils";
 //
 const { deployContract } = hre.waffle;

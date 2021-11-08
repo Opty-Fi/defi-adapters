@@ -19,6 +19,8 @@ import { IAdapter } from "../../opty/interfaces/defiAdapters/IAdapter.sol";
 import { IAdapterHarvestReward } from "../../opty/interfaces/defiAdapters/IAdapterHarvestReward.sol";
 import { IAdapterStaking } from "../../opty/interfaces/defiAdapters/IAdapterStaking.sol";
 import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
+// import { IUniswapV2Pair } from "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
+import { IWETH } from "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
 
 /**
  * @title Adapter for Beefy.finance protocol
