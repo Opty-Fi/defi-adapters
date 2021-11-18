@@ -1,9 +1,9 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { Fixture } from "ethereum-waffle";
-import { IUniswapV2Router02 } from "../../../typechain";
-import { HarvestFinanceAdapter } from "../../../typechain/HarvestFinanceAdapter";
-import { BeefyFinanceAdapter } from "../../../typechain/BeefyFinanceAdapter";
-import { TestDeFiAdapter } from "../../../typechain/TestDeFiAdapter";
+import { IUniswapV2Router02 } from "../../typechain";
+import { HarvestFinanceAdapter } from "../../typechain/HarvestFinanceAdapter";
+import { BeefyFinanceAdapter } from "../../typechain/BeefyFinanceAdapter";
+import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
 
 export interface Signers {
   admin: SignerWithAddress;
@@ -14,6 +14,7 @@ export interface Signers {
   charlie: SignerWithAddress;
   dave: SignerWithAddress;
   eve: SignerWithAddress;
+  tokenWhale: SignerWithAddress;
 }
 
 export interface PoolItem {
@@ -21,6 +22,9 @@ export interface PoolItem {
   beefyVault: string;
   tokens: string[];
   platform: string;
+  whale0?: string;
+  whale1?: string;
+  whaleLP?: string;
 }
 
 export interface StakingPoolItem {

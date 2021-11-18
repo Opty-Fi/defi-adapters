@@ -1,4 +1,103 @@
 {
+  "curve-poly-atricrypto3": {
+    "wantToken": "0xdAD97F7713Ae9437fa9249920eC8507e5FbB23d3",
+    "beefyVault": "0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f",
+    "tokens": ["0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f"],
+    "platform": "Curve",
+    "whaleLP": "0xE17DCE5608fAD1bB3d18D3FB146e3d7E04Ab6c81"
+  },
+  "curve-am3crv": {
+    "wantToken": "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171",
+    "beefyVault": "0xAA7C2879DaF8034722A0977f13c343aF0883E92e",
+    "tokens": ["0xAA7C2879DaF8034722A0977f13c343aF0883E92e"],
+    "platform": "Curve",
+    "whaleLP": "0x9800C2B37733D4F60827Db465dFF635348450EBC"
+  },
+  "curve-poly-ren": {
+    "wantToken": "0xf8a57c1d3b9629b77b6726a042ca48990A84Fb49",
+    "beefyVault": "0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141",
+    "tokens": ["0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141"],
+    "platform": "Curve",
+    "whaleLP": "0x7a75da34C346F244E54FA2f71B25560EFb1F9B20"
+  },
+  "dinoswap-xmark-usdc": {
+    "wantToken": "0x97A95deb56d689802F02f50c25EBCda5d0A49591",
+    "beefyVault": "0xFa08E2EFE3aa5a8a0142f26add94354f9FdFe1DE",
+    "tokens": ["0xFa08E2EFE3aa5a8a0142f26add94354f9FdFe1DE"],
+    "platform": "SushiSwap",
+    "whale1": "0x0f45156f109e474295913d78036fa213b1745d5a"
+  },
+  "quick-guard-usdc": {
+    "wantToken": "0xD2EeeEdfcAF1457F7BC9cbA28d5316F73BB83b49",
+    "beefyVault": "0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc",
+    "tokens": ["0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc"],
+    "platform": "QuickSwap"
+  },
+  "quick-fff-quick": {
+    "wantToken": "0x2648ec89875d944e38f55925Df77D9Cfe0B01Edd",
+    "beefyVault": "0x2D4cf116A59e24Dd0aB8821c93AE87658a9483b6",
+    "tokens": ["0x2D4cf116A59e24Dd0aB8821c93AE87658a9483b6"],
+    "platform": "QuickSwap",
+    "whale1": "0xab15033649dF6Fe91c2C59293E5Ae4e6c2E75DD8"
+  },
+  "quick-defi5-eth": {
+    "wantToken": "0x654E651b658f784406125400cf648588CB9773e8",
+    "beefyVault": "0x53e674D5cC969930420d73E4b79Ee0D46cCdf6c4",
+    "tokens": ["0x53e674D5cC969930420d73E4b79Ee0D46cCdf6c4"],
+    "platform": "QuickSwap"
+  },
+  "wexpoly-usdc-wusd": {
+    "wantToken": "0x7B93196CD4861f345509c2da31058CA4B1c30D63",
+    "beefyVault": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
+    "tokens": ["0x955EAC48a81D8a8A312884A022D806015E901CDE"],
+    "platform": "WaultFinance",
+    "whale1": "0xc990D1c44119501DCEF3315F013B3b1764389a4B"
+  },
+  "farmhero-quick-usdc-honor": {
+    "wantToken": "0x46489f825f11d7473D20279699b108aCAA246e73",
+    "beefyVault": "0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c",
+    "tokens": ["0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c"],
+    "platform": "QuickSwap"
+  },
+  "pearzap-pear-usdc": {
+    "wantToken": "0xa1d88Ce0d030B51342a05f9Dcc10AC4214592DAc",
+    "beefyVault": "0x3e9C032052e774B85CbF5f1D6382be06144e1Bac",
+    "tokens": ["0x3e9C032052e774B85CbF5f1D6382be06144e1Bac"],
+    "platform": "WaultFinance"
+  },
+  "pearzap-pear-matic": {
+    "wantToken": "0x51BEffd36EB8c81a9b440B7ee51f98ba9eFda707",
+    "beefyVault": "0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65",
+    "tokens": ["0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65"],
+    "platform": "WaultFinance"
+  },
+  "sushi-wbtc-ibbtc": {
+    "wantToken": "0x8F8e95Ff4B4c5E354ccB005c6B0278492D7B5907",
+    "beefyVault": "0xD35B3733c2ceaf3635bE246B2c6C42f10e5b6B78",
+    "tokens": ["0xD35B3733c2ceaf3635bE246B2c6C42f10e5b6B78"],
+    "platform": "SushiSwap",
+    "whale": "0xAD32Bc446Cc906BfD5f74914F5Bd9cbD1443bcd6"
+  },
+  "wexpoly-snx-eth": {
+    "wantToken": "0x2857Ec555c1E4fA20982AcBf985b8b8807157A5B",
+    "beefyVault": "0xf7e1226F6f98D1981e88Da328347F0E2131A2864",
+    "tokens": ["0xf7e1226F6f98D1981e88Da328347F0E2131A2864"],
+    "platform": "WaultFinance",
+    "whale0": "0x52A258ED593C793251a89bfd36caE158EE9fC4F8"
+  },
+  "dinoswap-dfyn-ust-usdt": {
+    "wantToken": "0x39BEd7f1C412ab64443196A6fEcb2ac20C707224",
+    "beefyVault": "0xa2e51538fce9d2D8082988921be4C0afC3Fe089a",
+    "tokens": ["0xa2e51538fce9d2D8082988921be4C0afC3Fe089a"],
+    "platform": "DFyn",
+    "whale0": "0xff0cb0351a356ad16987e5809a8daaaf34f5adbe"
+  },
+  "cometh1-eth-wbtc": {
+    "wantToken": "0x4282C6b1c21CD1A0C363a70e4292f8Bf4D7c898c",
+    "beefyVault": "0x55eebAd2b295d5229cf853368c9307e48B9CD955",
+    "tokens": ["0x55eebAd2b295d5229cf853368c9307e48B9CD955"],
+    "platform": "Cometh"
+  },
   "quick-wise-eth": {
     "wantToken": "0xDF8139e9BebecAdEcF48BeC8c8064CcEfB618e2b",
     "beefyVault": "0x76cE86B1e1b7a3983B26F7E57B2A0C8896f7eB0D",
@@ -47,22 +146,10 @@
     "tokens": ["0xa008B727ddBa283Ddb178b47BB227Cdbea5C1bfD"],
     "platform": "QuickSwap"
   },
-  "telxchange-quick-quick-tel": {
-    "wantToken": "0xE88e24F49338f974B528AcE10350Ac4576c5c8A1",
-    "beefyVault": "0xda3E3ee01Ee7284e3D0d900Ca3fb3D09484E1ce0",
-    "tokens": ["0xda3E3ee01Ee7284e3D0d900Ca3fb3D09484E1ce0"],
-    "platform": "QuickSwap"
-  },
   "telxchange-quick-wmatic-tel": {
     "wantToken": "0x9b5c71936670e9f1F36e63F03384De7e06E60d2a",
     "beefyVault": "0x2AaB02eDE64d4A686EA1d1A70B688E46cce50fFd",
     "tokens": ["0x2AaB02eDE64d4A686EA1d1A70B688E46cce50fFd"],
-    "platform": "QuickSwap"
-  },
-  "telxchange-quick-eth-tel": {
-    "wantToken": "0xFc2fC983a411C4B1E238f7Eb949308CF0218C750",
-    "beefyVault": "0xDC52e53f9E8b2cf42b557A6b3cE36e79De39ACd6",
-    "tokens": ["0xDC52e53f9E8b2cf42b557A6b3cE36e79De39ACd6"],
     "platform": "QuickSwap"
   },
   "telxchange-quick-aave-tel": {
@@ -75,12 +162,6 @@
     "wantToken": "0xaDdc9C73f3CBaD4E647eAFf691715898825Ac20c",
     "beefyVault": "0xb74792F6a2cF81E3f704930621cb4832ffFcC840",
     "tokens": ["0xb74792F6a2cF81E3f704930621cb4832ffFcC840"],
-    "platform": "QuickSwap"
-  },
-  "farmhero-quick-usdc-honor": {
-    "wantToken": "0x46489f825f11d7473D20279699b108aCAA246e73",
-    "beefyVault": "0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c",
-    "tokens": ["0xD8f5095Fd7E27D4aD12008d5eb09105bFFd1572c"],
     "platform": "QuickSwap"
   },
   "quick-usdc-rbnb": {
@@ -137,12 +218,6 @@
     "tokens": ["0x764B2aAcfDE7e33888566a6d44005Dc982F02031"],
     "platform": "QuickSwap"
   },
-  "quick-wmatic-ht": {
-    "wantToken": "0x20e28214946B4e0F18B2c1aA7C976dF087695a5d",
-    "beefyVault": "0x69df355fD685d87b44e86728f3A0b92D01341E40",
-    "tokens": ["0x69df355fD685d87b44e86728f3A0b92D01341E40"],
-    "platform": "QuickSwap"
-  },
   "quick-sol-matic": {
     "wantToken": "0x898386DD8756779a4ba4f1462891B92dd76b78eF",
     "beefyVault": "0x8802fbcb669c7BbcC3989455B3FdBF9235176bD4",
@@ -153,12 +228,6 @@
     "wantToken": "0xF7135272a5584Eb116f5a77425118a8B4A2ddfDb",
     "beefyVault": "0x80fcA0946fb75724f5d84Dd49edC694062E3111C",
     "tokens": ["0x80fcA0946fb75724f5d84Dd49edC694062E3111C"],
-    "platform": "QuickSwap"
-  },
-  "quick-guard-usdc": {
-    "wantToken": "0xD2EeeEdfcAF1457F7BC9cbA28d5316F73BB83b49",
-    "beefyVault": "0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc",
-    "tokens": ["0x1081062Aa050AFDBC3D669A24856a6fD23C536Fc"],
     "platform": "QuickSwap"
   },
   "quick-quick-yamp": {
@@ -315,7 +384,8 @@
     "wantToken": "0xa975CEEb05B379Cf67FdfA63e7b2770f9F1D72c6",
     "beefyVault": "0x191E0b3B023fd8911c1D7632086A46C0D2dB39ed",
     "tokens": ["0x191E0b3B023fd8911c1D7632086A46C0D2dB39ed"],
-    "platform": "QuickSwap"
+    "platform": "QuickSwap",
+    "whale0": "0xBe31a54c78f6E73819ffF78072Be1660485c8105"
   },
   "quick-btc-usdc": {
     "wantToken": "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498",
@@ -473,12 +543,6 @@
     "tokens": ["0x8a198BCbF313A5565c64A7Ed61FaA413eB4E0931"],
     "platform": "Cometh"
   },
-  "curve-poly-ren": {
-    "wantToken": "0xf8a57c1d3b9629b77b6726a042ca48990A84Fb49",
-    "beefyVault": "0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141",
-    "tokens": ["0x8c9d3Bc4425773BD2F00C4a2aC105c5Ad73c8141"],
-    "platform": "Curve"
-  },
   "ironswap-ice-usdc": {
     "wantToken": "0x34832D9AC4127a232C1919d840f7aaE0fcb7315B",
     "beefyVault": "0x0564889d4Ff0dA0371Ec8a898AC39ABC99065BfA",
@@ -520,12 +584,6 @@
     "beefyVault": "0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2",
     "tokens": ["0xad88D6B731DCb567a3E13407f1E7B0649Bad82D2"],
     "platform": "DFyn"
-  },
-  "ironswap-ice-eth": {
-    "wantToken": "0xf1EE78544a1118F2efb87f7EaCd9f1E6e80e1ea5",
-    "beefyVault": "0x90D0F2050e62a6d4AF088dD09d802D9A18253c40",
-    "tokens": ["0x90D0F2050e62a6d4AF088dD09d802D9A18253c40"],
-    "platform": "FireBird"
   },
   "jetswap-poly-usdc-usdt": {
     "wantToken": "0x20BF018FDDBa3b352f3d913FE1c81b846fE0F490",
@@ -737,12 +795,6 @@
     "tokens": ["0xEEc9a4Ecd1C0caB2Eb20081A10b8b0A07336dA14"],
     "platform": "SushiSwap"
   },
-  "wexpoly-usdc-wusd": {
-    "wantToken": "0x7B93196CD4861f345509c2da31058CA4B1c30D63",
-    "beefyVault": "0x955EAC48a81D8a8A312884A022D806015E901CDE",
-    "tokens": ["0x955EAC48a81D8a8A312884A022D806015E901CDE"],
-    "platform": "WaultFinance"
-  },
   "farmhero-wault-usdc-honor": {
     "wantToken": "0x4Bd5dF4300b7c5309cB1A0143e4A6d0184B878e1",
     "beefyVault": "0x0cFc878111e72e800ecA9E0B2a6358bcc15EB9FE",
@@ -754,18 +806,6 @@
     "beefyVault": "0xc58475e5385b056D29ab455F40634450a613e789",
     "tokens": ["0xc58475e5385b056D29ab455F40634450a613e789"],
     "platform": "WaultFinance"
-  },
-  "pearzap-pear-usdc": {
-    "wantToken": "0xa1d88Ce0d030B51342a05f9Dcc10AC4214592DAc",
-    "beefyVault": "0x3e9C032052e774B85CbF5f1D6382be06144e1Bac",
-    "tokens": ["0x3e9C032052e774B85CbF5f1D6382be06144e1Bac"],
-    "platform": "WaultFinance (PearZap)"
-  },
-  "pearzap-pear-matic": {
-    "wantToken": "0x51BEffd36EB8c81a9b440B7ee51f98ba9eFda707",
-    "beefyVault": "0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65",
-    "tokens": ["0xA5cd75EdC2f64580470bB6Fb2f9Ee00C66747c65"],
-    "platform": "WaultFinance (PearZap)"
   },
   "wexpoly-matic-eth": {
     "wantToken": "0x679B8Ab80F298bF802fB294137765C6386D43dcA",
@@ -779,7 +819,6 @@
     "tokens": ["0x23Ee6ED971ae7731F53913D9f8a45C7C1af3D6D5"],
     "platform": "WaultFinance"
   },
-
   "wexpoly-dai-eth": {
     "wantToken": "0xaEF35d720C56eF3c259BCCdB6931F331c7f15b3F",
     "beefyVault": "0x3a3a9784Af130d692E19A3f1C1b13eF44301D0f7",
@@ -820,6 +859,30 @@
     "wantToken": "0xE60afed80406190C3AB2C17501d417097Dd741DB",
     "beefyVault": "0x247303D4Be227Aa87Bd52F05aDDAD772794DE394",
     "tokens": ["0x247303D4Be227Aa87Bd52F05aDDAD772794DE394"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-wbtc-wex": {
+    "wantToken": "0xaE183DB956FAf760Aa29bFcfDa4BDDdB02fbdd0E",
+    "beefyVault": "0xA1B2Ef1b6D5823D832DDa2AE2B489793832Fd082",
+    "tokens": ["0xA1B2Ef1b6D5823D832DDa2AE2B489793832Fd082"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-wbtc-usdc": {
+    "wantToken": "0x30eEf213D4B9C809f5776Ae56cC39f02f19F742f",
+    "beefyVault": "0x5c7fd860fC0072cFef2Cc4aB17CC7fF25B639d8b",
+    "tokens": ["0x5c7fd860fC0072cFef2Cc4aB17CC7fF25B639d8b"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-wbtc-eth": {
+    "wantToken": "0x30AdBCAb9Fbb4436109fcf3058D1Af27E6E33F3F",
+    "beefyVault": "0x75A59e8d6611e90e7A8e439Cb59D9f78e738d16F",
+    "tokens": ["0x75A59e8d6611e90e7A8e439Cb59D9f78e738d16F"],
+    "platform": "WaultFinance"
+  },
+  "wexpoly-aave-eth": {
+    "wantToken": "0x58401db5eD194cBA60f2b7D59b9619D54e0B493c",
+    "beefyVault": "0xc4cC677bb8b7E6EEA6409Ee2af9F434BAB004192",
+    "tokens": ["0xc4cC677bb8b7E6EEA6409Ee2af9F434BAB004192"],
     "platform": "WaultFinance"
   }
 }

@@ -1,15 +1,15 @@
 import hre from "hardhat";
 import { Artifact } from "hardhat/types";
+import { getAddress } from "ethers/lib/utils";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import { BeefyFinanceAdapter } from "../../typechain/BeefyFinanceAdapter";
-import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
+import { BeefyFinanceAdapter } from "../../../typechain/BeefyFinanceAdapter";
+import { TestDeFiAdapter } from "../../../typechain/TestDeFiAdapter";
 import { LiquidityPool, StakingPool, Signers } from "../types";
 import { shouldBehaveLikeBeefyFinanceAdapter } from "./BeefyFinanceAdapter.behavior";
 import { shouldStakeLikeBeefyFinanceAdapter } from "./BeefyFinanceAdapter.behavior";
-import { default as BeefyFinanceLiquidityPools } from "./beefy_all_liquidity_pools.json";
-import { default as BeefyStakingPools } from "./beefy.staking-pools.json";
+import { default as BeefyFinanceLiquidityPools } from "./beefy-liquidity-pools.json";
+import { default as BeefyStakingPools } from "./beefy-staking-pools.json";
 import { IUniswapV2Router02 } from "../../../typechain";
-import { IUniswapV2Pair } from "../../../typechain";
 import { getOverrideOptions } from "../../utils";
 //
 const { deployContract } = hre.waffle;
@@ -36,6 +36,10 @@ describe("Unit tests", function () {
     this.testDeFiAdapter = <TestDeFiAdapter>(
       await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
     );
+
+    this.defaultRouter = <IUniswapV2Router02>(
+      await hre.ethers.getContractAt("IUniswapV2Router02", "0xa5e0829caced8ffdd4de3c43696c57f7d7a678ff")
+    ); //changed this to polygon apeswap router
 
     for (const pool of Object.values(BeefyFinanceLiquidityPools)) {
       let hostRouterAddress, swapRouterAddress, wmatic_address;
@@ -90,6 +94,11 @@ describe("Unit tests", function () {
           hostRouterAddress = "0xF6fa9Ea1f64f1BBfA8d71f7f43fAF6D45520bfac";
           wmatic_address = "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270";
           break;
+        case "single_asset":
+          swapRouterAddress = "0xa5e0829caced8ffdd4de3c43696c57f7d7a678ff";
+          hostRouterAddress = "0xa5e0829caced8ffdd4de3c43696c57f7d7a678ff";
+          wmatic_address = "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270";
+          break;
         default:
           swapRouterAddress = "0xa5e0829caced8ffdd4de3c43696c57f7d7a678ff";
           hostRouterAddress = "0xa5e0829caced8ffdd4de3c43696c57f7d7a678ff";
@@ -105,7 +114,7 @@ describe("Unit tests", function () {
         const wantTokenAddress = pool.wantToken;
         if (wantTokenAddress == hre.ethers.utils.getAddress(wmatic_address)) {
           const wmatic_token = await hre.ethers.getContractAt("IWETH", wantTokenAddress);
-          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
+          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("5") });
         } else {
           try {
             await this.swapRouter.swapExactETHForTokens(
@@ -113,34 +122,59 @@ describe("Unit tests", function () {
               [wmatic_address, wantTokenAddress],
               this.signers.admin.address,
               Date.now() + 900,
-              { value: hre.ethers.utils.parseEther("50") },
+              { value: hre.ethers.utils.parseEther("5") },
             );
-            console.log("swap into single asset done");
           } catch (err) {
-            console.log("First swap failed");
+            console.log("Single asset swap failed");
             console.log(err);
           }
         }
-        const WANT_TOKEN_CONTRACT = await hre.ethers.getContractAt("IERC20", pool.wantToken);
+        const WANT_TOKEN_CONTRACT = await hre.ethers.getContractAt("ERC20", pool.wantToken);
 
         const initialWantTokenBalance = await WANT_TOKEN_CONTRACT.balanceOf(this.signers.admin.address);
 
         // fund TestDeFiAdapter with initialWantTokenBalance
         await WANT_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialWantTokenBalance, getOverrideOptions());
-
-        // console.log(`${await WANT_TOKEN_CONTRACT.symbol()} funded`);
+        console.log(`${await WANT_TOKEN_CONTRACT.symbol()} funded`);
+      } else if (pool.platform == "Curve") {
+        try {
+          const WHALE: string = getAddress(pool.whaleLP);
+          await hre.network.provider.request({
+            method: "hardhat_impersonateAccount",
+            params: [WHALE],
+          });
+          const LP_TOKEN_ADDRESS: string = getAddress(pool.wantToken);
+          this.signers.tokenWhale = await hre.ethers.getSigner(WHALE);
+          const LPtokenNeeded = await hre.ethers.getContractAt("ERC20", LP_TOKEN_ADDRESS, this.signers.tokenWhale);
+          //fund whale's wallet with gas
+          await this.signers.admin.sendTransaction({
+            to: WHALE,
+            value: hre.ethers.utils.parseEther("1"),
+            ...getOverrideOptions(),
+          });
+          // fund admin with 50 tokens
+          var decimals = await LPtokenNeeded.decimals();
+          await LPtokenNeeded.transfer(
+            this.testDeFiAdapter.address,
+            hre.ethers.utils.parseUnits("0.1", decimals),
+            getOverrideOptions(),
+          );
+          console.log(`${await LPtokenNeeded.symbol()} funded from whale`);
+        } catch (err) {
+          console.log("Failed to source LP token from whale");
+          console.log(err);
+        }
       } else {
         //case where want is an LPtoken
         const LP_TOKEN_CONTRACT = await hre.ethers.getContractAt("IUniswapV2Pair", pool.wantToken);
         //get the addresses of the two respective tokens
         const token0_address = await LP_TOKEN_CONTRACT.token0();
         const token1_address = await LP_TOKEN_CONTRACT.token1();
-        console.log(token0_address);
 
         // swap 100 MATIC for token0 and token1 respectively
         if (token0_address == hre.ethers.utils.getAddress(wmatic_address)) {
           const wmatic_token = await hre.ethers.getContractAt("IWETH", token0_address);
-          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
+          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("5") });
         } else {
           try {
             await this.swapRouter.swapExactETHForTokens(
@@ -148,30 +182,112 @@ describe("Unit tests", function () {
               [wmatic_address, token0_address],
               this.signers.admin.address,
               Date.now() + 900,
-              { value: hre.ethers.utils.parseEther("50") },
+              { value: hre.ethers.utils.parseEther("5") },
             );
-            console.log("swap1 done");
           } catch (err) {
-            console.log("First swap failed");
-            console.log(err);
+            try {
+              await this.defaultRouter.swapExactETHForTokens(
+                0,
+                [wmatic_address, token0_address],
+                this.signers.admin.address,
+                Date.now() + 900,
+                { value: hre.ethers.utils.parseEther("5") },
+              );
+            } catch (err) {
+              try {
+                const WHALE: string = getAddress(pool.whale0);
+                await hre.network.provider.request({
+                  method: "hardhat_impersonateAccount",
+                  params: [WHALE],
+                });
+                const TOKEN_ADDRESS: string = getAddress(token0_address);
+                this.signers.tokenWhale = await hre.ethers.getSigner(WHALE);
+                const tokenNeeded0 = await hre.ethers.getContractAt("ERC20", TOKEN_ADDRESS, this.signers.tokenWhale);
+                //fund whale's wallet with gas
+                await this.signers.admin.sendTransaction({
+                  to: WHALE,
+                  value: hre.ethers.utils.parseEther("1"),
+                  ...getOverrideOptions(),
+                });
+                // fund admin with 50 tokens
+                var decimals = await tokenNeeded0.decimals();
+                await tokenNeeded0.transfer(
+                  this.signers.admin.address,
+                  hre.ethers.utils.parseUnits("5", decimals),
+                  getOverrideOptions(),
+                );
+              } catch (err) {
+                console.log("Failed to source token0 from whale");
+              }
+            }
           }
         }
         if (token1_address == hre.ethers.utils.getAddress(wmatic_address)) {
           const wmatic_token = await hre.ethers.getContractAt("IWETH", token1_address);
-          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("50") });
+          await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("5") });
+        } else if (token1_address == hre.ethers.utils.getAddress("0x4EaC4c4e9050464067D673102F8E24b2FccEB350")) {
+          var path = [wmatic_address, token0_address, token1_address];
+          console.log("ibBTC trade exception");
+          await this.swapRouter.swapExactETHForTokens(0, path, this.signers.admin.address, Date.now() + 900, {
+            value: hre.ethers.utils.parseEther("5"),
+          });
+        } else if (token1_address == hre.ethers.utils.getAddress("0x948d2a81086A075b3130BAc19e4c6DEe1D2E3fE8")) {
+          var path = [wmatic_address, token0_address, token1_address];
+          console.log("GUARD trade exception");
+          await this.swapRouter.swapExactETHForTokens(0, path, this.signers.admin.address, Date.now() + 900, {
+            value: hre.ethers.utils.parseEther("5"),
+          });
+        } else if (token1_address == hre.ethers.utils.getAddress("0xfC40a4F89b410a1b855b5e205064a38fC29F5eb5")) {
+          var path = [wmatic_address, token0_address, token1_address];
+          console.log("rUSD trade exception");
+          await this.swapRouter.swapExactETHForTokens(0, path, this.signers.admin.address, Date.now() + 900, {
+            value: hre.ethers.utils.parseEther("5"),
+          });
         } else {
+          0x948d2a81086a075b3130bac19e4c6dee1d2e3fe8;
           try {
-            await this.swapRouter.swapExactETHForTokens(
-              0,
-              [wmatic_address, token1_address],
-              this.signers.admin.address,
-              Date.now() + 900,
-              { value: hre.ethers.utils.parseEther("50") },
-            );
-            console.log("swap2 done");
+            var path = [wmatic_address, token1_address];
+            var amounts = await this.swapRouter.getAmountsOut(hre.ethers.utils.parseEther("5"), path);
+            var amountOut = amounts[amounts.length - 1];
+            await this.swapRouter.swapExactETHForTokens(amountOut, path, this.signers.admin.address, Date.now() + 900, {
+              value: hre.ethers.utils.parseEther("5"),
+            });
           } catch (err) {
-            console.log("Second swap failed");
-            console.log(err);
+            try {
+              await this.defaultRouter.swapExactETHForTokens(
+                0,
+                [wmatic_address, token1_address],
+                this.signers.admin.address,
+                Date.now() + 900,
+                { value: hre.ethers.utils.parseEther("5") },
+              );
+            } catch (err) {
+              try {
+                const WHALE: string = getAddress(pool.whale1);
+                await hre.network.provider.request({
+                  method: "hardhat_impersonateAccount",
+                  params: [WHALE],
+                });
+                const TOKEN_ADDRESS: string = getAddress(token1_address);
+                this.signers.tokenWhale = await hre.ethers.getSigner(WHALE);
+                const tokenNeeded1 = await hre.ethers.getContractAt("ERC20", TOKEN_ADDRESS, this.signers.tokenWhale);
+                //fund whale's wallet with gas
+                await this.signers.admin.sendTransaction({
+                  to: WHALE,
+                  value: hre.ethers.utils.parseEther("1"),
+                  ...getOverrideOptions(),
+                });
+                // fund admin with 50 tokens
+                var decimals = await tokenNeeded1.decimals();
+                await tokenNeeded1.transfer(
+                  this.signers.admin.address,
+                  hre.ethers.utils.parseUnits("5", decimals),
+                  getOverrideOptions(),
+                );
+              } catch (err) {
+                console.log("Failed to source token1 from whale");
+              }
+            }
           }
         }
         // get the UniswapV2Router contract instance that hosts this liquidity pool
@@ -181,29 +297,33 @@ describe("Unit tests", function () {
         const token0 = await hre.ethers.getContractAt("ERC20", token0_address);
         const token0Balance = await token0.balanceOf(this.signers.admin.address);
         await token0.approve(this.hostRouter.address, token0Balance);
-
         //approve spending token 1
         const token1 = await hre.ethers.getContractAt("ERC20", token1_address);
         const token1Balance = await token1.balanceOf(this.signers.admin.address);
         await token1.approve(this.hostRouter.address, token1Balance);
-        console.log("approvals done");
         //add liquidity to get LP tokens for deposit
-        await this.hostRouter.addLiquidity(
-          token0_address,
-          token1_address,
-          token0Balance,
-          token1Balance,
-          0,
-          0,
-          this.signers.admin.address,
-          Date.now() + 900,
-        );
-        console.log("liquidity added");
+        try {
+          await this.hostRouter.addLiquidity(
+            token0_address,
+            token1_address,
+            token0Balance,
+            token1Balance,
+            0,
+            0,
+            this.signers.admin.address,
+            Date.now() + 900,
+          );
+        } catch (err) {
+          //try to get LP from whale??
+          console.log(`${pool.wantToken} failed to add liquidity`);
+          console.log(err);
+        }
         const initialLPtokenBalance = await LP_TOKEN_CONTRACT.balanceOf(this.signers.admin.address);
-
         // fund TestDeFiAdapter with initialLPtokenBalance
-        await LP_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialLPtokenBalance, getOverrideOptions());
-        console.log(`${await LP_TOKEN_CONTRACT.symbol()} funded`);
+        if (initialLPtokenBalance > 0) {
+          await LP_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialLPtokenBalance, getOverrideOptions());
+          console.log(`${await LP_TOKEN_CONTRACT.symbol()} funded`);
+        }
       }
     }
   });

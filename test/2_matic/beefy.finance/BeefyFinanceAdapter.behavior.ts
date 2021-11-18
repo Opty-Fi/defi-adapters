@@ -23,12 +23,19 @@ export function shouldBehaveLikeBeefyFinanceAdapter(token: string, pool: PoolIte
       this.beefyFinanceAdapter.address, //what is this?
       getOverrideOptions(),
     );
-    // 1.1 assert whether lptoken balance is as expected or not after deposit
+    // 1.1a assert whether lptoken balance is non-zero after deposit
     const actualLPTokenBalanceAfterDeposit = await this.beefyFinanceAdapter.getLiquidityPoolTokenBalance(
       this.testDeFiAdapter.address,
       this.testDeFiAdapter.address, // placeholder of type address
       pool.beefyVault,
     );
+    expect(actualLPTokenBalanceAfterDeposit).not.to.eq(0);
+    // 1.1b assert whether lptoken balance is as expected or not after deposit
+    // const actualLPTokenBalanceAfterDeposit = await this.beefyFinanceAdapter.getLiquidityPoolTokenBalance(
+    //   this.testDeFiAdapter.address,
+    //   this.testDeFiAdapter.address, // placeholder of type address
+    //   pool.pool,
+    // );
     const expectedLPTokenBalanceAfterDeposit = await beefyDepositInstance.balanceOf(this.testDeFiAdapter.address);
     expect(actualLPTokenBalanceAfterDeposit).to.be.eq(expectedLPTokenBalanceAfterDeposit);
     // 1.2 assert whether underlying token balance is as expected or not after deposit
@@ -102,12 +109,19 @@ export function shouldStakeLikeBeefyFinanceAdapter(token: string, pool: StakingP
       this.beefyFinanceAdapter.address,
       getOverrideOptions(),
     );
-    // 1.1 assert whether lptoken balance is as expected or not after deposit
+    // 1.1a assert whether lptoken balance is non-zero after deposit
     const actualLPTokenBalanceAfterDeposit = await this.beefyFinanceAdapter.getLiquidityPoolTokenBalance(
       this.testDeFiAdapter.address,
       this.testDeFiAdapter.address, // placeholder of type address
       pool.pool,
     );
+    expect(actualLPTokenBalanceAfterDeposit).not.to.eq(0);
+    // 1.1b assert whether lptoken balance is as expected or not after deposit
+    // const actualLPTokenBalanceAfterDeposit = await this.beefyFinanceAdapter.getLiquidityPoolTokenBalance(
+    //   this.testDeFiAdapter.address,
+    //   this.testDeFiAdapter.address, // placeholder of type address
+    //   pool.pool,
+    // );
     const expectedLPTokenBalanceAfterDeposit = await beefyDepositInstance.balanceOf(this.testDeFiAdapter.address);
     expect(actualLPTokenBalanceAfterDeposit).to.be.eq(expectedLPTokenBalanceAfterDeposit);
 
