@@ -153,7 +153,7 @@ describe("Unit tests", function () {
             ...getOverrideOptions(),
           });
           // fund admin with 50 tokens
-          var decimals = await LPtokenNeeded.decimals();
+          const decimals = await LPtokenNeeded.decimals();
           await LPtokenNeeded.transfer(
             this.testDeFiAdapter.address,
             hre.ethers.utils.parseUnits("0.1", decimals),
@@ -210,7 +210,7 @@ describe("Unit tests", function () {
                   ...getOverrideOptions(),
                 });
                 // fund admin with 50 tokens
-                var decimals = await tokenNeeded0.decimals();
+                const decimals = await tokenNeeded0.decimals();
                 await tokenNeeded0.transfer(
                   this.signers.admin.address,
                   hre.ethers.utils.parseUnits("5", decimals),
@@ -226,19 +226,19 @@ describe("Unit tests", function () {
           const wmatic_token = await hre.ethers.getContractAt("IWETH", token1_address);
           await wmatic_token.deposit({ value: hre.ethers.utils.parseEther("5") });
         } else if (token1_address == hre.ethers.utils.getAddress("0x4EaC4c4e9050464067D673102F8E24b2FccEB350")) {
-          var path = [wmatic_address, token0_address, token1_address];
+          const path = [wmatic_address, token0_address, token1_address];
           console.log("ibBTC trade exception");
           await this.swapRouter.swapExactETHForTokens(0, path, this.signers.admin.address, Date.now() + 900, {
             value: hre.ethers.utils.parseEther("5"),
           });
         } else if (token1_address == hre.ethers.utils.getAddress("0x948d2a81086A075b3130BAc19e4c6DEe1D2E3fE8")) {
-          var path = [wmatic_address, token0_address, token1_address];
+          const path = [wmatic_address, token0_address, token1_address];
           console.log("GUARD trade exception");
           await this.swapRouter.swapExactETHForTokens(0, path, this.signers.admin.address, Date.now() + 900, {
             value: hre.ethers.utils.parseEther("5"),
           });
         } else if (token1_address == hre.ethers.utils.getAddress("0xfC40a4F89b410a1b855b5e205064a38fC29F5eb5")) {
-          var path = [wmatic_address, token0_address, token1_address];
+          const path = [wmatic_address, token0_address, token1_address];
           console.log("rUSD trade exception");
           await this.swapRouter.swapExactETHForTokens(0, path, this.signers.admin.address, Date.now() + 900, {
             value: hre.ethers.utils.parseEther("5"),
@@ -246,9 +246,9 @@ describe("Unit tests", function () {
         } else {
           0x948d2a81086a075b3130bac19e4c6dee1d2e3fe8;
           try {
-            var path = [wmatic_address, token1_address];
-            var amounts = await this.swapRouter.getAmountsOut(hre.ethers.utils.parseEther("5"), path);
-            var amountOut = amounts[amounts.length - 1];
+            const path = [wmatic_address, token1_address];
+            const amounts = await this.swapRouter.getAmountsOut(hre.ethers.utils.parseEther("5"), path);
+            const amountOut = amounts[amounts.length - 1];
             await this.swapRouter.swapExactETHForTokens(amountOut, path, this.signers.admin.address, Date.now() + 900, {
               value: hre.ethers.utils.parseEther("5"),
             });
@@ -278,7 +278,7 @@ describe("Unit tests", function () {
                   ...getOverrideOptions(),
                 });
                 // fund admin with 50 tokens
-                var decimals = await tokenNeeded1.decimals();
+                const decimals = await tokenNeeded1.decimals();
                 await tokenNeeded1.transfer(
                   this.signers.admin.address,
                   hre.ethers.utils.parseUnits("5", decimals),
