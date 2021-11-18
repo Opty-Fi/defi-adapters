@@ -135,7 +135,7 @@ describe("Unit tests", function () {
 
         // fund TestDeFiAdapter with initialWantTokenBalance
         await WANT_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialWantTokenBalance, getOverrideOptions());
-        console.log(`${await WANT_TOKEN_CONTRACT.symbol()} funded`);
+        console.log(`${await WANT_TOKEN_CONTRACT.symbol()} funded from single asset swap`);
       } else if (pool.platform == "Curve") {
         try {
           const WHALE: string = getAddress(pool.whaleLP);
@@ -322,7 +322,7 @@ describe("Unit tests", function () {
         // fund TestDeFiAdapter with initialLPtokenBalance
         if (initialLPtokenBalance > 0) {
           await LP_TOKEN_CONTRACT.transfer(this.testDeFiAdapter.address, initialLPtokenBalance, getOverrideOptions());
-          console.log(`${await LP_TOKEN_CONTRACT.symbol()} funded`);
+          console.log(`${await LP_TOKEN_CONTRACT.symbol()} funded by adding liquidity`);
         }
       }
     }
