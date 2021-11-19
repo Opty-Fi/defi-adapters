@@ -89,7 +89,7 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn typechain
-      - name: Test
+      - name: Ethereum
         run: |
           yarn test:ethereum:fork
   matic-test:
