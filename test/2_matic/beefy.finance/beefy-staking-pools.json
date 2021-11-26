@@ -1,0 +1,10 @@
+{
+  "bifi": {
+    "pool": "0xfEcf784F48125ccb7d8855cdda7C5ED6b5024Cb3",
+    "stakingPool": "0x71a4449dD18177A1a19fEF671558964f10AF4be8",
+    "lpToken": "0xfEcf784F48125ccb7d8855cdda7C5ED6b5024Cb3",
+    "tokens": ["0xFbdd194376de19a88118e84E279b977f165d01b8"],
+    "rewardTokens": ["0x09211Dc67f9fe98Fb7bBB91Be0ef05f4a12FA2b2"],
+    "whale": "0xAD32Bc446Cc906BfD5f74914F5Bd9cbD1443bcd6"
+  }
+}
