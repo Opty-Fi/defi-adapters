@@ -294,7 +294,7 @@ contract HarvestFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaki
      * @inheritdoc IAdapter
      */
     function getWithdrawSomeCodes(
-        address payable _vault,
+        address payable,
         address _underlyingToken,
         address _liquidityPool,
         uint256 _shares

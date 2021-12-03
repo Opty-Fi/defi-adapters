@@ -530,7 +530,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      */
     function getWithdrawSomeCodes(
         address payable,
-        address _underlyingToken,
+        address,
         address _liquidityPool,
         uint256 _shares
     ) public view override returns (bytes[] memory _codes) {

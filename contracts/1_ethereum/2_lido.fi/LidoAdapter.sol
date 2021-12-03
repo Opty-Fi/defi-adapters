@@ -132,8 +132,8 @@ contract LidoAdapter is IAdapter {
      */
     function getDepositSomeCodes(
         address payable _vault,
-        address _underlyingToken,
-        address _liquidityPool,
+        address,
+        address,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
         if (_amount > 0) {
@@ -151,8 +151,8 @@ contract LidoAdapter is IAdapter {
      */
     function getWithdrawSomeCodes(
         address payable _vault,
-        address _underlyingToken,
-        address _liquidityPool,
+        address,
+        address,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
         if (_amount > 0) {
