@@ -112,7 +112,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "v3.4.0",
-    "@optyfi/defi-legos": "0.1.0-rc.9",
+    "@optyfi/defi-legos": "0.1.0-rc.10",
     "@uniswap/v2-periphery": "^1.1.0-beta.0"
   }
 }
