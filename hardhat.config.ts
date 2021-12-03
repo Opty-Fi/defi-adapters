@@ -2,11 +2,12 @@
 // @ts-ignore
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
+import { config as dotenvConfig } from "dotenv";
+import { HardhatUserConfig } from "hardhat/config";
 import "solidity-coverage";
 import { resolve, join } from "path";
 import fs from "fs";
-import { config as dotenvConfig } from "dotenv";
-import { HardhatUserConfig, NetworkUserConfig } from "hardhat/types";
+import { NetworkUserConfig } from "hardhat/types";
 import {
   eArbitrumNetwork,
   eAvalancheNetwork,
@@ -90,7 +91,7 @@ const config: HardhatUserConfig = {
         count: 20,
         mnemonic: MNEMONIC,
         path: MNEMONIC_PATH,
-        accountsBalance: "10000000000000000000000",
+        accountsBalance: "100000000000000000000000",
       },
       forking: buildForkConfig(),
     },

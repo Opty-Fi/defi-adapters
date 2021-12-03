@@ -12,8 +12,8 @@ pragma experimental ABIEncoderV2;
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
 //  interfaces
-import { ILidoDeposit } from "./interfaces/ILidoDeposit.sol";
-import { ICurveStableSwapStEth } from "./interfaces/ICurveStableSwapStEth.sol";
+import { ILidoDeposit } from "@optyfi/defi-legos/ethereum/lido/contracts/ILidoDeposit.sol";
+import { ICurveETHSwapV1 } from "@optyfi/defi-legos/ethereum/curve/contracts/ICurveETHSwapV1.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IWETH9 } from "../../utils/interfaces/IWETH9.sol";
 
@@ -30,8 +30,7 @@ contract LidoEthGateway {
      * @notice Pool used to swap between ETH and stETH (direct withdraw from Lido contract is not possible yet)
      * @dev https://github.com/curvefi/curve-contract/tree/master/contracts/pools/steth
      */
-    ICurveStableSwapStEth public constant curveStableSwapStEth =
-        ICurveStableSwapStEth(0xDC24316b9AE028F1497c275EB9192a3Ea0f67022);
+    ICurveETHSwapV1 public constant curveStableSwapStEth = ICurveETHSwapV1(0xDC24316b9AE028F1497c275EB9192a3Ea0f67022);
 
     /**
      * @notice Optional address used as referral on deposit

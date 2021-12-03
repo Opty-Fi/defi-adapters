@@ -4,7 +4,7 @@ pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
 import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import { IAdapterFull } from "../opty/interfaces/defiAdapters/IAdapterFull.sol";
+import { IAdapterFull } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterFull.sol";
 import { MultiCall } from "../utils/MultiCall.sol";
 
 ///////////////////////////////////////
@@ -21,10 +21,8 @@ contract TestDeFiAdapter is MultiCall {
         address _liquidityPool,
         address _adapter
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
-            IAdapterFull(_adapter).getDepositAllCodes(payable(address(this)), _underlyingTokens, _liquidityPool),
+            IAdapterFull(_adapter).getDepositAllCodes(payable(address(this)), _underlyingToken, _liquidityPool),
             "depositAll"
         );
     }
@@ -35,16 +33,12 @@ contract TestDeFiAdapter is MultiCall {
         address _adapter,
         uint256 _amount
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        uint256[] memory _amounts = new uint256[](1);
-        _underlyingTokens[0] = _underlyingToken;
-        _amounts[0] = _amount;
         executeCodes(
             IAdapterFull(_adapter).getDepositSomeCodes(
                 payable(address(this)),
-                _underlyingTokens,
+                _underlyingToken,
                 _liquidityPool,
-                _amounts
+                _amount
             ),
             "depositSome"
         );
@@ -56,12 +50,10 @@ contract TestDeFiAdapter is MultiCall {
         address _outputToken,
         address _adapter
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
             IAdapterFull(_adapter).getBorrowAllCodes(
                 payable(address(this)),
-                _underlyingTokens,
+                _underlyingToken,
                 _liquidityPool,
                 _outputToken
             ),
@@ -74,10 +66,8 @@ contract TestDeFiAdapter is MultiCall {
         address _underlyingToken,
         address _adapter
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
-            IAdapterFull(_adapter).getStakeAllCodes(payable(address(this)), _underlyingTokens, _liquidityPool),
+            IAdapterFull(_adapter).getStakeAllCodes(payable(address(this)), _underlyingToken, _liquidityPool),
             "stakeAll!"
         );
     }
@@ -142,10 +132,8 @@ contract TestDeFiAdapter is MultiCall {
         address _liquidityPool,
         address _adapter
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
-            IAdapterFull(_adapter).getWithdrawAllCodes(payable(address(this)), _underlyingTokens, _liquidityPool),
+            IAdapterFull(_adapter).getWithdrawAllCodes(payable(address(this)), _underlyingToken, _liquidityPool),
             "withdrawAll"
         );
     }
@@ -156,12 +144,10 @@ contract TestDeFiAdapter is MultiCall {
         address _adapter,
         uint256 _amount
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
             IAdapterFull(_adapter).getWithdrawSomeCodes(
                 payable(address(this)),
-                _underlyingTokens,
+                _underlyingToken,
                 _liquidityPool,
                 _amount
             ),
@@ -175,12 +161,10 @@ contract TestDeFiAdapter is MultiCall {
         address _outputToken,
         address _adapter
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
             IAdapterFull(_adapter).getRepayAndWithdrawAllCodes(
                 payable(address(this)),
-                _underlyingTokens,
+                _underlyingToken,
                 _liquidityPool,
                 _outputToken
             ),
@@ -193,12 +177,10 @@ contract TestDeFiAdapter is MultiCall {
         address _underlyingToken,
         address _adapter
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
             IAdapterFull(_adapter).getUnstakeAndWithdrawAllCodes(
                 payable(address(this)),
-                _underlyingTokens,
+                _underlyingToken,
                 _liquidityPool
             ),
             "unstakeAndWithdrawAll"
@@ -211,12 +193,10 @@ contract TestDeFiAdapter is MultiCall {
         uint256 _redeemAmount,
         address _adapter
     ) external {
-        address[] memory _underlyingTokens = new address[](1);
-        _underlyingTokens[0] = _underlyingToken;
         executeCodes(
             IAdapterFull(_adapter).getUnstakeAndWithdrawSomeCodes(
                 payable(address(this)),
-                _underlyingTokens,
+                _underlyingToken,
                 _liquidityPool,
                 _redeemAmount
             ),
