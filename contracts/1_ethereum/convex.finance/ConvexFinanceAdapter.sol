@@ -15,13 +15,13 @@ import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
 import { IAdapterStaking } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterStaking.sol";
 import { IAdapterHarvestReward } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterHarvestReward.sol";
-import { IConvexDeposit } from "./interfaces/IConvexDeposit.sol";
-import { IConvexStake } from "./interfaces/IConvexStake.sol";
+import { IConvexDeposit } from "@optyfi/defi-legos/ethereum/convex/contracts/IConvexDeposit.sol";
+import { IConvexStake } from "@optyfi/defi-legos/ethereum/convex/contracts/IConvexStake.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { ICurvePoolInfo } from "./interfaces/ICurvePoolInfo.sol";
-import { ICurveStableSwap } from "./interfaces/ICurveStableSwap.sol";
-import { ICurveStableSwap2, ICurveStableSwap3, ICurveStableSwap4 } from "./interfaces/ICurveStableSwap.sol";
+import { ICurvePoolInfo } from "@optyfi/defi-legos/ethereum/convex/contracts/ICurvePoolInfo.sol";
+import { ICurveStableSwap, ICurveStableSwap2, ICurveStableSwap3, ICurveStableSwap4 } from "@optyfi/defi-legos/ethereum/convex/contracts/ICurveStableSwap.sol";
 import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
+import { IERC20Detailed } from "@optyfi/defi-legos/ethereum/convex/contracts/IERC20Detailed.sol"; //here for artifact
 
 /**
  * @title Adapter for Convex.finance protocol

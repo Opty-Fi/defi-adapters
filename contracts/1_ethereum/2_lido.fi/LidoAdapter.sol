@@ -12,7 +12,7 @@ pragma experimental ABIEncoderV2;
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
 //  interfaces
-import { ILidoDeposit } from "./interfaces/ILidoDeposit.sol";
+import { ILidoDeposit } from "@optyfi/defi-legos/ethereum/lido/contracts/ILidoDeposit.sol";
 import { IBeacon } from "@openzeppelin/contracts/proxy/IBeacon.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
