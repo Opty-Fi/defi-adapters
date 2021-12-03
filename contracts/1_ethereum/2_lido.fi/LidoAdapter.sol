@@ -15,7 +15,7 @@ import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import { ILidoDeposit } from "./interfaces/ILidoDeposit.sol";
 import { IBeacon } from "@openzeppelin/contracts/proxy/IBeacon.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IAdapter } from "../../opty/interfaces/defiAdapters/IAdapter.sol";
+import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
 
 /**
  * @title Adapter for Lido protocol
@@ -57,12 +57,11 @@ contract LidoAdapter is IAdapter {
      */
     function getDepositAllCodes(
         address payable _vault,
-        address[] memory _underlyingTokens,
+        address _underlyingToken,
         address _liquidityPool
     ) public view override returns (bytes[] memory _codes) {
-        uint256[] memory _amounts = new uint256[](1);
-        _amounts[0] = IERC20(_underlyingTokens[0]).balanceOf(_vault);
-        return getDepositSomeCodes(_vault, _underlyingTokens, _liquidityPool, _amounts);
+        uint256 _amount = IERC20(_underlyingToken).balanceOf(_vault);
+        return getDepositSomeCodes(_vault, _underlyingToken, _liquidityPool, _amount);
     }
 
     /**
@@ -70,11 +69,11 @@ contract LidoAdapter is IAdapter {
      */
     function getWithdrawAllCodes(
         address payable _vault,
-        address[] memory _underlyingTokens,
+        address _underlyingToken,
         address _liquidityPool
     ) public view override returns (bytes[] memory _codes) {
-        uint256 _redeemAmount = getLiquidityPoolTokenBalance(_vault, _underlyingTokens[0], _liquidityPool);
-        return getWithdrawSomeCodes(_vault, _underlyingTokens, _liquidityPool, _redeemAmount);
+        uint256 _redeemAmount = getLiquidityPoolTokenBalance(_vault, _underlyingToken, _liquidityPool);
+        return getWithdrawSomeCodes(_vault, _underlyingToken, _liquidityPool, _redeemAmount);
     }
 
     /**
@@ -132,17 +131,17 @@ contract LidoAdapter is IAdapter {
      * @inheritdoc IAdapter
      */
     function getDepositSomeCodes(
-        address payable _vault, // _vault
-        address[] memory, // _underlyingTokens
-        address, // _liquidityPool
-        uint256[] memory _amounts
+        address payable _vault,
+        address _underlyingToken,
+        address _liquidityPool,
+        uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
-        if (_amounts[0] > 0) {
+        if (_amount > 0) {
             _codes = new bytes[](2);
-            _codes[0] = abi.encode(WETH, abi.encodeWithSignature("approve(address,uint256)", gateway, _amounts[0]));
+            _codes[0] = abi.encode(WETH, abi.encodeWithSignature("approve(address,uint256)", gateway, _amount));
             _codes[1] = abi.encode(
                 gateway,
-                abi.encodeWithSignature("depositETH(address,address,uint256)", _vault, lidoTokenProxy, _amounts[0])
+                abi.encodeWithSignature("depositETH(address,address,uint256)", _vault, lidoTokenProxy, _amount)
             );
         }
     }
@@ -151,9 +150,9 @@ contract LidoAdapter is IAdapter {
      * @inheritdoc IAdapter
      */
     function getWithdrawSomeCodes(
-        address payable _vault, // _vault
-        address[] memory, // _underlyingTokens
-        address, // _liquidityPool
+        address payable _vault,
+        address _underlyingToken,
+        address _liquidityPool,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
         if (_amount > 0) {

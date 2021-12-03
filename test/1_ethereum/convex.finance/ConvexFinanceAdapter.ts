@@ -32,6 +32,15 @@ const skiplist: string[] = [
   "ironbank", // other
   "eurt", // other
   "mim", // no coins
+  //"usdt", // inactive
+  "ren", // inactive
+  "husd", // inactive
+  "usdk", // inactive
+  "rsv", // inactive
+  "dusd", // inactive
+  "tusd", // inactive
+  "tricrypto", // inactive
+  "usdt", //inactive
 ];
 
 const shouldSkip = (name: string): boolean => {
@@ -39,7 +48,9 @@ const shouldSkip = (name: string): boolean => {
 };
 
 describe("Unit tests", function () {
+  console.log("This is right before the  before hook");
   before(async function () {
+    console.log("ConvexFinanceAdapter");
     this.signers = {} as Signers;
     const signers: SignerWithAddress[] = await hre.ethers.getSigners();
     this.signers.admin = signers[0];
