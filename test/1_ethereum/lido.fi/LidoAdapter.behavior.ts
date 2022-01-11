@@ -104,7 +104,7 @@ export function shouldBehaveLikeLidoAdapter(token: string, pool: PoolItem): void
   it(`should return the reward token and assert that staking is not enabled`, async function () {
     // assert reward token
     const actualRewardToken = await this.lidoAdapter.getRewardToken(pool.pool);
-    expect(actualRewardToken).to.be.eq((pool.rewardTokens as string[])[0]);
+    expect(actualRewardToken).to.be.eq(hre.ethers.constants.AddressZero);
     // assert cannot stake
     const actualCanStake = await this.lidoAdapter.canStake(pool.pool);
     expect(actualCanStake).to.be.false;

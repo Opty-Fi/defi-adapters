@@ -229,6 +229,6 @@ contract LidoAdapter is IAdapter {
      * @inheritdoc IAdapter
      */
     function getRewardToken(address) public view override returns (address) {
-        return rewardToken;
+        return address(0);
     }
 }
