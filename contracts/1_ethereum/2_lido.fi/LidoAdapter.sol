@@ -10,10 +10,13 @@ pragma experimental ABIEncoderV2;
 
 //  libraries
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
+import { Address } from "@openzeppelin/contracts/utils/Address.sol";
+
+//  helper contracts
+import { LidoEthGateway } from "./LidoEthGateway.sol";
 
 //  interfaces
 import { ILidoDeposit } from "@optyfi/defi-legos/ethereum/lido/contracts/ILidoDeposit.sol";
-import { IBeacon } from "@openzeppelin/contracts/proxy/IBeacon.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
 
@@ -25,18 +28,13 @@ import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/I
 
 contract LidoAdapter is IAdapter {
     using SafeMath for uint256;
+    using Address for address;
+
     /**
      * @notice Lido and stETH token proxy
      * @dev https://github.com/lidofinance/lido-dao
      */
     address public constant lidoTokenProxy = address(0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84);
-
-    /**
-     * @notice Lido DAO token
-     * @dev Potential reward token in the future (current rewards are reflected in the vault's dynamic balance)
-     * https://github.com/lidofinance/lido-dao/blob/master/contracts/0.4.24/StETH.sol
-     */
-    address public constant rewardToken = address(0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32);
 
     /**
      * @notice Wrapped Ether token
@@ -47,9 +45,18 @@ contract LidoAdapter is IAdapter {
     // Address of deployed LidoEthGateway contract
     address public gateway;
 
-    constructor(address _gateway) public {
+    /** @notice max deposit's protocol value in percentage */
+    uint256 public maxDepositProtocolPct; // basis points
+
+    /** @notice  Maps liquidityPool to max deposit value in percentage */
+    mapping(address => uint256) public maxDepositPoolPct; // basis points
+
+    /** @notice  Maps liquidityPool to max deposit value in absolute value for a specific token */
+    mapping(address => mapping(address => uint256)) public maxDepositAmount;
+
+    constructor(address) public {
         //require(gateway != address(0), "Invalid gateway address");
-        gateway = _gateway;
+        gateway = address(new LidoEthGateway());
     }
 
     /**
@@ -132,8 +139,8 @@ contract LidoAdapter is IAdapter {
      */
     function getDepositSomeCodes(
         address payable _vault,
-        address _underlyingToken,
-        address _liquidityPool,
+        address,
+        address,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
         if (_amount > 0) {
@@ -151,8 +158,8 @@ contract LidoAdapter is IAdapter {
      */
     function getWithdrawSomeCodes(
         address payable _vault,
-        address _underlyingToken,
-        address _liquidityPool,
+        address,
+        address,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
         if (_amount > 0) {
@@ -229,6 +236,6 @@ contract LidoAdapter is IAdapter {
      * @inheritdoc IAdapter
      */
     function getRewardToken(address) public view override returns (address) {
-        return rewardToken;
+        return address(0);
     }
 }

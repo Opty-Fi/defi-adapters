@@ -61,8 +61,14 @@ contract LidoEthGateway {
         IERC20(_liquidityPool).transferFrom(_vault, address(this), _amount);
         // Approves Curve to spend LP tokens
         IERC20(_liquidityPool).approve(address(curveStableSwapStEth), _amount);
+
         // Performs an exchange from StETH to ETH
-        curveStableSwapStEth.exchange(1, 0, _amount, calculateMinAmountAfterSwap(_amount));
+        curveStableSwapStEth.exchange(
+            int128(1),
+            int128(0),
+            IERC20(_liquidityPool).balanceOf(address(this)),
+            uint256(0)
+        );
         // Converts ETH to WETH
         WETH.deposit{ value: address(this).balance }();
         // Moves WETH from this gateway to the vault.
