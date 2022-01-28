@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: gpl-3.0
 // Source: https://github.com/Uniswap/advanced-weth/blob/master/contracts/interfaces/IWETH9.sol
 
-pragma solidity ^0.6.12;
+pragma solidity >0.6.0;
 
 interface IWETH9 {
     function name() external view returns (string memory);

@@ -1,15 +1,10 @@
 // solhint-disable no-unused-vars
 // SPDX-License-Identifier: agpl-3.0
 
-pragma solidity ^0.6.12;
-pragma experimental ABIEncoderV2;
+pragma solidity =0.8.11;
 
-/////////////////////////////////////////////////////
-/// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///
-/////////////////////////////////////////////////////
-
-//  libraries
-import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
+// helpers
+import "../../utils/AdapterInvestLimitBase.sol";
 
 //  interfaces
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
@@ -17,11 +12,10 @@ import { IAdapterStaking } from "@optyfi/defi-legos/interfaces/defiAdapters/cont
 import { IAdapterHarvestReward } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterHarvestReward.sol";
 import { IConvexDeposit } from "@optyfi/defi-legos/ethereum/convex/contracts/IConvexDeposit.sol";
 import { IConvexStake } from "@optyfi/defi-legos/ethereum/convex/contracts/IConvexStake.sol";
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol";
 import { ICurvePoolInfo } from "@optyfi/defi-legos/ethereum/convex/contracts/ICurvePoolInfo.sol";
-import { ICurveStableSwap, ICurveStableSwap2, ICurveStableSwap3, ICurveStableSwap4 } from "@optyfi/defi-legos/ethereum/convex/contracts/ICurveStableSwap.sol";
+import "@optyfi/defi-legos/ethereum/convex/contracts/ICurveStableSwap.sol";
 import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
-import { IERC20Detailed } from "@optyfi/defi-legos/ethereum/convex/contracts/IERC20Detailed.sol"; //here for artifact
 
 /**
  * @title Adapter for Convex.finance protocol
@@ -30,9 +24,7 @@ import { IERC20Detailed } from "@optyfi/defi-legos/ethereum/convex/contracts/IER
  * We assume the pool data to have liquidityPoolToken and liquidityPool's address to be same.
  */
 
-contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking {
-    using SafeMath for uint256;
-
+contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking, AdapterInvestLimitBase {
     struct PoolData {
         uint256 id;
         address swap;
@@ -113,216 +105,275 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     address public constant RETH_LP_TOKEN = address(0x7ADd8D0E923CB692DF6bC65d96d510f0E2fC37af);
     address public constant ALUSD_LP_TOKEN = address(0xCA3D9F45FfA69ED454E66539298709cb2dB8cA61);
     address public constant TRICRYPTO_LP_TOKEN = address(0x18684099414dcEF486F4FA5b4e44e6eA53C8c554);
-    address public constant TRICRYPTOTWO__LP_TOKEN = address(0x903C9974aAA431A765e60bC07aF45f0A1B3b61fb);
     address public constant EURT_LP_TOKEN = address(0x2b2175AC371Ec2900AC39fb87452340F65CC9895);
     address public constant MIM_LP_TOKEN = address(0xabB54222c2b77158CC975a2b715a3d703c256F05);
 
-    constructor() public {
+    constructor(address _registry) AdapterModifiersBase(_registry) {
         lpTokenToPoolData[COMPOUND_LP_TOKEN] = PoolData({
             id: 0,
             swap: address(0xA2B47E3D5c44877cca798226B7B8118F9BFb7A56),
             zap: address(0x0000000000000000000000000000000000000000) // DepositZap.calc_token_amount is missing
         });
+        _setPoolCoinData(COMPOUND_LP_TOKEN);
         lpTokenToPoolData[USDT_LP_TOKEN] = PoolData({
             id: 1,
             swap: address(0x52EA46506B9CC5Ef470C5bf89f17Dc28bB35D85C),
             zap: address(0x0000000000000000000000000000000000000000) // DepositZap.calc_token_amount is missing
         });
+        _setPoolCoinData(USDT_LP_TOKEN);
         lpTokenToPoolData[YPOOL_LP_TOKEN] = PoolData({
             id: 2,
             swap: address(0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51),
             zap: address(0x0000000000000000000000000000000000000000) // DepositZap.calc_token_amount is missing
         });
+        _setPoolCoinData(YPOOL_LP_TOKEN);
         lpTokenToPoolData[BUSD_LP_TOKEN] = PoolData({
             id: 3,
             swap: address(0x79a8C46DeA5aDa233ABaFFD40F3A0A2B1e5A4F27),
             zap: address(0x0000000000000000000000000000000000000000) // DepositZap.calc_token_amount is missing
         });
+        _setPoolCoinData(BUSD_LP_TOKEN);
         lpTokenToPoolData[SUSD_LP_TOKEN] = PoolData({
             id: 4,
             swap: address(0xA5407eAE9Ba41422680e2e00537571bcC53efBfD),
             zap: address(0x0000000000000000000000000000000000000000) // DepositZap.calc_token_amount is missing
         });
+        _setPoolCoinData(SUSD_LP_TOKEN);
         lpTokenToPoolData[PAX_LP_TOKEN] = PoolData({
             id: 5,
             swap: address(0x06364f10B501e868329afBc005b3492902d6C763),
             zap: address(0x0000000000000000000000000000000000000000) // DepositZap.calc_token_amount is missing
         });
+        _setPoolCoinData(PAX_LP_TOKEN);
         lpTokenToPoolData[REN_LP_TOKEN] = PoolData({
             id: 6,
             swap: address(0x93054188d876f558f4a66B2EF1d97d16eDf0895B),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(REN_LP_TOKEN);
         lpTokenToPoolData[SBTC_LP_TOKEN] = PoolData({
             id: 7,
             swap: address(0x7fC77b5c7614E1533320Ea6DDc2Eb61fa00A9714),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(SBTC_LP_TOKEN);
         lpTokenToPoolData[HBTC_LP_TOKEN] = PoolData({
             id: 8,
             swap: address(0x4CA9b3063Ec5866A4B82E437059D2C43d1be596F),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(HBTC_LP_TOKEN);
         lpTokenToPoolData[THREE_POOL_LP_TOKEN] = PoolData({
             id: 9,
             swap: address(0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(THREE_POOL_LP_TOKEN);
         lpTokenToPoolData[GUSD_LP_TOKEN] = PoolData({
             id: 10,
             swap: address(0x4f062658EaAF2C1ccf8C8e36D6824CDf41167956),
             zap: address(0x64448B78561690B70E17CBE8029a3e5c1bB7136e)
         });
+        _setPoolCoinData(GUSD_LP_TOKEN);
         lpTokenToPoolData[HUSD_LP_TOKEN] = PoolData({
             id: 11,
             swap: address(0x3eF6A01A0f81D6046290f3e2A8c5b843e738E604),
             zap: address(0x09672362833d8f703D5395ef3252D4Bfa51c15ca)
         });
+        _setPoolCoinData(HUSD_LP_TOKEN);
         lpTokenToPoolData[USDK_LP_TOKEN] = PoolData({
             id: 12,
             swap: address(0x3E01dD8a5E1fb3481F0F589056b428Fc308AF0Fb),
             zap: address(0xF1f85a74AD6c64315F85af52d3d46bF715236ADc)
         });
+        _setPoolCoinData(USDK_LP_TOKEN);
         lpTokenToPoolData[USDN_LP_TOKEN] = PoolData({
             id: 13,
             swap: address(0x0f9cb53Ebe405d49A0bbdBD291A65Ff571bC83e1),
             zap: address(0x094d12e5b541784701FD8d65F11fc0598FBC6332)
         });
+        _setPoolCoinData(USDN_LP_TOKEN);
         lpTokenToPoolData[MUSD_LP_TOKEN] = PoolData({
             id: 14,
             swap: address(0x8474DdbE98F5aA3179B3B3F5942D724aFcdec9f6),
             zap: address(0x803A2B40c5a9BB2B86DD630B274Fa2A9202874C2)
         });
+        _setPoolCoinData(MUSD_LP_TOKEN);
         lpTokenToPoolData[RSV_LP_TOKEN] = PoolData({
             id: 15,
             swap: address(0xC18cC39da8b11dA8c3541C598eE022258F9744da),
             zap: address(0xBE175115BF33E12348ff77CcfEE4726866A0Fbd5)
         });
+        _setPoolCoinData(RSV_LP_TOKEN);
         lpTokenToPoolData[TBTC_LP_TOKEN] = PoolData({
             id: 16,
             swap: address(0xC25099792E9349C7DD09759744ea681C7de2cb66),
             zap: address(0xaa82ca713D94bBA7A89CEAB55314F9EfFEdDc78c)
         });
+        _setPoolCoinData(TBTC_LP_TOKEN);
         lpTokenToPoolData[DUSD_LP_TOKEN] = PoolData({
             id: 17,
             swap: address(0x8038C01A0390a8c547446a0b2c18fc9aEFEcc10c),
             zap: address(0x61E10659fe3aa93d036d099405224E4Ac24996d0)
         });
+        _setPoolCoinData(DUSD_LP_TOKEN);
         lpTokenToPoolData[PBTC_LP_TOKEN] = PoolData({
             id: 18,
             swap: address(0x7F55DDe206dbAD629C080068923b36fe9D6bDBeF),
             zap: address(0x11F419AdAbbFF8d595E7d5b223eee3863Bb3902C)
         });
+        _setPoolCoinData(PBTC_LP_TOKEN);
         lpTokenToPoolData[BBTC_LP_TOKEN] = PoolData({
             id: 19,
             swap: address(0x071c661B4DeefB59E2a3DdB20Db036821eeE8F4b),
             zap: address(0xC45b2EEe6e09cA176Ca3bB5f7eEe7C47bF93c756)
         });
+        _setPoolCoinData(BBTC_LP_TOKEN);
         lpTokenToPoolData[OBTC_LP_TOKEN] = PoolData({
             id: 20,
             swap: address(0xd81dA8D904b52208541Bade1bD6595D8a251F8dd),
             zap: address(0xd5BCf53e2C81e1991570f33Fa881c49EEa570C8D)
         });
+        _setPoolCoinData(OBTC_LP_TOKEN);
         lpTokenToPoolData[UST_LP_TOKEN] = PoolData({
             id: 21,
             swap: address(0x890f4e345B1dAED0367A877a1612f86A1f86985f),
             zap: address(0xB0a0716841F2Fc03fbA72A891B8Bb13584F52F2d)
         });
+        _setPoolCoinData(UST_LP_TOKEN);
         lpTokenToPoolData[EURS_LP_TOKEN] = PoolData({
             id: 22,
             swap: address(0x0Ce6a5fF5217e38315f87032CF90686C96627CAA),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(EURS_LP_TOKEN);
         lpTokenToPoolData[SETH_LP_TOKEN] = PoolData({
             id: 23,
             swap: address(0xc5424B857f758E906013F3555Dad202e4bdB4567),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(SETH_LP_TOKEN);
         lpTokenToPoolData[AAVE_LP_TOKEN] = PoolData({
             id: 24,
             swap: address(0xDeBF20617708857ebe4F679508E7b7863a8A8EeE),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(AAVE_LP_TOKEN);
         lpTokenToPoolData[STETH_LP_TOKEN] = PoolData({
             id: 25,
             swap: address(0xDC24316b9AE028F1497c275EB9192a3Ea0f67022),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(STETH_LP_TOKEN);
         lpTokenToPoolData[SAAVE_LP_TOKEN] = PoolData({
             id: 26,
             swap: address(0xEB16Ae0052ed37f479f7fe63849198Df1765a733),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(SAAVE_LP_TOKEN);
         lpTokenToPoolData[ANKRETH_LP_TOKEN] = PoolData({
             id: 27,
             swap: address(0xA96A65c051bF88B4095Ee1f2451C2A9d43F53Ae2),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(ANKRETH_LP_TOKEN);
         lpTokenToPoolData[USDP_LP_TOKEN] = PoolData({
             id: 28,
             swap: address(0x42d7025938bEc20B69cBae5A77421082407f053A),
             zap: address(0x3c8cAee4E09296800f8D29A68Fa3837e2dae4940)
         });
+        _setPoolCoinData(USDP_LP_TOKEN);
         lpTokenToPoolData[IRONBANK_LP_TOKEN] = PoolData({
             id: 29,
             swap: address(0x2dded6Da1BF5DBdF597C45fcFaa3194e53EcfeAF),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(IRONBANK_LP_TOKEN);
         lpTokenToPoolData[LINK_LP_TOKEN] = PoolData({
             id: 30,
             swap: address(0xF178C0b5Bb7e7aBF4e12A4838C7b7c5bA2C623c0),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(LINK_LP_TOKEN);
         lpTokenToPoolData[TUSD_LP_TOKEN] = PoolData({
             id: 31,
             swap: address(0xEcd5e75AFb02eFa118AF914515D6521aaBd189F1),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(TUSD_LP_TOKEN);
         lpTokenToPoolData[FRAX_LP_TOKEN] = PoolData({
             id: 32,
             swap: address(0xd632f22692FaC7611d2AA1C0D552930D43CAEd3B),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(FRAX_LP_TOKEN);
         lpTokenToPoolData[LUSD_LP_TOKEN] = PoolData({
             id: 33,
             swap: address(0xEd279fDD11cA84bEef15AF5D39BB4d4bEE23F0cA),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(LUSD_LP_TOKEN);
         lpTokenToPoolData[BUSDVTWO__LP_TOKEN] = PoolData({
             id: 34,
             swap: address(0x4807862AA8b2bF68830e4C8dc86D0e9A998e085a),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(BUSDVTWO__LP_TOKEN);
         lpTokenToPoolData[RETH_LP_TOKEN] = PoolData({
             id: 35,
             swap: address(0xF9440930043eb3997fc70e1339dBb11F341de7A8),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(RETH_LP_TOKEN);
         lpTokenToPoolData[ALUSD_LP_TOKEN] = PoolData({
             id: 36,
             swap: address(0x43b4FdFD4Ff969587185cDB6f0BD875c5Fc83f8c),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(ALUSD_LP_TOKEN);
         lpTokenToPoolData[TRICRYPTO_LP_TOKEN] = PoolData({
             id: 37,
             swap: address(0x80466c64868E1ab14a1Ddf27A676C3fcBE638Fe5),
             zap: address(0x0000000000000000000000000000000000000000)
         });
-        lpTokenToPoolData[TRICRYPTOTWO__LP_TOKEN] = PoolData({
-            id: 38,
-            swap: address(0xD51a44d3FaE010294C616388b506AcdA1bfAAE46),
-            zap: address(0x0000000000000000000000000000000000000000)
-        });
+        _setPoolCoinData(TRICRYPTO_LP_TOKEN);
         lpTokenToPoolData[EURT_LP_TOKEN] = PoolData({
             id: 39,
             swap: address(0xFD5dB7463a3aB53fD211b4af195c5BCCC1A03890),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(EURT_LP_TOKEN);
         lpTokenToPoolData[MIM_LP_TOKEN] = PoolData({
             id: 40,
             swap: address(0x5a6A4D54456819380173272A5E8E9B9904BdF41B),
             zap: address(0x0000000000000000000000000000000000000000)
         });
+        _setPoolCoinData(MIM_LP_TOKEN);
+    }
+
+    /**
+     * @dev Sets the lpToken to the pool data
+     * @param _lpToken lp token address
+     * @param _id pool id
+     * @param _swap swap contract address
+     * @param _zap zap contract address
+     *        pass address(0) if zap contract is missing.
+     */
+    function setLPTokenToPoolData(
+        address _lpToken,
+        uint256 _id,
+        address _swap,
+        address _zap
+    ) external onlyOperator {
+        lpTokenToPoolData[_lpToken] = PoolData({ id: _id, swap: _swap, zap: _zap });
+    }
+
+    /**
+     * @dev Sets the pool coin data based on the Curve Registry: Pool Info
+     * @param _liquidityPool Liquidity pool's contract address
+     */
+    function setPoolCoinData(address _liquidityPool) external onlyOperator {
+        _setPoolCoinData(_liquidityPool);
     }
 
     /**
@@ -369,7 +420,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address,
         address,
         uint256 _depositAmount
-    ) public view override returns (uint256) {
+    ) public pure override returns (uint256) {
         return _depositAmount;
     }
 
@@ -385,7 +436,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256 _liquidityPoolTokenBalance = getLiquidityPoolTokenBalance(_vault, _underlyingToken, _liquidityPool);
         uint256 _balanceInToken = getAllAmountInToken(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken);
+        _amount = (_liquidityPoolTokenBalance * _redeemAmount) / _balanceInToken;
     }
 
     /**
@@ -432,7 +483,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     /**
      * @inheritdoc IAdapter
      */
-    function canStake(address) public view override returns (bool) {
+    function canStake(address) public pure override returns (bool) {
         return true;
     }
 
@@ -474,7 +525,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256 _liquidityPoolTokenBalance = IConvexStake(_stakingVault).balanceOf(_vault);
         uint256 _balanceInToken = getAllAmountInTokenStake(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken);
+        _amount = (_liquidityPoolTokenBalance * _redeemAmount) / _balanceInToken;
     }
 
     /**
@@ -514,13 +565,19 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         if (_amount > 0) {
             uint256 _pid = lpTokenToPoolData[_liquidityPool].id;
             _codes = new bytes[](2);
+            uint256 _depositAmount = _getDepositAmount(
+                _liquidityPool,
+                _underlyingToken,
+                _amount,
+                getPoolValue(_liquidityPool, address(0))
+            );
             _codes[0] = abi.encode(
                 _underlyingToken,
-                abi.encodeWithSignature("approve(address,uint256)", BOOSTER_DEPOSIT_POOL, _amount)
+                abi.encodeWithSignature("approve(address,uint256)", BOOSTER_DEPOSIT_POOL, _depositAmount)
             );
             _codes[1] = abi.encode(
                 BOOSTER_DEPOSIT_POOL,
-                abi.encodeWithSignature("deposit(uint256,uint256,bool)", _pid, _amount, false) // bool = stake
+                abi.encodeWithSignature("deposit(uint256,uint256,bool)", _pid, _depositAmount, false) // bool = stake
             );
         }
     }
@@ -530,7 +587,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      */
     function getWithdrawSomeCodes(
         address payable,
-        address _underlyingToken,
+        address,
         address _liquidityPool,
         uint256 _shares
     ) public view override returns (bytes[] memory _codes) {
@@ -593,7 +650,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address,
         address,
         uint256 _liquidityPoolTokenAmount
-    ) public view override returns (uint256) {
+    ) public pure override returns (uint256) {
         return _liquidityPoolTokenAmount;
     }
 
@@ -681,18 +738,11 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      */
     function getAllAmountInTokenStake(
         address payable _vault,
-        address _underlyingToken,
+        address,
         address _liquidityPool
     ) public view override returns (uint256) {
         address _stakingVault = _getPoolInfo(_liquidityPool).crvRewards;
-        uint256 b = IConvexStake(_stakingVault).balanceOf(_vault);
-        uint256 _unclaimedReward = getUnclaimedRewardTokenAmount(_vault, _liquidityPool, _underlyingToken);
-        if (_unclaimedReward > 0) {
-            b = b.add(
-                getRewardBalanceInUnderlyingTokens(getRewardToken(_liquidityPool), _liquidityPool, _unclaimedReward)
-            );
-        }
-        return b;
+        return IConvexStake(_stakingVault).balanceOf(_vault);
     }
 
     /**
@@ -720,70 +770,6 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
             _codes = new bytes[](2);
             _codes[0] = getUnstakeSomeCodes(_liquidityPool, _redeemAmount)[0];
             _codes[1] = getWithdrawSomeCodes(_vault, _underlyingToken, _liquidityPool, _redeemAmount)[0];
-        }
-    }
-
-    /**
-     * @dev Sets the pool coin data based on the Curve Registry: Pool Info
-     * @param _liquidityPool Liquidity pool's contract address
-     */
-    function setPoolCoinData(address _liquidityPool) public {
-        PoolData memory _poolData = lpTokenToPoolData[_liquidityPool];
-        address _swap = _poolData.swap;
-        require(_swap != address(0), "_swap");
-        ICurvePoolInfo.PoolCoins memory _coinData = ICurvePoolInfo(curvePoolInfo).get_pool_coins(_swap);
-        uint256 _coinsAmount;
-        uint256 _underlyingCoinsAmount;
-        for (uint256 i = 0; i < 8; i++) {
-            if (_coinData.coins[i] != address(0)) {
-                _coinsAmount++;
-            }
-            if (_coinData.underlying_coins[i] != address(0)) {
-                _underlyingCoinsAmount++;
-            }
-        }
-        address[] memory _coins = new address[](_coinsAmount);
-        address[] memory _underlyingCoins = new address[](_underlyingCoinsAmount);
-        PoolCoinData memory _poolCoinData = PoolCoinData({
-            coinRef: address(0),
-            coinRefIndex: 0,
-            coins: _coins,
-            underlyingCoinRef: address(0),
-            underlyingCoinRefIndex: 0,
-            underlyingCoins: _underlyingCoins
-        });
-        _fillPoolCoinData(_coinData, _poolCoinData);
-        require(_poolCoinData.coins.length > 0, "coins.length");
-        require(_poolCoinData.underlyingCoins.length > 0, "underlyingCoins.length");
-        require(_poolCoinData.coinRef != address(0), "coinRef");
-        require(_poolCoinData.underlyingCoinRef != address(0), "underlyingCoinRef");
-        swapToPoolCoinData[_swap] = _poolCoinData;
-    }
-
-    function _fillPoolCoinData(ICurvePoolInfo.PoolCoins memory _coinData, PoolCoinData memory _poolCoinData)
-        internal
-        pure
-    {
-        uint256 _coinIndex;
-        uint256 _underlyingCoinIndex;
-        for (uint256 i = 0; i < 8; i++) {
-            if (_coinData.coins[i] != address(0)) {
-                if (_coinIndex == 0) {
-                    _poolCoinData.coinRef = _coinData.coins[i];
-                    _poolCoinData.coinRefIndex = i;
-                }
-                _poolCoinData.coins[_coinIndex] = _coinData.coins[i];
-                _coinIndex++;
-            }
-            if (_coinData.underlying_coins[i] != address(0)) {
-                if (_underlyingCoinIndex == 0 || _coinData.underlying_coins[i] == prefCoin) {
-                    //if (_underlyingCoinIndex == 0) {
-                    _poolCoinData.underlyingCoinRef = _coinData.underlying_coins[i];
-                    _poolCoinData.underlyingCoinRefIndex = i;
-                }
-                _poolCoinData.underlyingCoins[_underlyingCoinIndex] = _coinData.underlying_coins[i];
-                _underlyingCoinIndex++;
-            }
         }
     }
 
@@ -820,13 +806,77 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     ) public view returns (uint256[] memory) {
         PoolData memory _poolData = lpTokenToPoolData[_liquidityPool];
         DepositInfo memory _depositInfo = _getDepositInfo(_poolData);
-        uint256[] memory _swapAmounts = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
-            _amount,
-            _getPath(_rewardToken, _depositInfo.coinRef)
-            //_getPath(_rewardToken, address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)) // USDC
-            //_getPath(_rewardToken, address(0x6B175474E89094C44Da98b954EedeAC495271d0F)) // DAI
-        );
-        return _swapAmounts;
+        try
+            IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
+                _amount,
+                _getPath(_rewardToken, _depositInfo.coinRef)
+                //_getPath(_rewardToken, address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)) // USDC
+                //_getPath(_rewardToken, address(0x6B175474E89094C44Da98b954EedeAC495271d0F)) // DAI
+            )
+        returns (uint256[] memory _swapAmounts) {
+            return _swapAmounts;
+        } catch {
+            return new uint256[](0);
+        }
+    }
+
+    function _setPoolCoinData(address _liquidityPool) internal {
+        PoolData memory _poolData = lpTokenToPoolData[_liquidityPool];
+        address _swap = _poolData.swap;
+        require(_swap != address(0), "_swap");
+        ICurvePoolInfo.PoolCoins memory _coinData = ICurvePoolInfo(curvePoolInfo).get_pool_coins(_swap);
+        uint256 _coinsAmount;
+        uint256 _underlyingCoinsAmount;
+        for (uint256 _i; _i < 8; _i++) {
+            if (_coinData.coins[_i] != address(0)) {
+                _coinsAmount++;
+            }
+            if (_coinData.underlying_coins[_i] != address(0)) {
+                _underlyingCoinsAmount++;
+            }
+        }
+        address[] memory _coins = new address[](_coinsAmount);
+        address[] memory _underlyingCoins = new address[](_underlyingCoinsAmount);
+        PoolCoinData memory _poolCoinData = PoolCoinData({
+            coinRef: address(0),
+            coinRefIndex: 0,
+            coins: _coins,
+            underlyingCoinRef: address(0),
+            underlyingCoinRefIndex: 0,
+            underlyingCoins: _underlyingCoins
+        });
+        _fillPoolCoinData(_coinData, _poolCoinData);
+        require(_poolCoinData.coins.length > 0, "coins.length");
+        require(_poolCoinData.underlyingCoins.length > 0, "underlyingCoins.length");
+        require(_poolCoinData.coinRef != address(0), "coinRef");
+        require(_poolCoinData.underlyingCoinRef != address(0), "underlyingCoinRef");
+        swapToPoolCoinData[_swap] = _poolCoinData;
+    }
+
+    function _fillPoolCoinData(ICurvePoolInfo.PoolCoins memory _coinData, PoolCoinData memory _poolCoinData)
+        internal
+        pure
+    {
+        uint256 _coinIndex;
+        uint256 _underlyingCoinIndex;
+        for (uint256 _i; _i < 8; _i++) {
+            if (_coinData.coins[_i] != address(0)) {
+                if (_coinIndex == 0) {
+                    _poolCoinData.coinRef = _coinData.coins[_i];
+                    _poolCoinData.coinRefIndex = _i;
+                }
+                _poolCoinData.coins[_coinIndex] = _coinData.coins[_i];
+                _coinIndex++;
+            }
+            if (_coinData.underlying_coins[_i] != address(0)) {
+                if (_underlyingCoinIndex == 0 || _coinData.underlying_coins[_i] == prefCoin) {
+                    _poolCoinData.underlyingCoinRef = _coinData.underlying_coins[_i];
+                    _poolCoinData.underlyingCoinRefIndex = _i;
+                }
+                _poolCoinData.underlyingCoins[_underlyingCoinIndex] = _coinData.underlying_coins[_i];
+                _underlyingCoinIndex++;
+            }
+        }
     }
 
     /**
@@ -841,11 +891,13 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address _finalToken,
         uint256 _amount
     ) internal view returns (uint256) {
-        uint256[] memory _swapAmounts = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
-            _amount,
-            _getPath(_initialToken, _finalToken)
-        );
-        return _swapAmounts[_swapAmounts.length - 1];
+        try IUniswapV2Router02(uniswapV2Router02).getAmountsOut(_amount, _getPath(_initialToken, _finalToken)) returns (
+            uint256[] memory _swapAmounts
+        ) {
+            return _swapAmounts[_swapAmounts.length - 1];
+        } catch {
+            return 0;
+        }
     }
 
     /**
@@ -873,6 +925,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
             _amounts[_depositInfo.coinRefIndex] = _coinRefAmount;
             return ICurveStableSwap4(_depositInfo.destination).calc_token_amount(_amounts, true);
         }
+        return 0;
     }
 
     /**
@@ -907,7 +960,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
                         uint256(0),
                         _getPath(_rewardToken, _depositInfo.coinRef),
                         _vault,
-                        uint256(-1)
+                        type(uint256).max
                     )
                 );
                 bytes[] memory _addLiquidityCodes = _getAddLiquidityCodes(_liquidityPool, _swapTokenAmount);

@@ -129,7 +129,10 @@ describe("Unit tests", function () {
             console.log(err);
           }
         }
-        const WANT_TOKEN_CONTRACT = await hre.ethers.getContractAt("ERC20", pool.wantToken);
+        const WANT_TOKEN_CONTRACT = await hre.ethers.getContractAt(
+          "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol:ERC20",
+          pool.wantToken,
+        );
 
         const initialWantTokenBalance = await WANT_TOKEN_CONTRACT.balanceOf(this.signers.admin.address);
 
@@ -145,7 +148,11 @@ describe("Unit tests", function () {
           });
           const LP_TOKEN_ADDRESS: string = getAddress(pool.wantToken);
           this.signers.tokenWhale = await hre.ethers.getSigner(WHALE);
-          const LPtokenNeeded = await hre.ethers.getContractAt("ERC20", LP_TOKEN_ADDRESS, this.signers.tokenWhale);
+          const LPtokenNeeded = await hre.ethers.getContractAt(
+            "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol:ERC20",
+            LP_TOKEN_ADDRESS,
+            this.signers.tokenWhale,
+          );
           //fund whale's wallet with gas
           await this.signers.admin.sendTransaction({
             to: WHALE,
@@ -202,7 +209,11 @@ describe("Unit tests", function () {
                 });
                 const TOKEN_ADDRESS: string = getAddress(token0_address);
                 this.signers.tokenWhale = await hre.ethers.getSigner(WHALE);
-                const tokenNeeded0 = await hre.ethers.getContractAt("ERC20", TOKEN_ADDRESS, this.signers.tokenWhale);
+                const tokenNeeded0 = await hre.ethers.getContractAt(
+                  "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol:ERC20",
+                  TOKEN_ADDRESS,
+                  this.signers.tokenWhale,
+                );
                 //fund whale's wallet with gas
                 await this.signers.admin.sendTransaction({
                   to: WHALE,
@@ -270,7 +281,11 @@ describe("Unit tests", function () {
                 });
                 const TOKEN_ADDRESS: string = getAddress(token1_address);
                 this.signers.tokenWhale = await hre.ethers.getSigner(WHALE);
-                const tokenNeeded1 = await hre.ethers.getContractAt("ERC20", TOKEN_ADDRESS, this.signers.tokenWhale);
+                const tokenNeeded1 = await hre.ethers.getContractAt(
+                  "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol:ERC20",
+                  TOKEN_ADDRESS,
+                  this.signers.tokenWhale,
+                );
                 //fund whale's wallet with gas
                 await this.signers.admin.sendTransaction({
                   to: WHALE,
@@ -294,11 +309,17 @@ describe("Unit tests", function () {
         this.hostRouter = <IUniswapV2Router02>await hre.ethers.getContractAt("IUniswapV2Router02", hostRouterAddress); //changed this to polygon apeswap router
 
         //approve spending token 0
-        const token0 = await hre.ethers.getContractAt("ERC20", token0_address);
+        const token0 = await hre.ethers.getContractAt(
+          "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol:ERC20",
+          token0_address,
+        );
         const token0Balance = await token0.balanceOf(this.signers.admin.address);
         await token0.approve(this.hostRouter.address, token0Balance);
         //approve spending token 1
-        const token1 = await hre.ethers.getContractAt("ERC20", token1_address);
+        const token1 = await hre.ethers.getContractAt(
+          "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol:ERC20",
+          token1_address,
+        );
         const token1Balance = await token1.balanceOf(this.signers.admin.address);
         await token1.approve(this.hostRouter.address, token1Balance);
         //add liquidity to get LP tokens for deposit
