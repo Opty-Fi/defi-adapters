@@ -18,11 +18,6 @@ const skiplist: string[] = [
   "steth", // eth + extras
   "ankreth", // eth + extras
   "reth", // eth + extras
-  "sbtc", // no whale
-  "hbtc", // no whale
-  "pbtc", // no whale + extras
-  "bbtc", // no whale
-  "obtc", // no whale + extras
   "aave", // extras
   "saave", // extras
   "alusd", // extras
@@ -32,8 +27,6 @@ const skiplist: string[] = [
   "eurs", // other
   "ironbank", // other
   "eurt", // other
-  // "mim", // no coins
-  //"usdt", // inactive
   "ren", // inactive
   "husd", // inactive
   "usdk", // inactive
@@ -118,12 +111,25 @@ describe("Unit tests", function () {
         ...getOverrideOptions(),
       });
 
-      // fund TestDeFiAdapter with 10 tokens each
-      await POOL_TOKEN_CONTRACT.transfer(
-        this.testDeFiAdapter.address,
-        hre.ethers.utils.parseEther("10"),
-        getOverrideOptions(),
-      );
+      if (
+        POOL_TOKEN_CONTRACT.address == getAddress("0xb19059ebb43466c323583928285a49f558e572fd") || // hbtc
+        POOL_TOKEN_CONTRACT.address == getAddress("0xde5331ac4b3630f94853ff322b66407e0d6331e8") || // pbtc
+        POOL_TOKEN_CONTRACT.address == getAddress("0x410e3e86ef427e30b9235497143881f717d93c2a") || // bbtc
+        POOL_TOKEN_CONTRACT.address == getAddress("0x2fe94ea3d5d4a175184081439753de15aef9d614") // obtc
+      ) {
+        await POOL_TOKEN_CONTRACT.transfer(
+          this.testDeFiAdapter.address,
+          hre.ethers.utils.parseEther("0.01"),
+          getOverrideOptions(),
+        );
+      } else {
+        // fund TestDeFiAdapter with 10 tokens each
+        await POOL_TOKEN_CONTRACT.transfer(
+          this.testDeFiAdapter.address,
+          hre.ethers.utils.parseEther("10"),
+          getOverrideOptions(),
+        );
+      }
     }
   });
 
