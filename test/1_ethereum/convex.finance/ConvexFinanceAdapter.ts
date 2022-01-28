@@ -14,24 +14,10 @@ import { IAdapterRegistryBase } from "../../../typechain/IAdapterRegistryBase";
 const { deployContract } = hre.waffle;
 
 const skiplist: string[] = [
-  "aave", // extras
-  "saave", // extras
-  "alusd", // extras
   "ypool", // DepositZap.calc_token_amount missing + swap not possible
   "busd", // DepositZap.calc_token_amount missing + swap not possible
   "pax", // DepositZap.calc_token_amount missing + swap not possible
-  "eurs", // other
-  "ironbank", // other
-  "eurt", // other
-  "ren", // inactive
-  "husd", // inactive
-  "usdk", // inactive
-  "rsv", // inactive
-  "dusd", // inactive
-  "tusd", // inactive
-  "tricrypto", // inactive
   "tricrypto2", // no coins
-  "usdt", //inactive
 ];
 
 const shouldSkip = (name: string): boolean => {
@@ -74,7 +60,6 @@ describe("Unit tests", function () {
       method: "hardhat_impersonateAccount",
       params: [operator],
     });
-    // const operatorSigner = await hre.ethers.getSigner(operator);
 
     for (const [name, pool] of Object.entries(ConvexFinancePools)) {
       if (shouldSkip(name)) {
@@ -82,7 +67,6 @@ describe("Unit tests", function () {
       }
 
       console.log(name);
-      // await this.convexFinanceAdapter.connect(operatorSigner).setPoolCoinData(pool.pool);
 
       if (!pool.whale) {
         throw new Error(`Whale is missing for ${pool.pool}`);
@@ -134,9 +118,7 @@ describe("Unit tests", function () {
   describe("ConvexFinanceAdapter", function () {
     Object.keys(ConvexFinancePools).map(async (name: string) => {
       if (!shouldSkip(name)) {
-        if (name == "ankreth") {
-          shouldBehaveLikeConvexFinanceAdapter(name, (ConvexFinancePools as LiquidityPool)[name]);
-        }
+        shouldBehaveLikeConvexFinanceAdapter(name, (ConvexFinancePools as LiquidityPool)[name]);
       }
     });
   });

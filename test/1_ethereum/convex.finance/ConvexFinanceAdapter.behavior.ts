@@ -183,7 +183,11 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
       );
       if (actualSwapTokenAmounts.length > 0) {
         expect(actualSwapTokenAmounts[actualSwapTokenAmounts.length - 1].toNumber()).to.be.gt(0);
+      } else {
+        console.log(`${token}Crv - insufficient liquidity`);
       }
+    } else {
+      console.log(`${token}Crv - 0 reward`);
     }
     // 4. Swap the reward token into underlying token
 
@@ -196,6 +200,8 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
       );
       // 4.1 assert whether the reward token is swapped to underlying token or not
       expect(await underlyingTokenInstance.balanceOf(this.testDeFiAdapter.address)).to.be.gt(0);
+    } else {
+      console.log(`${token}Crv - harvest not possible`);
     }
     // 5. Unstake all staked lpTokens
     await this.testDeFiAdapter.testGetUnstakeAllCodes(
