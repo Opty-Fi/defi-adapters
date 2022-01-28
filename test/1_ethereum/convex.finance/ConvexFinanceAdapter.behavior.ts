@@ -4,7 +4,7 @@ import { BigNumber, utils } from "ethers";
 import { getAddress } from "ethers/lib/utils";
 import hre from "hardhat";
 import { PoolItem } from "../types";
-import { getOverrideOptions } from "../../utils";
+import { getOverrideOptions, moveToSpecificBlock } from "../../utils";
 
 chai.use(solidity);
 
@@ -109,6 +109,11 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
       to: await this.signers.admin.getAddress(),
       ...getOverrideOptions(),
     });
+    // ==============================================================
+    const blockNumber = await hre.ethers.provider.getBlockNumber();
+    const block = await hre.ethers.provider.getBlock(blockNumber);
+    await moveToSpecificBlock(hre, block.timestamp + 2000000);
+    // ==============================================================
     // 2.4 assert whether the unclaimed reward amount is as expected or not after staking
     const actualUnclaimedRewardAfterStake = await this.convexFinanceAdapter.getUnclaimedRewardTokenAmount(
       this.testDeFiAdapter.address,
