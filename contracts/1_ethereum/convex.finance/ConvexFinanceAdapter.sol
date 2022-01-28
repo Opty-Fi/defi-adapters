@@ -11,6 +11,9 @@ pragma experimental ABIEncoderV2;
 //  libraries
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
+// helpers
+import "../../utils/AdapterInvestLimitBase.sol";
+
 //  interfaces
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
 import { IAdapterStaking } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterStaking.sol";
@@ -30,7 +33,7 @@ import { IERC20Detailed } from "@optyfi/defi-legos/ethereum/convex/contracts/IER
  * We assume the pool data to have liquidityPoolToken and liquidityPool's address to be same.
  */
 
-contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking {
+contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking, AdapterInvestLimitBase {
     using SafeMath for uint256;
 
     struct PoolData {
@@ -117,7 +120,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     address public constant EURT_LP_TOKEN = address(0x2b2175AC371Ec2900AC39fb87452340F65CC9895);
     address public constant MIM_LP_TOKEN = address(0xabB54222c2b77158CC975a2b715a3d703c256F05);
 
-    constructor() public {
+    constructor(address _registry) public AdapterModifiersBase(_registry) {
         lpTokenToPoolData[COMPOUND_LP_TOKEN] = PoolData({
             id: 0,
             swap: address(0xA2B47E3D5c44877cca798226B7B8118F9BFb7A56),
@@ -514,13 +517,19 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         if (_amount > 0) {
             uint256 _pid = lpTokenToPoolData[_liquidityPool].id;
             _codes = new bytes[](2);
+            uint256 _depositAmount = _getDepositAmount(
+                _liquidityPool,
+                _underlyingToken,
+                _amount,
+                getPoolValue(_liquidityPool, address(0))
+            );
             _codes[0] = abi.encode(
                 _underlyingToken,
-                abi.encodeWithSignature("approve(address,uint256)", BOOSTER_DEPOSIT_POOL, _amount)
+                abi.encodeWithSignature("approve(address,uint256)", BOOSTER_DEPOSIT_POOL, _depositAmount)
             );
             _codes[1] = abi.encode(
                 BOOSTER_DEPOSIT_POOL,
-                abi.encodeWithSignature("deposit(uint256,uint256,bool)", _pid, _amount, false) // bool = stake
+                abi.encodeWithSignature("deposit(uint256,uint256,bool)", _pid, _depositAmount, false) // bool = stake
             );
         }
     }
@@ -530,7 +539,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      */
     function getWithdrawSomeCodes(
         address payable,
-        address _underlyingToken,
+        address,
         address _liquidityPool,
         uint256 _shares
     ) public view override returns (bytes[] memory _codes) {
@@ -727,7 +736,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
      * @dev Sets the pool coin data based on the Curve Registry: Pool Info
      * @param _liquidityPool Liquidity pool's contract address
      */
-    function setPoolCoinData(address _liquidityPool) public {
+    function setPoolCoinData(address _liquidityPool) external onlyOperator {
         PoolData memory _poolData = lpTokenToPoolData[_liquidityPool];
         address _swap = _poolData.swap;
         require(_swap != address(0), "_swap");
