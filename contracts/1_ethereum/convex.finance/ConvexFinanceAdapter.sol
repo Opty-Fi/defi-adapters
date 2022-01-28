@@ -892,11 +892,6 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address _finalToken,
         uint256 _amount
     ) internal view returns (uint256) {
-        // uint256[] memory _swapAmounts = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
-        //     _amount,
-        //     _getPath(_initialToken, _finalToken)
-        // );
-        // return _swapAmounts[_swapAmounts.length - 1];
         try IUniswapV2Router02(uniswapV2Router02).getAmountsOut(_amount, _getPath(_initialToken, _finalToken)) returns (
             uint256[] memory _swapAmounts
         ) {
