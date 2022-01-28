@@ -14,9 +14,6 @@ import { IAdapterRegistryBase } from "../../../typechain/IAdapterRegistryBase";
 const { deployContract } = hre.waffle;
 
 const skiplist: string[] = [
-  "steth", // eth + extras
-  "ankreth", // eth + extras
-  "reth", // eth + extras
   "aave", // extras
   "saave", // extras
   "alusd", // extras
@@ -137,7 +134,9 @@ describe("Unit tests", function () {
   describe("ConvexFinanceAdapter", function () {
     Object.keys(ConvexFinancePools).map(async (name: string) => {
       if (!shouldSkip(name)) {
-        shouldBehaveLikeConvexFinanceAdapter(name, (ConvexFinancePools as LiquidityPool)[name]);
+        if (name == "ankreth") {
+          shouldBehaveLikeConvexFinanceAdapter(name, (ConvexFinancePools as LiquidityPool)[name]);
+        }
       }
     });
   });

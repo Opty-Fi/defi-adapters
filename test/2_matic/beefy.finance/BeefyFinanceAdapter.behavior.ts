@@ -15,7 +15,10 @@ export function shouldBehaveLikeBeefyFinanceAdapter(token: string, pool: PoolIte
     // beefy lpToken decimals
     const decimals = await beefyDepositInstance.decimals();
     // underlying token instance
-    const underlyingTokenInstance = await hre.ethers.getContractAt("IERC20", pool.wantToken);
+    const underlyingTokenInstance = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      pool.wantToken,
+    );
     // 1. deposit all underlying tokens
     await this.testDeFiAdapter.testGetDepositAllCodes(
       pool.wantToken, //e.g. USDC, DAI, WETH, WBTC
