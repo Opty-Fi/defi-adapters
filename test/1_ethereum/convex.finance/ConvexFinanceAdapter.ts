@@ -14,7 +14,6 @@ import { IAdapterRegistryBase } from "../../../typechain/IAdapterRegistryBase";
 const { deployContract } = hre.waffle;
 
 const skiplist: string[] = [
-  "seth", // eth
   "steth", // eth + extras
   "ankreth", // eth + extras
   "reth", // eth + extras
@@ -70,8 +69,6 @@ describe("Unit tests", function () {
     const testDeFiAdapterArtifact: Artifact = await hre.artifacts.readArtifact("TestDeFiAdapter");
     this.testDeFiAdapter = <TestDeFiAdapter>await deployContract(this.signers.deployer, testDeFiAdapterArtifact, []);
 
-    console.log("------Done-------");
-
     const registryInstance = <IAdapterRegistryBase>(
       await hre.ethers.getContractAt("IAdapterRegistryBase", registryAddress)
     );
@@ -102,7 +99,11 @@ describe("Unit tests", function () {
       });
 
       const WHALE_SIGNER = await hre.ethers.getSigner(WHALE);
-      const POOL_TOKEN_CONTRACT = await hre.ethers.getContractAt("IERC20", pool.tokens[0], WHALE_SIGNER);
+      const POOL_TOKEN_CONTRACT = await hre.ethers.getContractAt(
+        "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+        pool.tokens[0],
+        WHALE_SIGNER,
+      );
 
       // fund the whale's wallet with gas
       await this.signers.admin.sendTransaction({

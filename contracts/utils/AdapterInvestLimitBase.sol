@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: gpl-3.0
 
-pragma solidity >=0.6.12;
+pragma solidity ^0.8.0;
 
 //  libraries
-import { Address } from "@openzeppelin/contracts/utils/Address.sol";
-import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
+import { Address } from "@openzeppelin/contracts-0.8.x/utils/Address.sol";
 
 // helper contracts
-import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import { ERC20 } from "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol";
 
 import { AdapterModifiersBase } from "./AdapterModifiersBase.sol";
 
@@ -15,7 +14,6 @@ import "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterInvestLimit
 
 abstract contract AdapterInvestLimitBase is IAdapterInvestLimit, AdapterModifiersBase {
     using Address for address;
-    using SafeMath for uint256;
 
     /** @notice max deposit value datatypes */
     MaxExposure public maxDepositProtocolMode;
@@ -29,7 +27,7 @@ abstract contract AdapterInvestLimitBase is IAdapterInvestLimit, AdapterModifier
     /** @notice  Maps liquidityPool to max deposit value in absolute value for a specific token */
     mapping(address => mapping(address => uint256)) public maxDepositAmount;
 
-    constructor() public {
+    constructor() {
         maxDepositProtocolPct = uint256(10000); // 100% (basis points)
         maxDepositProtocolMode = MaxExposure.Pct;
     }
@@ -64,7 +62,7 @@ abstract contract AdapterInvestLimitBase is IAdapterInvestLimit, AdapterModifier
     /**
      * @inheritdoc IAdapterInvestLimit
      */
-    function setMaxDepositProtocolMode(MaxExposure _mode) public override onlyRiskOperator {
+    function setMaxDepositProtocolMode(MaxExposure _mode) external override onlyRiskOperator {
         maxDepositProtocolMode = _mode;
         emit LogMaxDepositProtocolMode(maxDepositProtocolMode, msg.sender);
     }
@@ -72,7 +70,7 @@ abstract contract AdapterInvestLimitBase is IAdapterInvestLimit, AdapterModifier
     /**
      * @inheritdoc IAdapterInvestLimit
      */
-    function setMaxDepositProtocolPct(uint256 _maxDepositProtocolPct) public override onlyRiskOperator {
+    function setMaxDepositProtocolPct(uint256 _maxDepositProtocolPct) external override onlyRiskOperator {
         maxDepositProtocolPct = _maxDepositProtocolPct;
         emit LogMaxDepositProtocolPct(maxDepositProtocolPct, msg.sender);
     }
@@ -107,8 +105,8 @@ abstract contract AdapterInvestLimitBase is IAdapterInvestLimit, AdapterModifier
     function _getMaxDepositAmountByPct(address _liquidityPool, uint256 _poolValue) internal view returns (uint256) {
         uint256 _poolPct = maxDepositPoolPct[_liquidityPool];
         uint256 _limit = _poolPct == 0
-            ? _poolValue.mul(maxDepositProtocolPct).div(uint256(10000))
-            : _poolValue.mul(_poolPct).div(uint256(10000));
+            ? (_poolValue * maxDepositProtocolPct) / uint256(10000)
+            : (_poolValue * _poolPct) / uint256(10000);
         return _limit;
     }
 }

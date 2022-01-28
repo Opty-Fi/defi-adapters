@@ -11,14 +11,23 @@ chai.use(solidity);
 export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolItem): void {
   it(`should deposit ${token}Crv, stake cvx${token}3Crv, claim CRV, unstake cvx${token}3Crv, and withdraw ${token}Crv in ${token} pool of Convex Finance`, async function () {
     // lpToken instance
-    const lpTokenInstance = await hre.ethers.getContractAt("IERC20Detailed", pool.lpToken);
+    const lpTokenInstance = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/ERC20.sol:ERC20",
+      pool.lpToken,
+    );
     // convex finance's staking vault instance
     const convexStakingInstance = await hre.ethers.getContractAt("IConvexStake", pool.stakingPool as string);
     // convex finance reward token's instance
-    const convexRewardInstance = await hre.ethers.getContractAt("IERC20", (pool.rewardTokens as string[])[0]);
+    const convexRewardInstance = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      (pool.rewardTokens as string[])[0],
+    );
     // underlying token instance
     const underlyingToken = pool.tokens[0];
-    const underlyingTokenInstance = await hre.ethers.getContractAt("IERC20", underlyingToken);
+    const underlyingTokenInstance = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      underlyingToken,
+    );
     // assert whether the pool value is as expected or not before deposit
     const actualPoolValueBeforeDeposit = await this.convexFinanceAdapter.getPoolValue(pool.pool, underlyingToken);
     expect(actualPoolValueBeforeDeposit).to.be.gt(0);
@@ -122,22 +131,12 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
     );
     const expectedUnclaimedRewardAfterStake = await convexStakingInstance.earned(this.testDeFiAdapter.address);
     expect(actualUnclaimedRewardAfterStake).to.be.eq(expectedUnclaimedRewardAfterStake);
-    // expect(actualUnclaimedRewardAfterStake).to.be.gt(0);
     // 2.5 assert whether the amount in token is as expected or not after staking
     const actualAmountInTokenAfterStake = await this.convexFinanceAdapter.getAllAmountInTokenStake(
       this.testDeFiAdapter.address,
       underlyingToken,
       pool.pool,
     );
-    // get amount in underlying token if reward token is swapped
-    // let rewardInTokenAfterStake = BigNumber.from("0");
-    // if (actualUnclaimedRewardAfterStake.gt(0)) {
-    //   rewardInTokenAfterStake = await this.convexFinanceAdapter.getRewardBalanceInUnderlyingTokens(
-    //     actualRewardToken,
-    //     pool.pool,
-    //     actualUnclaimedRewardAfterStake,
-    //   );
-    // }
     // calculate amount in token for staked lpToken
     const expectedAmountInTokenFromStakedLPTokenAfterStake = expectedStakedLPTokenBalanceAfterStake;
     // calculate total amount token when lpToken is redeemed plus reward token is harvested
@@ -182,11 +181,13 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
         pool.pool,
         actualUnclaimedRewardAfterStake,
       );
-      expect(actualSwapTokenAmounts[actualSwapTokenAmounts.length - 1].toNumber()).to.be.gt(0);
+      if (actualSwapTokenAmounts.length > 0) {
+        expect(actualSwapTokenAmounts[actualSwapTokenAmounts.length - 1].toNumber()).to.be.gt(0);
+      }
     }
     // 4. Swap the reward token into underlying token
 
-    if (actualRewardTokenBalanceAfterClaim.gt(0)) {
+    if (actualRewardTokenBalanceAfterClaim.gt(0) && actualSwapTokenAmounts.length > 0) {
       await this.testDeFiAdapter.testGetHarvestAllCodes(
         pool.pool,
         underlyingToken,

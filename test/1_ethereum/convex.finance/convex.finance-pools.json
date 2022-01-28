@@ -189,7 +189,7 @@
     "lpToken": "0xAF1d4C576bF55f6aE493AEebAcC3a227675e5B98",
     "tokens": ["0xA3D87FffcE63B53E0d54fAa1cc983B7eB0b74A9c"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0x9ea83407e0046ee452bc6535c0aa5609d7f6f680"
+    "whale": "0xb289360a2ab9eacffd1d7883183a6d9576db515f"
   },
   "aave": {
     "pool": "0x23F224C37C3A69A058d86a54D3f561295A93d542",

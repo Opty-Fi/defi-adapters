@@ -1,15 +1,7 @@
 // solhint-disable no-unused-vars
 // SPDX-License-Identifier: agpl-3.0
 
-pragma solidity ^0.6.12;
-pragma experimental ABIEncoderV2;
-
-/////////////////////////////////////////////////////
-/// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///
-/////////////////////////////////////////////////////
-
-//  libraries
-import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
+pragma solidity =0.8.11;
 
 // helpers
 import "../../utils/AdapterInvestLimitBase.sol";
@@ -20,11 +12,10 @@ import { IAdapterStaking } from "@optyfi/defi-legos/interfaces/defiAdapters/cont
 import { IAdapterHarvestReward } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterHarvestReward.sol";
 import { IConvexDeposit } from "@optyfi/defi-legos/ethereum/convex/contracts/IConvexDeposit.sol";
 import { IConvexStake } from "@optyfi/defi-legos/ethereum/convex/contracts/IConvexStake.sol";
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol";
 import { ICurvePoolInfo } from "@optyfi/defi-legos/ethereum/convex/contracts/ICurvePoolInfo.sol";
-import { ICurveStableSwap, ICurveStableSwap2, ICurveStableSwap3, ICurveStableSwap4 } from "@optyfi/defi-legos/ethereum/convex/contracts/ICurveStableSwap.sol";
+import "@optyfi/defi-legos/ethereum/convex/contracts/ICurveStableSwap.sol";
 import { IUniswapV2Router02 } from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
-import { IERC20Detailed } from "@optyfi/defi-legos/ethereum/convex/contracts/IERC20Detailed.sol"; //here for artifact
 
 /**
  * @title Adapter for Convex.finance protocol
@@ -34,8 +25,6 @@ import { IERC20Detailed } from "@optyfi/defi-legos/ethereum/convex/contracts/IER
  */
 
 contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking, AdapterInvestLimitBase {
-    using SafeMath for uint256;
-
     struct PoolData {
         uint256 id;
         address swap;
@@ -119,7 +108,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     address public constant EURT_LP_TOKEN = address(0x2b2175AC371Ec2900AC39fb87452340F65CC9895);
     address public constant MIM_LP_TOKEN = address(0xabB54222c2b77158CC975a2b715a3d703c256F05);
 
-    constructor(address _registry) public AdapterModifiersBase(_registry) {
+    constructor(address _registry) AdapterModifiersBase(_registry) {
         lpTokenToPoolData[COMPOUND_LP_TOKEN] = PoolData({
             id: 0,
             swap: address(0xA2B47E3D5c44877cca798226B7B8118F9BFb7A56),
@@ -431,7 +420,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address,
         address,
         uint256 _depositAmount
-    ) public view override returns (uint256) {
+    ) public pure override returns (uint256) {
         return _depositAmount;
     }
 
@@ -447,7 +436,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256 _liquidityPoolTokenBalance = getLiquidityPoolTokenBalance(_vault, _underlyingToken, _liquidityPool);
         uint256 _balanceInToken = getAllAmountInToken(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken);
+        _amount = (_liquidityPoolTokenBalance * _redeemAmount) / _balanceInToken;
     }
 
     /**
@@ -494,7 +483,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     /**
      * @inheritdoc IAdapter
      */
-    function canStake(address) public view override returns (bool) {
+    function canStake(address) public pure override returns (bool) {
         return true;
     }
 
@@ -536,7 +525,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         uint256 _liquidityPoolTokenBalance = IConvexStake(_stakingVault).balanceOf(_vault);
         uint256 _balanceInToken = getAllAmountInTokenStake(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken);
+        _amount = (_liquidityPoolTokenBalance * _redeemAmount) / _balanceInToken;
     }
 
     /**
@@ -661,7 +650,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address,
         address,
         uint256 _liquidityPoolTokenAmount
-    ) public view override returns (uint256) {
+    ) public pure override returns (uint256) {
         return _liquidityPoolTokenAmount;
     }
 
@@ -817,13 +806,18 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     ) public view returns (uint256[] memory) {
         PoolData memory _poolData = lpTokenToPoolData[_liquidityPool];
         DepositInfo memory _depositInfo = _getDepositInfo(_poolData);
-        uint256[] memory _swapAmounts = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
-            _amount,
-            _getPath(_rewardToken, _depositInfo.coinRef)
-            //_getPath(_rewardToken, address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)) // USDC
-            //_getPath(_rewardToken, address(0x6B175474E89094C44Da98b954EedeAC495271d0F)) // DAI
-        );
-        return _swapAmounts;
+        try
+            IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
+                _amount,
+                _getPath(_rewardToken, _depositInfo.coinRef)
+                //_getPath(_rewardToken, address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)) // USDC
+                //_getPath(_rewardToken, address(0x6B175474E89094C44Da98b954EedeAC495271d0F)) // DAI
+            )
+        returns (uint256[] memory _swapAmounts) {
+            return _swapAmounts;
+        } catch {
+            return new uint256[](0);
+        }
     }
 
     function _setPoolCoinData(address _liquidityPool) internal {
@@ -833,11 +827,11 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         ICurvePoolInfo.PoolCoins memory _coinData = ICurvePoolInfo(curvePoolInfo).get_pool_coins(_swap);
         uint256 _coinsAmount;
         uint256 _underlyingCoinsAmount;
-        for (uint256 i = 0; i < 8; i++) {
-            if (_coinData.coins[i] != address(0)) {
+        for (uint256 _i; _i < 8; _i++) {
+            if (_coinData.coins[_i] != address(0)) {
                 _coinsAmount++;
             }
-            if (_coinData.underlying_coins[i] != address(0)) {
+            if (_coinData.underlying_coins[_i] != address(0)) {
                 _underlyingCoinsAmount++;
             }
         }
@@ -865,22 +859,22 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
     {
         uint256 _coinIndex;
         uint256 _underlyingCoinIndex;
-        for (uint256 i = 0; i < 8; i++) {
-            if (_coinData.coins[i] != address(0)) {
+        for (uint256 _i; _i < 8; _i++) {
+            if (_coinData.coins[_i] != address(0)) {
                 if (_coinIndex == 0) {
-                    _poolCoinData.coinRef = _coinData.coins[i];
-                    _poolCoinData.coinRefIndex = i;
+                    _poolCoinData.coinRef = _coinData.coins[_i];
+                    _poolCoinData.coinRefIndex = _i;
                 }
-                _poolCoinData.coins[_coinIndex] = _coinData.coins[i];
+                _poolCoinData.coins[_coinIndex] = _coinData.coins[_i];
                 _coinIndex++;
             }
-            if (_coinData.underlying_coins[i] != address(0)) {
-                if (_underlyingCoinIndex == 0 || _coinData.underlying_coins[i] == prefCoin) {
+            if (_coinData.underlying_coins[_i] != address(0)) {
+                if (_underlyingCoinIndex == 0 || _coinData.underlying_coins[_i] == prefCoin) {
                     //if (_underlyingCoinIndex == 0) {
-                    _poolCoinData.underlyingCoinRef = _coinData.underlying_coins[i];
-                    _poolCoinData.underlyingCoinRefIndex = i;
+                    _poolCoinData.underlyingCoinRef = _coinData.underlying_coins[_i];
+                    _poolCoinData.underlyingCoinRefIndex = _i;
                 }
-                _poolCoinData.underlyingCoins[_underlyingCoinIndex] = _coinData.underlying_coins[i];
+                _poolCoinData.underlyingCoins[_underlyingCoinIndex] = _coinData.underlying_coins[_i];
                 _underlyingCoinIndex++;
             }
         }
@@ -898,11 +892,18 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
         address _finalToken,
         uint256 _amount
     ) internal view returns (uint256) {
-        uint256[] memory _swapAmounts = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
-            _amount,
-            _getPath(_initialToken, _finalToken)
-        );
-        return _swapAmounts[_swapAmounts.length - 1];
+        // uint256[] memory _swapAmounts = IUniswapV2Router02(uniswapV2Router02).getAmountsOut(
+        //     _amount,
+        //     _getPath(_initialToken, _finalToken)
+        // );
+        // return _swapAmounts[_swapAmounts.length - 1];
+        try IUniswapV2Router02(uniswapV2Router02).getAmountsOut(_amount, _getPath(_initialToken, _finalToken)) returns (
+            uint256[] memory _swapAmounts
+        ) {
+            return _swapAmounts[_swapAmounts.length - 1];
+        } catch {
+            return 0;
+        }
     }
 
     /**
@@ -930,6 +931,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
             _amounts[_depositInfo.coinRefIndex] = _coinRefAmount;
             return ICurveStableSwap4(_depositInfo.destination).calc_token_amount(_amounts, true);
         }
+        return 0;
     }
 
     /**
@@ -964,7 +966,7 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
                         uint256(0),
                         _getPath(_rewardToken, _depositInfo.coinRef),
                         _vault,
-                        uint256(-1)
+                        type(uint256).max
                     )
                 );
                 bytes[] memory _addLiquidityCodes = _getAddLiquidityCodes(_liquidityPool, _swapTokenAmount);
