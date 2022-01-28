@@ -102,9 +102,15 @@ export function shouldStakeLikeBeefyFinanceAdapter(token: string, pool: StakingP
     // beefy finance's staking vault instance
     const beefyStakingInstance = await hre.ethers.getContractAt("IBeefyFarm", pool.stakingPool as string);
     // beefy finance reward token's instance
-    const farmRewardInstance = await hre.ethers.getContractAt("IERC20", (pool.rewardTokens as string[])[0]);
+    const farmRewardInstance = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      (pool.rewardTokens as string[])[0],
+    );
     // underlying token instance
-    const underlyingTokenInstance = await hre.ethers.getContractAt("IERC20", pool.tokens[0]);
+    const underlyingTokenInstance = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      pool.tokens[0],
+    );
     // 1. deposit all underlying tokens
     await this.testDeFiAdapter.testGetDepositAllCodes(
       pool.tokens[0],
