@@ -130,20 +130,18 @@ export function shouldBehaveLikeConvexFinanceAdapter(token: string, pool: PoolIt
       pool.pool,
     );
     // get amount in underlying token if reward token is swapped
-    let rewardInTokenAfterStake = BigNumber.from("0");
-    if (actualUnclaimedRewardAfterStake.gt(0)) {
-      rewardInTokenAfterStake = await this.convexFinanceAdapter.getRewardBalanceInUnderlyingTokens(
-        actualRewardToken,
-        pool.pool,
-        actualUnclaimedRewardAfterStake,
-      );
-    }
+    // let rewardInTokenAfterStake = BigNumber.from("0");
+    // if (actualUnclaimedRewardAfterStake.gt(0)) {
+    //   rewardInTokenAfterStake = await this.convexFinanceAdapter.getRewardBalanceInUnderlyingTokens(
+    //     actualRewardToken,
+    //     pool.pool,
+    //     actualUnclaimedRewardAfterStake,
+    //   );
+    // }
     // calculate amount in token for staked lpToken
     const expectedAmountInTokenFromStakedLPTokenAfterStake = expectedStakedLPTokenBalanceAfterStake;
     // calculate total amount token when lpToken is redeemed plus reward token is harvested
-    const expectedAmountInTokenAfterStake = BigNumber.from(rewardInTokenAfterStake).add(
-      expectedAmountInTokenFromStakedLPTokenAfterStake,
-    );
+    const expectedAmountInTokenAfterStake = expectedAmountInTokenFromStakedLPTokenAfterStake;
     expect(actualAmountInTokenAfterStake).to.be.eq(expectedAmountInTokenAfterStake);
     // 2.7 assert whether the calculated redeemable lpToken amount is as expected or not after staking
     const actualRedeemableLPTokenAmountAfterStake =

@@ -68,9 +68,9 @@ describe("Unit tests", function () {
 
     // deploy TestDeFiAdapter Contract
     const testDeFiAdapterArtifact: Artifact = await hre.artifacts.readArtifact("TestDeFiAdapter");
-    this.testDeFiAdapter = <TestDeFiAdapter>(
-      await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
-    );
+    this.testDeFiAdapter = <TestDeFiAdapter>await deployContract(this.signers.deployer, testDeFiAdapterArtifact, []);
+
+    console.log("------Done-------");
 
     const registryInstance = <IAdapterRegistryBase>(
       await hre.ethers.getContractAt("IAdapterRegistryBase", registryAddress)
@@ -80,7 +80,7 @@ describe("Unit tests", function () {
       method: "hardhat_impersonateAccount",
       params: [operator],
     });
-    const operatorSigner = await hre.ethers.getSigner(operator);
+    // const operatorSigner = await hre.ethers.getSigner(operator);
 
     for (const [name, pool] of Object.entries(ConvexFinancePools)) {
       if (shouldSkip(name)) {
@@ -88,7 +88,7 @@ describe("Unit tests", function () {
       }
 
       console.log(name);
-      await this.convexFinanceAdapter.connect(operatorSigner).setPoolCoinData(pool.pool);
+      // await this.convexFinanceAdapter.connect(operatorSigner).setPoolCoinData(pool.pool);
 
       if (!pool.whale) {
         throw new Error(`Whale is missing for ${pool.pool}`);
