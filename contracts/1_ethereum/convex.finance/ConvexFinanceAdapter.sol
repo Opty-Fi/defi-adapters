@@ -870,7 +870,6 @@ contract ConvexFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStakin
             }
             if (_coinData.underlying_coins[_i] != address(0)) {
                 if (_underlyingCoinIndex == 0 || _coinData.underlying_coins[_i] == prefCoin) {
-                    //if (_underlyingCoinIndex == 0) {
                     _poolCoinData.underlyingCoinRef = _coinData.underlying_coins[_i];
                     _poolCoinData.underlyingCoinRefIndex = _i;
                 }
