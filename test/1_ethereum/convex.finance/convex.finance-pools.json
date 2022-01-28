@@ -5,7 +5,7 @@
     "lpToken": "0x32512Bee3848bfcBb7bEAf647aa697a100f3b706",
     "tokens": ["0x845838DF265Dcd2c412A1Dc9e959c7d08537f8a2"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0xad46823600a0e7c7bc2ad7bb04cc20533ca29053"
+    "whale": "0x3d8d742ee7fbc497ae671528a19a1489ba204482"
   },
   "usdt": {
     "pool": "0xA1c3492b71938E144ad8bE4c2fB6810b01A43dD8",
@@ -37,7 +37,7 @@
     "lpToken": "0x11D200ef1409cecA8D6d23e6496550f707772F11",
     "tokens": ["0xC25a3A3b969415c80451098fa907EC722572917F"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0xdfc968aa66a31c25fc999e57e4ffc39104db94e3"
+    "whale": "0xcf7a68127285c7c6c8546ce51b89d7e820f6d294"
   },
   "pax": {
     "pool": "0x2eA94b0d3349A284488ACF2934E494b2f58ef647",
@@ -109,7 +109,7 @@
     "lpToken": "0x3689f325E88c2363274E5F3d44b6DaB8f9e1f524",
     "tokens": ["0x4f3E8F405CF5aFC05D68142F3783bDfE13811522"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0xd1b12b00b88915cb68a7faad1b2142814ff8564b"
+    "whale": "0x3dba662d484f73c7ec387376e0e8373f483d04cc"
   },
   "musd": {
     "pool": "0xd34d466233c5195193dF712936049729140DBBd7",
@@ -117,7 +117,7 @@
     "lpToken": "0xd34d466233c5195193dF712936049729140DBBd7",
     "tokens": ["0x1AEf73d49Dedc4b1778d0706583995958Dc862e6"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0xefe13d7844b20ad225eea97413132d67b80c1691"
+    "whale": "0x9d91f56a559eb2991cec9b31d703a4c543d6075f"
   },
   "rsv": {
     "pool": "0x8b876C2C02B1f2Ac6Ec207B7f2f06034A4316A87",
@@ -173,7 +173,7 @@
     "lpToken": "0x67c4f788FEB82FAb27E3007daa3d7b90959D5b89",
     "tokens": ["0x94e131324b6054c0D789b190b2dAC504e4361b53"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0x018565899a88f75e6edfea0639183adf8c205641"
+    "whale": "0xdb886bf718fbf354eb4202b03ad13b1cafb01276"
   },
   "eurs": {
     "pool": "0xd7E2b9494c529b42Dea53EF6a237C16502E6A927",
@@ -261,7 +261,7 @@
     "lpToken": "0xbE0F6478E0E4894CFb14f32855603A083A57c7dA",
     "tokens": ["0xd632f22692FaC7611d2AA1C0D552930D43CAEd3B"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0xf18256e17b47f1b2d5862fe5379a77bba109298d"
+    "whale": "0x6a04941de896e4215eeb8e6eb1b72ad2904d2402"
   },
   "lusd": {
     "pool": "0xFB9B2f06FDb404Fd3E2278E9A9edc8f252F273d0",
@@ -269,7 +269,7 @@
     "lpToken": "0xFB9B2f06FDb404Fd3E2278E9A9edc8f252F273d0",
     "tokens": ["0xEd279fDD11cA84bEef15AF5D39BB4d4bEE23F0cA"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0x3631401a11ba7004d1311e24d177b05ece39b4b3"
+    "whale": "0xea2ddc0f28d799b01ec9cccee89487e0917eb353"
   },
   "busdv2": {
     "pool": "0x02D784f98A312aF3e2771297Feff1Da8273e4F29",
@@ -325,6 +325,6 @@
     "lpToken": "0xabB54222c2b77158CC975a2b715a3d703c256F05",
     "tokens": ["0x5a6A4D54456819380173272A5E8E9B9904BdF41B"],
     "rewardTokens": ["0xD533a949740bb3306d119CC777fa900bA034cd52"],
-    "whale": "0xd3474bd2f558b12e83810ec7d8af14f2d1d08137"
+    "whale": "0xc5ed2333f8a2c351fca35e5ebadb2a82f5d254c3"
   }
 }

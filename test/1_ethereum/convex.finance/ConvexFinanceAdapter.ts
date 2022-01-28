@@ -9,6 +9,7 @@ import { default as ConvexFinancePools } from "./convex.finance-pools.json";
 import { LiquidityPool, Signers } from "../types";
 import { getOverrideOptions } from "../../utils";
 import { shouldBehaveLikeConvexFinanceAdapter } from "./ConvexFinanceAdapter.behavior";
+import { IAdapterRegistryBase } from "../../../typechain/IAdapterRegistryBase";
 
 const { deployContract } = hre.waffle;
 
@@ -31,7 +32,7 @@ const skiplist: string[] = [
   "eurs", // other
   "ironbank", // other
   "eurt", // other
-  "mim", // no coins
+  // "mim", // no coins
   //"usdt", // inactive
   "ren", // inactive
   "husd", // inactive
@@ -40,12 +41,15 @@ const skiplist: string[] = [
   "dusd", // inactive
   "tusd", // inactive
   "tricrypto", // inactive
+  "tricrypto2", // no coins
   "usdt", //inactive
 ];
 
 const shouldSkip = (name: string): boolean => {
   return skiplist.indexOf(name) !== -1;
 };
+
+const registryAddress = "0x9ff914d0005564a941429d1685477851d1836672";
 
 describe("Unit tests", function () {
   console.log("This is right before the  before hook");
@@ -66,7 +70,7 @@ describe("Unit tests", function () {
     // deploy Convex Finance Adapter
     const convexFinanceAdapterArtifact: Artifact = await hre.artifacts.readArtifact("ConvexFinanceAdapter");
     this.convexFinanceAdapter = <ConvexFinanceAdapter>(
-      await deployContract(this.signers.deployer, convexFinanceAdapterArtifact, [], getOverrideOptions())
+      await deployContract(this.signers.deployer, convexFinanceAdapterArtifact, [registryAddress], getOverrideOptions())
     );
 
     // deploy TestDeFiAdapter Contract
@@ -75,13 +79,23 @@ describe("Unit tests", function () {
       await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
     );
 
+    const registryInstance = <IAdapterRegistryBase>(
+      await hre.ethers.getContractAt("IAdapterRegistryBase", registryAddress)
+    );
+    const operator = await registryInstance.getOperator();
+    await hre.network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [operator],
+    });
+    const operatorSigner = await hre.ethers.getSigner(operator);
+
     for (const [name, pool] of Object.entries(ConvexFinancePools)) {
       if (shouldSkip(name)) {
         continue;
       }
 
       console.log(name);
-      await this.convexFinanceAdapter.setPoolCoinData(pool.pool);
+      await this.convexFinanceAdapter.connect(operatorSigner).setPoolCoinData(pool.pool);
 
       if (!pool.whale) {
         throw new Error(`Whale is missing for ${pool.pool}`);
