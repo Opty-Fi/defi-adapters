@@ -14,11 +14,13 @@ import { Address } from "@openzeppelin/contracts/utils/Address.sol";
 
 //  helper contracts
 import { LidoEthGateway } from "./LidoEthGateway.sol";
+import { AdapterModifiersBase } from "../../utils/AdapterModifiersBase.sol";
 
 //  interfaces
 import { ILidoDeposit } from "@optyfi/defi-legos/ethereum/lido/contracts/ILidoDeposit.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
+import "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterInvestLimit.sol";
 
 /**
  * @title Adapter for Lido protocol
@@ -26,9 +28,11 @@ import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/I
  * @dev Abstraction layer to lido's pools
  */
 
-contract LidoAdapter is IAdapter {
-    using SafeMath for uint256;
+contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     using Address for address;
+
+    /** @notice max deposit value datatypes */
+    MaxExposure public maxDepositProtocolMode;
 
     /**
      * @notice Lido and stETH token proxy
@@ -54,9 +58,38 @@ contract LidoAdapter is IAdapter {
     /** @notice  Maps liquidityPool to max deposit value in absolute value for a specific token */
     mapping(address => mapping(address => uint256)) public maxDepositAmount;
 
-    constructor(address) public {
+    constructor(address _registry) public AdapterModifiersBase(_registry) {
+        maxDepositProtocolPct = uint256(10000); // 100%
+        maxDepositProtocolMode = MaxExposure.Pct;
         //require(gateway != address(0), "Invalid gateway address");
         gateway = address(new LidoEthGateway());
+    }
+
+    /**
+     * @inheritdoc IAdapterInvestLimit
+     */
+    function setMaxDepositPoolPct(address _underlyingToken, uint256 _maxDepositPoolPct)
+        external
+        override
+        onlyRiskOperator
+    {
+        require(_underlyingToken.isContract(), "!isContract");
+        maxDepositPoolPct[_underlyingToken] = _maxDepositPoolPct;
+        emit LogMaxDepositPoolPct(maxDepositPoolPct[_underlyingToken], msg.sender);
+    }
+
+    /**
+     * @inheritdoc IAdapterInvestLimit
+     */
+    function setMaxDepositAmount(
+        address _miniChef,
+        address _underlyingToken,
+        uint256 _maxDepositAmount
+    ) external override onlyRiskOperator {
+        require(_miniChef.isContract(), "!_miniChef.isContract()");
+        require(_underlyingToken.isContract(), "!_underlyingToken.isContract()");
+        maxDepositAmount[_miniChef][_underlyingToken] = _maxDepositAmount;
+        emit LogMaxDepositAmount(maxDepositAmount[_miniChef][_underlyingToken], msg.sender);
     }
 
     /**
@@ -132,6 +165,22 @@ contract LidoAdapter is IAdapter {
      */
     function canStake(address) public view override returns (bool) {
         return false;
+    }
+
+    /**
+     * @inheritdoc IAdapterInvestLimit
+     */
+    function setMaxDepositProtocolMode(MaxExposure _mode) public override onlyRiskOperator {
+        maxDepositProtocolMode = _mode;
+        emit LogMaxDepositProtocolMode(maxDepositProtocolMode, msg.sender);
+    }
+
+    /**
+     * @inheritdoc IAdapterInvestLimit
+     */
+    function setMaxDepositProtocolPct(uint256 _maxDepositProtocolPct) public override onlyRiskOperator {
+        maxDepositProtocolPct = _maxDepositProtocolPct;
+        emit LogMaxDepositProtocolPct(maxDepositProtocolPct, msg.sender);
     }
 
     /**

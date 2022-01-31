@@ -40,7 +40,7 @@ describe("Unit tests", function () {
       await deployContract(
         this.signers.deployer,
         lidoAdapterArtifact,
-        [this.lidoEthGateway.address],
+        ["0x99fa011e33a8c6196869dec7bc407e896ba67fe3"],
         getOverrideOptions(),
       )
     );
