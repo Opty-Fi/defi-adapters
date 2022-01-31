@@ -109,7 +109,7 @@ export const NETWORKS_CHAIN_ID: iParamsPerNetwork<number | "auto"> = {
 };
 
 export const BLOCK_TO_FORK = {
-  [eEthereumNetwork.main]: 13703745,
+  [eEthereumNetwork.main]: 14113000,
   [eEthereumNetwork.kovan]: undefined,
   [eEthereumNetwork.ropsten]: undefined,
   [eEthereumNetwork.rinkeby]: undefined,
