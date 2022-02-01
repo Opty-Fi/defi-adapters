@@ -1,16 +1,14 @@
 // solhint-disable no-unused-vars
 // SPDX-License-Identifier: agpl-3.0
 
-pragma solidity ^0.6.12;
-pragma experimental ABIEncoderV2;
+pragma solidity =0.8.11;
 
 /////////////////////////////////////////////////////
 /// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///
 /////////////////////////////////////////////////////
 
 //  libraries
-import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
-import { Address } from "@openzeppelin/contracts/utils/Address.sol";
+import { Address } from "@openzeppelin/contracts-0.8.x/utils/Address.sol";
 
 //  helper contracts
 import { LidoEthGateway } from "./LidoEthGateway.sol";
@@ -18,7 +16,7 @@ import { AdapterModifiersBase } from "../../utils/AdapterModifiersBase.sol";
 
 //  interfaces
 import { ILidoDeposit } from "@optyfi/defi-legos/ethereum/lido/contracts/ILidoDeposit.sol";
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol";
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
 import "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterInvestLimit.sol";
 
@@ -58,7 +56,7 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     /** @notice  Maps liquidityPool to max deposit value in absolute value for a specific token */
     mapping(address => mapping(address => uint256)) public maxDepositAmount;
 
-    constructor(address _registry) public AdapterModifiersBase(_registry) {
+    constructor(address _registry) AdapterModifiersBase(_registry) {
         maxDepositProtocolPct = uint256(10000); // 100%
         maxDepositProtocolMode = MaxExposure.Pct;
         //require(gateway != address(0), "Invalid gateway address");
@@ -119,7 +117,7 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     /**
      * @inheritdoc IAdapter
      */
-    function getUnderlyingTokens(address, address) public view override returns (address[] memory _underlyingTokens) {
+    function getUnderlyingTokens(address, address) public pure override returns (address[] memory _underlyingTokens) {
         _underlyingTokens = new address[](1);
         _underlyingTokens[0] = WETH;
     }
@@ -163,7 +161,7 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     /**
      * @inheritdoc IAdapter
      */
-    function canStake(address) public view override returns (bool) {
+    function canStake(address) public pure override returns (bool) {
         return false;
     }
 
@@ -235,7 +233,7 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     /**
      * @inheritdoc IAdapter
      */
-    function getLiquidityPoolToken(address, address) public view override returns (address) {
+    function getLiquidityPoolToken(address, address) public pure override returns (address) {
         return lidoTokenProxy;
     }
 
@@ -284,7 +282,7 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     /**
      * @inheritdoc IAdapter
      */
-    function getRewardToken(address) public view override returns (address) {
+    function getRewardToken(address) public pure override returns (address) {
         return address(0);
     }
 }
