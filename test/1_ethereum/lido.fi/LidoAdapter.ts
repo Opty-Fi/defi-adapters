@@ -26,7 +26,11 @@ describe("Unit tests", function () {
     this.signers.deployer = signers[2];
     this.signers.alice = signers[3];
     this.signers.wethWhale = await hre.ethers.getSigner(WETH_WHALE);
-    const weth = await hre.ethers.getContractAt("IERC20", WETH_ADDRESS, this.signers.wethWhale);
+    const weth = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      WETH_ADDRESS,
+      this.signers.wethWhale,
+    );
 
     // deploy Lido ETH Gateway
     const lidoEthGatewayArtifact: Artifact = await hre.artifacts.readArtifact("LidoEthGateway");

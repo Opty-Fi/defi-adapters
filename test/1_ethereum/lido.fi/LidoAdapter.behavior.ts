@@ -13,7 +13,10 @@ export function shouldBehaveLikeLidoAdapter(token: string, pool: PoolItem): void
     const lidoDepositInstance = await hre.ethers.getContractAt("ILidoDeposit", pool.pool);
     // underlying token instance
     const underlyingToken = pool.tokens[0];
-    const underlyingTokenInstance = await hre.ethers.getContractAt("IERC20", underlyingToken);
+    const underlyingTokenInstance = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      underlyingToken,
+    );
     const balanceBeforeDeposit = await underlyingTokenInstance.balanceOf(this.testDeFiAdapter.address);
     const poolValueBeforeDeposit = await this.lidoAdapter.getPoolValue(pool.pool, underlyingToken);
     // 1. deposit all underlying tokens

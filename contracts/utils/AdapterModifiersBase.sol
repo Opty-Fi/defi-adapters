@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.12;
+pragma solidity ^0.8.0;
 
 //  libraries
-import { Address } from "@openzeppelin/contracts/utils/Address.sol";
+import { Address } from "@openzeppelin/contracts-0.8.x/utils/Address.sol";
 
 // interfaces
 import { IAdapterModifiersBase } from "./interfaces/IAdapterModifiersBase.sol";
@@ -22,7 +22,7 @@ abstract contract AdapterModifiersBase is IAdapterModifiersBase {
 
     using Address for address;
 
-    constructor(address _registry) public {
+    constructor(address _registry) {
         registryContract = IAdapterRegistryBase(_registry);
     }
 

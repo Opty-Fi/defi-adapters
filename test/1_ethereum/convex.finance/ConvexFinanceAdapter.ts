@@ -9,43 +9,22 @@ import { default as ConvexFinancePools } from "./convex.finance-pools.json";
 import { LiquidityPool, Signers } from "../types";
 import { getOverrideOptions } from "../../utils";
 import { shouldBehaveLikeConvexFinanceAdapter } from "./ConvexFinanceAdapter.behavior";
+import { IAdapterRegistryBase } from "../../../typechain/IAdapterRegistryBase";
 
 const { deployContract } = hre.waffle;
 
 const skiplist: string[] = [
-  "seth", // eth
-  "steth", // eth + extras
-  "ankreth", // eth + extras
-  "reth", // eth + extras
-  "sbtc", // no whale
-  "hbtc", // no whale
-  "pbtc", // no whale + extras
-  "bbtc", // no whale
-  "obtc", // no whale + extras
-  "aave", // extras
-  "saave", // extras
-  "alusd", // extras
   "ypool", // DepositZap.calc_token_amount missing + swap not possible
   "busd", // DepositZap.calc_token_amount missing + swap not possible
   "pax", // DepositZap.calc_token_amount missing + swap not possible
-  "eurs", // other
-  "ironbank", // other
-  "eurt", // other
-  "mim", // no coins
-  //"usdt", // inactive
-  "ren", // inactive
-  "husd", // inactive
-  "usdk", // inactive
-  "rsv", // inactive
-  "dusd", // inactive
-  "tusd", // inactive
-  "tricrypto", // inactive
-  "usdt", //inactive
+  "tricrypto2", // no coins
 ];
 
 const shouldSkip = (name: string): boolean => {
   return skiplist.indexOf(name) !== -1;
 };
+
+const registryAddress = "0x9ff914d0005564a941429d1685477851d1836672";
 
 describe("Unit tests", function () {
   console.log("This is right before the  before hook");
@@ -66,14 +45,21 @@ describe("Unit tests", function () {
     // deploy Convex Finance Adapter
     const convexFinanceAdapterArtifact: Artifact = await hre.artifacts.readArtifact("ConvexFinanceAdapter");
     this.convexFinanceAdapter = <ConvexFinanceAdapter>(
-      await deployContract(this.signers.deployer, convexFinanceAdapterArtifact, [], getOverrideOptions())
+      await deployContract(this.signers.deployer, convexFinanceAdapterArtifact, [registryAddress], getOverrideOptions())
     );
 
     // deploy TestDeFiAdapter Contract
     const testDeFiAdapterArtifact: Artifact = await hre.artifacts.readArtifact("TestDeFiAdapter");
-    this.testDeFiAdapter = <TestDeFiAdapter>(
-      await deployContract(this.signers.deployer, testDeFiAdapterArtifact, [], getOverrideOptions())
+    this.testDeFiAdapter = <TestDeFiAdapter>await deployContract(this.signers.deployer, testDeFiAdapterArtifact, []);
+
+    const registryInstance = <IAdapterRegistryBase>(
+      await hre.ethers.getContractAt("IAdapterRegistryBase", registryAddress)
     );
+    const operator = await registryInstance.getOperator();
+    await hre.network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [operator],
+    });
 
     for (const [name, pool] of Object.entries(ConvexFinancePools)) {
       if (shouldSkip(name)) {
@@ -81,7 +67,6 @@ describe("Unit tests", function () {
       }
 
       console.log(name);
-      await this.convexFinanceAdapter.setPoolCoinData(pool.pool);
 
       if (!pool.whale) {
         throw new Error(`Whale is missing for ${pool.pool}`);
@@ -95,7 +80,11 @@ describe("Unit tests", function () {
       });
 
       const WHALE_SIGNER = await hre.ethers.getSigner(WHALE);
-      const POOL_TOKEN_CONTRACT = await hre.ethers.getContractAt("IERC20", pool.tokens[0], WHALE_SIGNER);
+      const POOL_TOKEN_CONTRACT = await hre.ethers.getContractAt(
+        "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+        pool.tokens[0],
+        WHALE_SIGNER,
+      );
 
       // fund the whale's wallet with gas
       await this.signers.admin.sendTransaction({
@@ -104,12 +93,25 @@ describe("Unit tests", function () {
         ...getOverrideOptions(),
       });
 
-      // fund TestDeFiAdapter with 10 tokens each
-      await POOL_TOKEN_CONTRACT.transfer(
-        this.testDeFiAdapter.address,
-        hre.ethers.utils.parseEther("10"),
-        getOverrideOptions(),
-      );
+      if (
+        POOL_TOKEN_CONTRACT.address == getAddress("0xb19059ebb43466c323583928285a49f558e572fd") || // hbtc
+        POOL_TOKEN_CONTRACT.address == getAddress("0xde5331ac4b3630f94853ff322b66407e0d6331e8") || // pbtc
+        POOL_TOKEN_CONTRACT.address == getAddress("0x410e3e86ef427e30b9235497143881f717d93c2a") || // bbtc
+        POOL_TOKEN_CONTRACT.address == getAddress("0x2fe94ea3d5d4a175184081439753de15aef9d614") // obtc
+      ) {
+        await POOL_TOKEN_CONTRACT.transfer(
+          this.testDeFiAdapter.address,
+          hre.ethers.utils.parseEther("0.01"),
+          getOverrideOptions(),
+        );
+      } else {
+        // fund TestDeFiAdapter with 10 tokens each
+        await POOL_TOKEN_CONTRACT.transfer(
+          this.testDeFiAdapter.address,
+          hre.ethers.utils.parseEther("10"),
+          getOverrideOptions(),
+        );
+      }
     }
   });
 

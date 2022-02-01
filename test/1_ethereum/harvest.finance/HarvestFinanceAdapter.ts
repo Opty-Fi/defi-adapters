@@ -34,8 +34,16 @@ describe("Unit tests", function () {
     this.signers.alice = signers[3];
     this.signers.daiWhale = await hre.ethers.getSigner(DAI_WHALE);
     this.signers.usdtWhale = await hre.ethers.getSigner(USDT_WHALE);
-    const dai = await hre.ethers.getContractAt("IERC20", DAI_ADDRESS, this.signers.daiWhale);
-    const usdt = await hre.ethers.getContractAt("IERC20", USDT_ADDRESS, this.signers.usdtWhale);
+    const dai = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      DAI_ADDRESS,
+      this.signers.daiWhale,
+    );
+    const usdt = await hre.ethers.getContractAt(
+      "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol:IERC20",
+      USDT_ADDRESS,
+      this.signers.usdtWhale,
+    );
 
     // get the UniswapV2Router contract instance
     this.uniswapV2Router02 = <IUniswapV2Router02>(

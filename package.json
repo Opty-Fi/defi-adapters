@@ -73,7 +73,7 @@
     "@solidity-parser/parser": "^0.13.2"
   },
   "scripts": {
-    "clean": "hardhat clean",
+    "clean": "cross-env TS_NODE_TRANSPILE_ONLY=1 hardhat clean",
     "commit": "git-cz",
     "compile": "env SKIP_LOAD=true TS_NODE_TRANSPILE_ONLY=1 hardhat compile",
     "coverage:ethereum": "cross-env CODE_COVERAGE=true FORK=main NETWORK=main TS_NODE_TRANSPILE_ONLY=1 hardhat coverage --solcoverjs ./.solcover.js --temp artifacts --testfiles \"./test/1_ethereum/**/*.ts\"",
@@ -113,6 +113,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "v3.4.0",
     "@optyfi/defi-legos": "0.1.0-rc.30",
+    "@openzeppelin/contracts-0.8.x": "npm:@openzeppelin/contracts@4.4.1",
     "@uniswap/v2-periphery": "^1.1.0-beta.0"
   }
 }
