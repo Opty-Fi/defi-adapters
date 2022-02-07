@@ -1,11 +1,6 @@
-// solhint-disable no-unused-vars
 // SPDX-License-Identifier: agpl-3.0
 
 pragma solidity =0.8.11;
-
-/////////////////////////////////////////////////////
-/// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///
-/////////////////////////////////////////////////////
 
 //  libraries
 import { Address } from "@openzeppelin/contracts-0.8.x/utils/Address.sol";
@@ -33,12 +28,6 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     MaxExposure public maxDepositProtocolMode;
 
     /**
-     * @notice Lido and stETH token proxy
-     * @dev https://github.com/lidofinance/lido-dao
-     */
-    address public constant lidoTokenProxy = address(0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84);
-
-    /**
      * @notice Wrapped Ether token
      * @dev https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#code
      */
@@ -59,7 +48,6 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     constructor(address _registry) AdapterModifiersBase(_registry) {
         maxDepositProtocolPct = uint256(10000); // 100%
         maxDepositProtocolMode = MaxExposure.Pct;
-        //require(gateway != address(0), "Invalid gateway address");
         gateway = address(new LidoEthGateway());
     }
 
@@ -80,14 +68,14 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
      * @inheritdoc IAdapterInvestLimit
      */
     function setMaxDepositAmount(
-        address _miniChef,
+        address _liquidityPool,
         address _underlyingToken,
         uint256 _maxDepositAmount
     ) external override onlyRiskOperator {
-        require(_miniChef.isContract(), "!_miniChef.isContract()");
+        require(_liquidityPool.isContract(), "!_liquidityPool.isContract()");
         require(_underlyingToken.isContract(), "!_underlyingToken.isContract()");
-        maxDepositAmount[_miniChef][_underlyingToken] = _maxDepositAmount;
-        emit LogMaxDepositAmount(maxDepositAmount[_miniChef][_underlyingToken], msg.sender);
+        maxDepositAmount[_liquidityPool][_underlyingToken] = _maxDepositAmount;
+        emit LogMaxDepositAmount(maxDepositAmount[_liquidityPool][_underlyingToken], msg.sender);
     }
 
     /**
@@ -107,11 +95,11 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
      */
     function getWithdrawAllCodes(
         address payable _vault,
-        address _underlyingToken,
+        address,
         address _liquidityPool
     ) public view override returns (bytes[] memory _codes) {
-        uint256 _redeemAmount = getLiquidityPoolTokenBalance(_vault, _underlyingToken, _liquidityPool);
-        return getWithdrawSomeCodes(_vault, _underlyingToken, _liquidityPool, _redeemAmount);
+        uint256 _redeemAmount = getLiquidityPoolTokenBalance(_vault, address(0), _liquidityPool);
+        return getWithdrawSomeCodes(_vault, address(0), _liquidityPool, _redeemAmount);
     }
 
     /**
@@ -127,22 +115,22 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
      */
     function calculateAmountInLPToken(
         address,
-        address,
+        address _liquidityPool,
         uint256 _depositAmount
     ) public view override returns (uint256) {
-        return ILidoDeposit(lidoTokenProxy).getSharesByPooledEth(_depositAmount);
+        return ILidoDeposit(_liquidityPool).getSharesByPooledEth(_depositAmount);
     }
 
     /**
      * @inheritdoc IAdapter
      */
     function calculateRedeemableLPTokenAmount(
-        address payable,
+        address payable, // solhint-disable-line no-unused-vars
         address,
-        address,
+        address _liquidityPool,
         uint256 _redeemAmount
     ) public view override returns (uint256 _amount) {
-        return ILidoDeposit(lidoTokenProxy).getPooledEthByShares(_redeemAmount);
+        return ILidoDeposit(_liquidityPool).getPooledEthByShares(_redeemAmount);
     }
 
     /**
@@ -186,16 +174,17 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
      */
     function getDepositSomeCodes(
         address payable _vault,
-        address,
-        address,
+        address _underlyingToken,
+        address _liquidityPool,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
-        if (_amount > 0) {
+        uint256 _depositAmount = _getDepositAmount(_liquidityPool, _underlyingToken, _amount);
+        if (_depositAmount > 0) {
             _codes = new bytes[](2);
-            _codes[0] = abi.encode(WETH, abi.encodeWithSignature("approve(address,uint256)", gateway, _amount));
+            _codes[0] = abi.encode(WETH, abi.encodeWithSignature("approve(address,uint256)", gateway, _depositAmount));
             _codes[1] = abi.encode(
                 gateway,
-                abi.encodeWithSignature("depositETH(address,address,uint256)", _vault, lidoTokenProxy, _amount)
+                abi.encodeWithSignature("depositETH(address,address,uint256)", _vault, _liquidityPool, _depositAmount)
             );
         }
     }
@@ -206,19 +195,19 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     function getWithdrawSomeCodes(
         address payable _vault,
         address,
-        address,
+        address _liquidityPool,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
         if (_amount > 0) {
-            uint256 pooledEthAmount = ILidoDeposit(lidoTokenProxy).getPooledEthByShares(_amount);
+            uint256 pooledEthAmount = ILidoDeposit(_liquidityPool).getPooledEthByShares(_amount);
             _codes = new bytes[](2);
             _codes[0] = abi.encode(
-                lidoTokenProxy,
+                _liquidityPool,
                 abi.encodeWithSignature("approve(address,uint256)", gateway, pooledEthAmount)
             );
             _codes[1] = abi.encode(
                 gateway,
-                abi.encodeWithSignature("withdrawETH(address,address,uint256)", _vault, lidoTokenProxy, pooledEthAmount)
+                abi.encodeWithSignature("withdrawETH(address,address,uint256)", _vault, _liquidityPool, pooledEthAmount)
             );
         }
     }
@@ -226,15 +215,15 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     /**
      * @inheritdoc IAdapter
      */
-    function getPoolValue(address, address) public view override returns (uint256) {
-        return IERC20(lidoTokenProxy).totalSupply();
+    function getPoolValue(address _liquidityPool, address) public view override returns (uint256) {
+        return IERC20(_liquidityPool).totalSupply();
     }
 
     /**
      * @inheritdoc IAdapter
      */
-    function getLiquidityPoolToken(address, address) public pure override returns (address) {
-        return lidoTokenProxy;
+    function getLiquidityPoolToken(address, address _liquidityPool) public pure override returns (address) {
+        return _liquidityPool;
     }
 
     /**
@@ -242,14 +231,14 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
      */
     function getAllAmountInToken(
         address payable _vault,
-        address _underlyingToken,
+        address,
         address _liquidityPool
     ) public view override returns (uint256) {
         return
             getSomeAmountInToken(
-                _underlyingToken,
+                address(0),
                 _liquidityPool,
-                getLiquidityPoolTokenBalance(_vault, _underlyingToken, _liquidityPool)
+                getLiquidityPoolTokenBalance(_vault, address(0), _liquidityPool)
             );
     }
 
@@ -259,9 +248,9 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
     function getLiquidityPoolTokenBalance(
         address payable _vault,
         address,
-        address
+        address _liquidityPool
     ) public view override returns (uint256) {
-        return ILidoDeposit(lidoTokenProxy).sharesOf(_vault);
+        return ILidoDeposit(_liquidityPool).sharesOf(_vault);
     }
 
     /**
@@ -269,12 +258,12 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
      */
     function getSomeAmountInToken(
         address,
-        address,
+        address _liquidityPool,
         uint256 _liquidityPoolTokenAmount
     ) public view override returns (uint256) {
         if (_liquidityPoolTokenAmount > 0) {
             // getPooledEthByShares = shares[account] * _getTotalPooledEther() / _getTotalShares()
-            _liquidityPoolTokenAmount = ILidoDeposit(lidoTokenProxy).getPooledEthByShares(_liquidityPoolTokenAmount);
+            _liquidityPoolTokenAmount = ILidoDeposit(_liquidityPool).getPooledEthByShares(_liquidityPoolTokenAmount);
         }
         return _liquidityPoolTokenAmount;
     }
@@ -284,5 +273,25 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
      */
     function getRewardToken(address) public pure override returns (address) {
         return address(0);
+    }
+
+    function _getDepositAmount(
+        address _liquidityPool,
+        address _underlyingToken,
+        uint256 _amount
+    ) internal view returns (uint256) {
+        uint256 _limit = maxDepositProtocolMode == MaxExposure.Pct
+            ? _getMaxDepositAmountByPct(_liquidityPool)
+            : maxDepositAmount[_liquidityPool][_underlyingToken];
+        return _amount > _limit ? _limit : _amount;
+    }
+
+    function _getMaxDepositAmountByPct(address _liquidityPool) internal view returns (uint256) {
+        uint256 _poolValue = getPoolValue(_liquidityPool, address(0));
+        uint256 _poolPct = maxDepositPoolPct[_liquidityPool];
+        uint256 _limit = _poolPct == 0
+            ? (_poolValue * maxDepositProtocolPct) / (uint256(10000))
+            : (_poolValue * _poolPct) / (uint256(10000));
+        return _limit;
     }
 }

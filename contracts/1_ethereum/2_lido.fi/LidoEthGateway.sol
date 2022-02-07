@@ -1,12 +1,7 @@
-// solhint-disable no-unused-vars
 // SPDX-License-Identifier: agpl-3.0
 
 pragma solidity =0.8.11;
 pragma experimental ABIEncoderV2;
-
-/////////////////////////////////////////////////////
-/// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///
-/////////////////////////////////////////////////////
 
 //  interfaces
 import { ILidoDeposit } from "@optyfi/defi-legos/ethereum/lido/contracts/ILidoDeposit.sol";

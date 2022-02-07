@@ -11,6 +11,8 @@ import { shouldBehaveLikeLidoAdapter } from "./LidoAdapter.behavior";
 
 const { deployContract } = hre.waffle;
 
+const registryContractAddress = "0x99fa011e33a8c6196869dec7bc407e896ba67fe3";
+
 describe("Unit tests", function () {
   before(async function () {
     this.signers = {} as Signers;
@@ -41,12 +43,7 @@ describe("Unit tests", function () {
     // deploy Lido Adapter
     const lidoAdapterArtifact: Artifact = await hre.artifacts.readArtifact("LidoAdapter");
     this.lidoAdapter = <LidoAdapter>(
-      await deployContract(
-        this.signers.deployer,
-        lidoAdapterArtifact,
-        ["0x99fa011e33a8c6196869dec7bc407e896ba67fe3"],
-        getOverrideOptions(),
-      )
+      await deployContract(this.signers.deployer, lidoAdapterArtifact, [registryContractAddress], getOverrideOptions())
     );
 
     // deploy TestDeFiAdapter Contract
