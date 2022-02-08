@@ -1,6 +1,6 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { Fixture } from "ethereum-waffle";
-import { ConvexFinanceAdapter, HarvestFinanceAdapter, IUniswapV2Router02, TestDeFiAdapter } from "../typechain";
+import { ConvexFinanceAdapter, IUniswapV2Router02, TestDeFiAdapter } from "../typechain";
 import { LidoAdapter, LidoEthGateway } from "../../typechain";
 
 export interface Signers {
@@ -34,7 +34,6 @@ export interface LiquidityPool {
 declare module "mocha" {
   export interface Context {
     convexFinanceAdapter: ConvexFinanceAdapter;
-    harvestFinanceAdapter: HarvestFinanceAdapter;
     lidoEthGateway: LidoEthGateway;
     lidoAdapter: LidoAdapter;
     testDeFiAdapter: TestDeFiAdapter;
