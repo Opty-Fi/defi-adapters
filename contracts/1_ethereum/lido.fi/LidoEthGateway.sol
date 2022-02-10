@@ -1,30 +1,20 @@
-// solhint-disable no-unused-vars
 // SPDX-License-Identifier: agpl-3.0
 
-pragma solidity ^0.6.12;
+pragma solidity =0.8.11;
 pragma experimental ABIEncoderV2;
-
-/////////////////////////////////////////////////////
-/// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///
-/////////////////////////////////////////////////////
-
-//  libraries
-import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
 //  interfaces
 import { ILidoDeposit } from "@optyfi/defi-legos/ethereum/lido/contracts/ILidoDeposit.sol";
 import { ICurveETHSwapV1 } from "@optyfi/defi-legos/ethereum/curve/contracts/ICurveETHSwapV1.sol";
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol";
 import { IWETH9 } from "../../utils/interfaces/IWETH9.sol";
 
 contract LidoEthGateway {
-    using SafeMath for uint256;
-
     /**
      * @notice Wrapped Ether token
      * @dev https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#code
      */
-    IWETH9 public constant WETH = IWETH9(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+    IWETH9 public constant WETH = IWETH9(payable(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2));
 
     /**
      * @notice Pool used to swap between ETH and stETH (direct withdraw from Lido contract is not possible yet)
@@ -61,8 +51,9 @@ contract LidoEthGateway {
         IERC20(_liquidityPool).transferFrom(_vault, address(this), _amount);
         // Approves Curve to spend LP tokens
         IERC20(_liquidityPool).approve(address(curveStableSwapStEth), _amount);
+
         // Performs an exchange from StETH to ETH
-        curveStableSwapStEth.exchange(1, 0, _amount, calculateMinAmountAfterSwap(_amount));
+        curveStableSwapStEth.exchange(int128(1), int128(0), _amount, uint256(0));
         // Converts ETH to WETH
         WETH.deposit{ value: address(this).balance }();
         // Moves WETH from this gateway to the vault.
@@ -76,8 +67,8 @@ contract LidoEthGateway {
      */
     function calculateMinAmountAfterSwap(uint256 _amount) public pure returns (uint256) {
         if (_amount > 0) {
-            uint256 slippage = _amount.mul(9).div(1000); // 0.9%
-            _amount = _amount.sub(slippage);
+            uint256 slippage = (_amount * 9) / 1000; // 0.9%
+            _amount = _amount - slippage;
         }
         return _amount;
     }

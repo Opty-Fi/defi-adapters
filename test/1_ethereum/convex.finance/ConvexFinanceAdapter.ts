@@ -27,7 +27,6 @@ const shouldSkip = (name: string): boolean => {
 const registryAddress = "0x9ff914d0005564a941429d1685477851d1836672";
 
 describe("Unit tests", function () {
-  console.log("This is right before the  before hook");
   before(async function () {
     console.log("ConvexFinanceAdapter");
     this.signers = {} as Signers;
