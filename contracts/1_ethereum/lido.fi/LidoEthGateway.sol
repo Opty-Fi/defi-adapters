@@ -52,7 +52,10 @@ contract LidoEthGateway {
         // Approves Curve to spend LP tokens
         IERC20(_liquidityPool).approve(address(curveStableSwapStEth), _amount);
 
-        // Performs an exchange from StETH to ETH
+        // Note : withdrawals are disabled on stETH. May be enabled during Phase 1.5 or 2 of Eth2 launch,
+        // likely late 2021 or 2022.
+        // at the moment withdrawals are not possible in the beacon chain and
+        // there's no workaround so performing an exchange from stETH to ETH
         curveStableSwapStEth.exchange(int128(1), int128(0), _amount, uint256(0));
         // Converts ETH to WETH
         WETH.deposit{ value: address(this).balance }();
