@@ -81,6 +81,7 @@ export function shouldBehaveLikeLidoAdapter(token: string, pool: PoolItem): void
       ignoreRoundingError(expectedPoolValueAfterDeposit),
     );
     // 2. Withdraw all lpToken balance
+    const underlyingBalanceBeforeWithdraw = await underlyingTokenInstance.balanceOf(this.testDeFiAdapter.address);
     await this.testDeFiAdapter.testGetWithdrawAllCodes(
       underlyingToken,
       pool.pool,
@@ -98,10 +99,8 @@ export function shouldBehaveLikeLidoAdapter(token: string, pool: PoolItem): void
     const expectedLPTokenBalanceAfterWithdraw = await lidoDepositInstance.sharesOf(this.testDeFiAdapter.address);
     expect(actualLPTokenBalanceAfterWithdraw).to.be.eq(expectedLPTokenBalanceAfterWithdraw);
     // 2.2 assert whether underlying token balance is as expected or not after withdraw
-    const expectedMinAmount = await this.lidoEthGateway.calculateMinAmountAfterSwap(balanceBeforeDeposit);
     const actualBalanceAfterWithdraw = await underlyingTokenInstance.balanceOf(this.testDeFiAdapter.address);
-    expect(actualBalanceAfterWithdraw).to.be.lt(balanceBeforeDeposit);
-    expect(actualBalanceAfterWithdraw).to.be.gte(expectedMinAmount);
+    expect(actualBalanceAfterWithdraw).to.be.gt(underlyingBalanceBeforeWithdraw);
   });
 
   it(`should return the reward token and assert that staking is not enabled`, async function () {
@@ -122,17 +121,17 @@ export function shouldBehaveLikeLidoAdapter(token: string, pool: PoolItem): void
     const actualLiquidityPoolToken = await this.lidoAdapter.getLiquidityPoolToken(underlyingToken, pool.pool);
     expect(actualLiquidityPoolToken).to.be.eq(pool.lpToken);
     // assert redeemable amount is not sufficient
-    const actualLPTokenBalance = await this.lidoAdapter.getLiquidityPoolTokenBalance(
+    const actualAmountInToken = await this.lidoAdapter.getAllAmountInToken(
       this.testDeFiAdapter.address,
-      this.testDeFiAdapter.address, // placeholder of type address
+      underlyingToken,
       pool.pool,
     );
     const actualIsRedeemableAmountSufficient = await this.lidoAdapter.isRedeemableAmountSufficient(
       this.testDeFiAdapter.address,
       underlyingToken,
       pool.pool,
-      actualLPTokenBalance.add(1),
+      actualAmountInToken.add(1),
     );
-    expect(actualIsRedeemableAmountSufficient).to.be.eq(false);
+    expect(actualIsRedeemableAmountSufficient).to.be.false;
   });
 }

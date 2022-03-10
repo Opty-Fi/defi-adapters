@@ -199,15 +199,14 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
         if (_amount > 0) {
-            uint256 pooledEthAmount = ILidoDeposit(_liquidityPool).getPooledEthByShares(_amount);
             _codes = new bytes[](2);
             _codes[0] = abi.encode(
                 _liquidityPool,
-                abi.encodeWithSignature("approve(address,uint256)", gateway, pooledEthAmount)
+                abi.encodeWithSignature("approve(address,uint256)", gateway, _amount)
             );
             _codes[1] = abi.encode(
                 gateway,
-                abi.encodeWithSignature("withdrawETH(address,address,uint256)", _vault, _liquidityPool, pooledEthAmount)
+                abi.encodeWithSignature("withdrawETH(address,address,uint256)", _vault, _liquidityPool, _amount)
             );
         }
     }
