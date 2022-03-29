@@ -1,12 +1,13 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { Fixture } from "ethereum-waffle";
-import { IUniswapV2Router02 } from "../../typechain";
-import { BeefyFinanceAdapter } from "../../typechain/BeefyFinanceAdapter";
+import { IUniswapV2Router02, BeefyFinanceAdapter } from "../../typechain";
 import { TestDeFiAdapter } from "../../typechain/TestDeFiAdapter";
 
 export interface Signers {
   admin: SignerWithAddress;
   owner: SignerWithAddress;
+  operator: SignerWithAddress;
+  riskOperator: SignerWithAddress;
   deployer: SignerWithAddress;
   alice: SignerWithAddress;
   bob: SignerWithAddress;
@@ -14,6 +15,9 @@ export interface Signers {
   dave: SignerWithAddress;
   eve: SignerWithAddress;
   tokenWhale: SignerWithAddress;
+  daiWhale: SignerWithAddress;
+  usdtWhale: SignerWithAddress;
+  wethWhale: SignerWithAddress;
 }
 
 export interface PoolItem {

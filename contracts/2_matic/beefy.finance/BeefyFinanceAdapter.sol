@@ -1,20 +1,15 @@
 // solhint-disable no-unused-vars
 // SPDX-License-Identifier: agpl-3.0
 
-pragma solidity ^0.6.12;
-pragma experimental ABIEncoderV2;
+pragma solidity =0.8.11;
 
-/////////////////////////////////////////////////////
-/// PLEASE DO NOT USE THIS CONTRACT IN PRODUCTION ///
-/////////////////////////////////////////////////////
-
-//  libraries
-import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
+// helpers
+import "../../utils/AdapterInvestLimitBase.sol";
 
 //  interfaces
 import { IBeefyDeposit } from "@optyfi/defi-legos/polygon/beefy/contracts/IBeefyDeposit.sol";
 import { IBeefyFarm } from "@optyfi/defi-legos/polygon/beefy/contracts/IBeefyFarm.sol";
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts-0.8.x/token/ERC20/IERC20.sol";
 import { IAdapter } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapter.sol";
 import { IAdapterHarvestReward } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterHarvestReward.sol";
 import { IAdapterStaking } from "@optyfi/defi-legos/interfaces/defiAdapters/contracts/IAdapterStaking.sol";
@@ -31,10 +26,9 @@ import { IWETH } from "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
 contract BeefyFinanceAdapter is
     IAdapter,
     IAdapterHarvestReward,
-    IAdapterStaking //REPLACE IAdapterHarvest..
+    IAdapterStaking, //REPLACE IAdapterHarvest..
+    AdapterInvestLimitBase
 {
-    using SafeMath for uint256;
-
     /** @notice Maps liquidityPool to staking vault */
     mapping(address => address) public liquidityPoolToStakingVault;
 
@@ -61,7 +55,7 @@ contract BeefyFinanceAdapter is
     address public constant MATIC = address(0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270);
     address public constant WATCH = address(0x09211Dc67f9fe98Fb7bBB91Be0ef05f4a12FA2b2);
 
-    constructor() public {
+    constructor(address _registry) AdapterModifiersBase(_registry) {
         liquidityPoolToStakingVault[BIFI] = BIFI_STAKE_VAULT;
         liquidityPoolToStakingVault[BIFI_DEPOSIT_POOL] = MOO_POLYGON_BIFI_STAKE_VAULT;
         //these are the only two that are active right now
@@ -116,9 +110,8 @@ contract BeefyFinanceAdapter is
         uint256 _depositAmount
     ) public view override returns (uint256) {
         return
-            _depositAmount.mul(10**IBeefyDeposit(_liquidityPool).decimals()).div(
-                IBeefyDeposit(_liquidityPool).getPricePerFullShare()
-            );
+            (_depositAmount * (10**IBeefyDeposit(_liquidityPool).decimals())) /
+            (IBeefyDeposit(_liquidityPool).getPricePerFullShare());
     }
 
     /**
@@ -133,7 +126,7 @@ contract BeefyFinanceAdapter is
         uint256 _liquidityPoolTokenBalance = getLiquidityPoolTokenBalance(_vault, _underlyingToken, _liquidityPool);
         uint256 _balanceInToken = getAllAmountInToken(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken).add(1);
+        _amount = ((_liquidityPoolTokenBalance * _redeemAmount) / _balanceInToken) + 1;
     }
 
     /**
@@ -179,7 +172,7 @@ contract BeefyFinanceAdapter is
     /**
      * @inheritdoc IAdapter
      */
-    function canStake(address _address) public view override returns (bool) {
+    function canStake(address _address) public pure override returns (bool) {
         if (_address == BIFI) return true;
         else return false;
         //this is the current situation - may change in future as staking vaults get added/activated
@@ -223,7 +216,7 @@ contract BeefyFinanceAdapter is
         uint256 _liquidityPoolTokenBalance = IBeefyFarm(_stakingVault).balanceOf(_vault);
         uint256 _balanceInToken = getAllAmountInTokenStake(_vault, _underlyingToken, _liquidityPool);
         // can have unintentional rounding errors
-        _amount = (_liquidityPoolTokenBalance.mul(_redeemAmount)).div(_balanceInToken).add(1);
+        _amount = ((_liquidityPoolTokenBalance * _redeemAmount) / _balanceInToken) + 1;
     }
 
     /**
@@ -260,7 +253,13 @@ contract BeefyFinanceAdapter is
         address _liquidityPool,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
-        if (_amount > 0) {
+        uint256 _depositAmount = _getDepositAmount(
+            _liquidityPool,
+            _underlyingToken,
+            _amount,
+            getPoolValue(_liquidityPool, address(0))
+        );
+        if (_depositAmount > 0) {
             _codes = new bytes[](3);
             _codes[0] = abi.encode(
                 _underlyingToken,
@@ -268,9 +267,9 @@ contract BeefyFinanceAdapter is
             ); //maybe there are two pools in case in some cases we wanted to deposit two tokens?
             _codes[1] = abi.encode(
                 _underlyingToken,
-                abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, _amount)
+                abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, _depositAmount)
             );
-            _codes[2] = abi.encode(_liquidityPool, abi.encodeWithSignature("deposit(uint256)", _amount));
+            _codes[2] = abi.encode(_liquidityPool, abi.encodeWithSignature("deposit(uint256)", _depositAmount));
         }
     }
 
@@ -282,7 +281,7 @@ contract BeefyFinanceAdapter is
         address _underlyingToken,
         address _liquidityPool,
         uint256 _shares
-    ) public view override returns (bytes[] memory _codes) {
+    ) public pure override returns (bytes[] memory _codes) {
         if (_shares > 0) {
             _codes = new bytes[](1);
             _codes[0] = abi.encode(
@@ -302,7 +301,7 @@ contract BeefyFinanceAdapter is
     /**
      * @inheritdoc IAdapter
      */
-    function getLiquidityPoolToken(address, address _liquidityPool) public view override returns (address) {
+    function getLiquidityPoolToken(address, address _liquidityPool) public pure override returns (address) {
         return _liquidityPool;
     }
 
@@ -342,9 +341,9 @@ contract BeefyFinanceAdapter is
         uint256 _liquidityPoolTokenAmount
     ) public view override returns (uint256) {
         if (_liquidityPoolTokenAmount > 0) {
-            _liquidityPoolTokenAmount = _liquidityPoolTokenAmount
-                .mul(IBeefyDeposit(_liquidityPool).getPricePerFullShare())
-                .div(10**IBeefyDeposit(_liquidityPool).decimals());
+            _liquidityPoolTokenAmount =
+                (_liquidityPoolTokenAmount * IBeefyDeposit(_liquidityPool).getPricePerFullShare()) /
+                (10**IBeefyDeposit(_liquidityPool).decimals());
         }
         return _liquidityPoolTokenAmount;
     }
@@ -441,13 +440,13 @@ contract BeefyFinanceAdapter is
         address rewardToken = getRewardToken(_liquidityPool);
         uint256 b = IBeefyFarm(_stakingVault).balanceOf(_vault);
         if (b > 0) {
-            b = b.mul(IBeefyDeposit(_liquidityPool).getPricePerFullShare()).div(
-                10**IBeefyDeposit(_liquidityPool).decimals()
-            );
+            b =
+                (b * IBeefyDeposit(_liquidityPool).getPricePerFullShare()) /
+                (10**IBeefyDeposit(_liquidityPool).decimals());
         }
         uint256 _unclaimedReward = getUnclaimedRewardTokenAmount(_vault, _liquidityPool, _underlyingToken);
         if (_unclaimedReward > 0) {
-            b = b.add(_getRewardBalanceInUnderlyingTokens(rewardToken, _underlyingToken, _unclaimedReward));
+            b = b + _getRewardBalanceInUnderlyingTokens(rewardToken, _underlyingToken, _unclaimedReward);
         }
         return b;
     }
@@ -519,7 +518,7 @@ contract BeefyFinanceAdapter is
                         uint256(0),
                         _getPath(_rewardToken, _underlyingToken),
                         _vault,
-                        uint256(-1)
+                        type(uint256).max
                     )
                 );
             }

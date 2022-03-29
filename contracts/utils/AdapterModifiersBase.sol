@@ -30,7 +30,6 @@ abstract contract AdapterModifiersBase is IAdapterModifiersBase {
      * @inheritdoc IAdapterModifiersBase
      */
     function setRegistry(address _registry) external override onlyOperator {
-        require(_registry.isContract(), "!isContract");
         registryContract = IAdapterRegistryBase(_registry);
     }
 

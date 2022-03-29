@@ -59,7 +59,6 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
         override
         onlyRiskOperator
     {
-        require(_underlyingToken.isContract(), "!isContract");
         maxDepositPoolPct[_underlyingToken] = _maxDepositPoolPct;
         emit LogMaxDepositPoolPct(maxDepositPoolPct[_underlyingToken], msg.sender);
     }
@@ -72,8 +71,6 @@ contract LidoAdapter is IAdapter, IAdapterInvestLimit, AdapterModifiersBase {
         address _underlyingToken,
         uint256 _maxDepositAmount
     ) external override onlyRiskOperator {
-        require(_liquidityPool.isContract(), "!_liquidityPool.isContract()");
-        require(_underlyingToken.isContract(), "!_underlyingToken.isContract()");
         maxDepositAmount[_liquidityPool][_underlyingToken] = _maxDepositAmount;
         emit LogMaxDepositAmount(maxDepositAmount[_liquidityPool][_underlyingToken], msg.sender);
     }

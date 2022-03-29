@@ -24,11 +24,23 @@ describe("Unit tests", function () {
     this.signers.owner = signers[1];
     this.signers.deployer = signers[2];
     this.signers.alice = signers[3];
+    this.signers.operator = signers[8];
+    this.signers.riskOperator = signers[9];
+
+    const registryArtifact: Artifact = await hre.artifacts.readArtifact("IAdapterRegistryBase");
+    this.mockRegistry = await hre.waffle.deployMockContract(this.signers.deployer, registryArtifact.abi);
+    await this.mockRegistry.mock.getOperator.returns(this.signers.operator.address);
+    await this.mockRegistry.mock.getRiskOperator.returns(this.signers.riskOperator.address);
 
     // deploy Beefy Finance Adapter
     const beefyFinanceAdapterArtifact: Artifact = await hre.artifacts.readArtifact("BeefyFinanceAdapter");
     this.beefyFinanceAdapter = <BeefyFinanceAdapter>(
-      await deployContract(this.signers.deployer, beefyFinanceAdapterArtifact, [], getOverrideOptions())
+      await deployContract(
+        this.signers.deployer,
+        beefyFinanceAdapterArtifact,
+        [this.mockRegistry.address],
+        getOverrideOptions(),
+      )
     );
 
     // deploy TestDeFiAdapter Contract
