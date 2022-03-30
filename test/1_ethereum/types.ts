@@ -6,12 +6,15 @@ import { LidoAdapter, LidoEthGateway } from "../../typechain";
 export interface Signers {
   admin: SignerWithAddress;
   owner: SignerWithAddress;
+  operator: SignerWithAddress;
+  riskOperator: SignerWithAddress;
   deployer: SignerWithAddress;
   alice: SignerWithAddress;
   bob: SignerWithAddress;
   charlie: SignerWithAddress;
   dave: SignerWithAddress;
   eve: SignerWithAddress;
+  tokenWhale: SignerWithAddress;
   daiWhale: SignerWithAddress;
   usdtWhale: SignerWithAddress;
   wethWhale: SignerWithAddress;
