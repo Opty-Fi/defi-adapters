@@ -23,12 +23,7 @@ import { IWETH } from "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
  * @dev Abstraction layer to Beefy finance's pools
  */
 
-contract BeefyFinanceAdapter is
-    IAdapter,
-    IAdapterHarvestReward,
-    IAdapterStaking, //REPLACE IAdapterHarvest..
-    AdapterInvestLimitBase
-{
+contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking, AdapterInvestLimitBase {
     /** @notice Maps liquidityPool to staking vault */
     mapping(address => address) public liquidityPoolToStakingVault;
 
