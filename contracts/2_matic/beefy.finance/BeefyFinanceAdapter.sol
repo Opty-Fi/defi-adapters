@@ -248,24 +248,24 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
         address _liquidityPool,
         uint256 _amount
     ) public view override returns (bytes[] memory _codes) {
+        require(_amount > 0, "Insufficient amount");
         uint256 _depositAmount = _getDepositAmount(
             _liquidityPool,
             _underlyingToken,
             _amount,
             getPoolValue(_liquidityPool, address(0))
         );
-        if (_depositAmount > 0) {
-            _codes = new bytes[](3);
-            _codes[0] = abi.encode(
-                _underlyingToken,
-                abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, uint256(0))
-            ); //maybe there are two pools in case in some cases we wanted to deposit two tokens?
-            _codes[1] = abi.encode(
-                _underlyingToken,
-                abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, _depositAmount)
-            );
-            _codes[2] = abi.encode(_liquidityPool, abi.encodeWithSignature("deposit(uint256)", _depositAmount));
-        }
+        require(_depositAmount > 0, "Insufficient deposit amount");
+        _codes = new bytes[](3);
+        _codes[0] = abi.encode(
+            _underlyingToken,
+            abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, uint256(0))
+        );
+        _codes[1] = abi.encode(
+            _underlyingToken,
+            abi.encodeWithSignature("approve(address,uint256)", _liquidityPool, _depositAmount)
+        );
+        _codes[2] = abi.encode(_liquidityPool, abi.encodeWithSignature("deposit(uint256)", _depositAmount));
     }
 
     /**
