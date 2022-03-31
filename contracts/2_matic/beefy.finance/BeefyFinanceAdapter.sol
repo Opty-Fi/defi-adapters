@@ -30,10 +30,10 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
     mapping(address => address) public stakingVaultToRewardToken;
 
     /**
-     * @notice Uniswap V2 router contract address
+     * @notice Apeswap router contract address
      */
-    //Apeswap Router on Polygon
-    address public constant quickswapV2Router02 = address(0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607);
+    address public constant apeswapRouter = address(0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607);
+
     // One can deposit LP tokens into these pools on Beefy
     address public constant DAI_DEPOSIT_POOL = address(0x9B36ECeaC46B70ACfB7C2D6F3FD51aEa87C31018);
     address public constant USDC_DEPOSIT_POOL = address(0xE71f3C11D4535a7F8c5FB03FDA57899B2C9c721F);
@@ -63,9 +63,9 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
      * @inheritdoc IAdapter
      */
     function getDepositAllCodes(
-        address payable _vault, //the address we're depositing from
-        address _underlyingToken, //address of the LP tokens we're depositing
-        address _liquidityPool //address of the liquidity pool we're depositing to
+        address payable _vault,
+        address _underlyingToken,
+        address _liquidityPool
     ) public view override returns (bytes[] memory _codes) {
         uint256 _amount = IERC20(_underlyingToken).balanceOf(_vault);
         return getDepositSomeCodes(_vault, _underlyingToken, _liquidityPool, _amount);
@@ -140,7 +140,6 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
     /**
      * @inheritdoc IAdapterHarvestReward
      */
-    //Claims reward from staking vault, in reward token
     function getClaimRewardTokenCode(address payable, address _liquidityPool)
         public
         view
@@ -428,20 +427,15 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
      */
     function getAllAmountInTokenStake(
         address payable _vault,
-        address _underlyingToken,
+        address,
         address _liquidityPool
     ) public view override returns (uint256) {
         address _stakingVault = liquidityPoolToStakingVault[_liquidityPool];
-        address rewardToken = getRewardToken(_liquidityPool);
         uint256 b = IBeefyFarm(_stakingVault).balanceOf(_vault);
         if (b > 0) {
             b =
                 (b * IBeefyDeposit(_liquidityPool).getPricePerFullShare()) /
                 (10**IBeefyDeposit(_liquidityPool).decimals());
-        }
-        uint256 _unclaimedReward = getUnclaimedRewardTokenAmount(_vault, _liquidityPool, _underlyingToken);
-        if (_unclaimedReward > 0) {
-            b = b + _getRewardBalanceInUnderlyingTokens(rewardToken, _underlyingToken, _unclaimedReward);
         }
         return b;
     }
@@ -491,7 +485,7 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
         uint256 _rewardTokenAmount
     ) internal view returns (bytes[] memory _codes) {
         if (_rewardTokenAmount > 0) {
-            uint256[] memory _amounts = IUniswapV2Router02(quickswapV2Router02).getAmountsOut(
+            uint256[] memory _amounts = IUniswapV2Router02(apeswapRouter).getAmountsOut(
                 _rewardTokenAmount,
                 _getPath(_rewardToken, _underlyingToken)
             );
@@ -499,14 +493,14 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
                 _codes = new bytes[](3);
                 _codes[0] = abi.encode(
                     _rewardToken,
-                    abi.encodeWithSignature("approve(address,uint256)", quickswapV2Router02, uint256(0))
+                    abi.encodeWithSignature("approve(address,uint256)", apeswapRouter, uint256(0))
                 );
                 _codes[1] = abi.encode(
                     _rewardToken,
-                    abi.encodeWithSignature("approve(address,uint256)", quickswapV2Router02, _rewardTokenAmount)
+                    abi.encodeWithSignature("approve(address,uint256)", apeswapRouter, _rewardTokenAmount)
                 );
                 _codes[2] = abi.encode(
-                    quickswapV2Router02,
+                    apeswapRouter,
                     abi.encodeWithSignature(
                         "swapExactTokensForTokens(uint256,uint256,address[],address,uint256)",
                         _rewardTokenAmount,
@@ -527,7 +521,7 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
      * @return _path The array of tokens in the sequence to be swapped for
      */
     function _getPath(address _initialToken, address _finalToken) internal pure returns (address[] memory _path) {
-        address _weth = IUniswapV2Router02(quickswapV2Router02).WETH();
+        address _weth = IUniswapV2Router02(apeswapRouter).WETH();
         if (_finalToken == _weth) {
             _path = new address[](2);
             _path[0] = _initialToken;
@@ -556,7 +550,7 @@ contract BeefyFinanceAdapter is IAdapter, IAdapterHarvestReward, IAdapterStaking
         address _underlyingToken,
         uint256 _amount
     ) internal view returns (uint256) {
-        uint256[] memory _amountsA = IUniswapV2Router02(quickswapV2Router02).getAmountsOut(
+        uint256[] memory _amountsA = IUniswapV2Router02(apeswapRouter).getAmountsOut(
             _amount,
             _getPath(_rewardToken, _underlyingToken)
         );
