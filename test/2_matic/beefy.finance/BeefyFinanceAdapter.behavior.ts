@@ -189,34 +189,21 @@ export function shouldStakeLikeBeefyFinanceAdapter(token: string, pool: StakingP
     );
     const expectedUnclaimedRewardAfterStake = await beefyStakingInstance.earned(this.testDeFiAdapter.address);
     expect(actualUnclaimedRewardAfterStake).to.be.eq(expectedUnclaimedRewardAfterStake);
-    //COMMENTED OUT UNTIL SUFFICIENT LIQUIDITY IN WATCH FOR APESWAP/QUICKSWAP CALLS NOT TO REVERT
-    // 2.5 assert whether the amount in token is as expected or not after staking
-    // const actualAmountInTokenAfterStake = await this.beefyFinanceAdapter.getAllAmountInTokenStake(
-    //   this.testDeFiAdapter.address,
-    //   pool.tokens[0],
-    //   pool.pool,
-    // );
-    // get price per full share of the beefy lpToken
-    // const pricePerFullShareAfterStake = await beefyDepositInstance.getPricePerFullShare();
-    // get amount in underlying token if reward token is swapped
-    // const rewardInTokenAfterStake = (
-    //   await this.uniswapV2Router02.getAmountsOut(expectedUnclaimedRewardAfterStake, [
-    //     expectedRewardToken,
-    //     await this.uniswapV2Router02.WETH(),
-    //     pool.tokens[0],
-    //   ])
-    // )[2];
 
-    // // calculate amount in token for staked lpToken
-    //COMMENTED OUT UNTIL SUFFICIENT LIQUIDITY IN WATCH FOR QUICKSWAP CALLS NOT TO REVERT
-    // const expectedAmountInTokenFromStakedLPTokenAfterStake = BigNumber.from(expectedStakedLPTokenBalanceAfterStake)
-    //   .mul(BigNumber.from(pricePerFullShareAfterStake))
-    //   .div(BigNumber.from("10").pow(BigNumber.from(decimals)));
-    // // calculate total amount token when lpToken is redeemed plus reward token is harvested
-    // const expectedAmountInTokenAfterStake = BigNumber.from(rewardInTokenAfterStake).add(
-    //   expectedAmountInTokenFromStakedLPTokenAfterStake,
-    // );
-    // expect(actualAmountInTokenAfterStake).to.be.eq(expectedAmountInTokenAfterStake);
+    // 2.5 assert whether the amount in token is as expected or not after staking
+    const actualAmountInTokenAfterStake = await this.beefyFinanceAdapter.getAllAmountInTokenStake(
+      this.testDeFiAdapter.address,
+      pool.tokens[0],
+      pool.pool,
+    );
+    // get price per full share of the beefy lpToken
+    const pricePerFullShareAfterStake = await beefyDepositInstance.getPricePerFullShare();
+
+    // calculate amount in token for staked lpToken
+    const expectedAmountInTokenFromStakedLPTokenAfterStake = BigNumber.from(expectedStakedLPTokenBalanceAfterStake)
+      .mul(BigNumber.from(pricePerFullShareAfterStake))
+      .div(BigNumber.from("10").pow(BigNumber.from(decimals)));
+    expect(actualAmountInTokenAfterStake).to.be.eq(expectedAmountInTokenFromStakedLPTokenAfterStake);
 
     // 3. claim the reward token
     await this.testDeFiAdapter.testClaimRewardTokenCode(
