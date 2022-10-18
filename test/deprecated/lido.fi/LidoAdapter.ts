@@ -5,7 +5,7 @@ import { Artifact } from "hardhat/types";
 import { LidoAdapter, LidoEthGateway } from "../../../typechain";
 import { TestDeFiAdapter } from "../../../typechain/TestDeFiAdapter";
 import { getOverrideOptions } from "../../utils";
-import { LiquidityPool, Signers } from "../types";
+import { LiquidityPool, Signers } from "../../1_ethereum/types";
 import { default as LidoPools } from "./lido.fi-pools.json";
 import { shouldBehaveLikeLidoAdapter } from "./LidoAdapter.behavior";
 

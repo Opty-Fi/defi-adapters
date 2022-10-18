@@ -3,7 +3,7 @@ import { solidity } from "ethereum-waffle";
 import { BigNumber } from "ethers";
 import hre from "hardhat";
 import { getOverrideOptions, ignoreRoundingError } from "../../utils";
-import { PoolItem } from "../types";
+import { PoolItem } from "../../1_ethereum/types";
 
 chai.use(solidity);
 

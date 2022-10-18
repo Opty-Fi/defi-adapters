@@ -3,11 +3,12 @@
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import { config as dotenvConfig } from "dotenv";
-import { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig, subtask } from "hardhat/config";
 import "solidity-coverage";
-import { resolve, join } from "path";
+import { resolve, join, relative } from "path";
 import fs from "fs";
 import { NetworkUserConfig } from "hardhat/types";
+import { TASK_COMPILE_SOLIDITY_GET_SOURCE_PATHS } from "hardhat/builtin-tasks/task-names";
 import {
   eArbitrumNetwork,
   eAvalancheNetwork,
@@ -44,6 +45,17 @@ if (!SKIP_LOAD) {
   require("./tasks/accounts");
   require("./tasks/clean");
 }
+
+// source : https://github.com/fvictorio/hardhat-examples/tree/master/ignore-solidity-files#readme
+subtask(TASK_COMPILE_SOLIDITY_GET_SOURCE_PATHS, async (_, { config }, runSuper) => {
+  const paths = await runSuper();
+
+  return paths.filter(solidityFilePath => {
+    const relativePath = relative(config.paths.sources, solidityFilePath);
+
+    return !relativePath.startsWith("deprecated");
+  });
+});
 
 const getCommonNetworkConfig = (networkName: eNetwork): NetworkUserConfig | undefined => ({
   url: NETWORKS_RPC_URL[networkName],
